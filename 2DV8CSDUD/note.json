@@ -1,0 +1,230 @@
+{
+  "paragraphs": [
+    {
+      "title": "vector sample",
+      "text": "c%pyspark\nimport numpy as np\nimport scipy.sparse as sps\nfrom pyspark.mllib.linalg import Vectors\n\n# dense vector\nv1 \u003d np.array([0.1, 0.0, 0.2, 0.3])\nv2 \u003d Vectors.dense([0.1, 0.0, 0.2, 0.3])\nv3 \u003d [0.1, 0.0, 0.2, 0.3]\n\n# sparse vector\n# 1st idx : 벡터의 크기 지정\n# 2nd idx : 0이 아닌 데이터의 위치를 나타내는 인덱스 배열\n# 3rd idx : 각 인덱스 위치에 해당하는 데이터\nv4 \u003d Vectors.sparse(4, [(0, 0.1), (2, 0.2), (3, 0.3)])\nv5 \u003d Vectors.sparse(4, [0, 2, 3], [0.1, 0.2, 0.3])\nv6 \u003d sps.csc_matrix((np.array([0.1, 0.2, 0.3]),\n                     np.array([0, 2, 3]),\n                     np.array([0, 3])),\n                     shape\u003d(4, 1)\n                    )\n\nprint(v1)\nprint(v2)\nprint(v4.toArray)\nprint(v6)\n",
+      "user": "jake",
+      "dateUpdated": "2019-04-12 09:21:32.282",
+      "config": {
+        "colWidth": 3.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "[0.1 0.  0.2 0.3]\n[0.1,0.0,0.2,0.3]\n\u003cbound method SparseVector.toArray of SparseVector(4, {0: 0.1, 2: 0.2, 3: 0.3})\u003e\n  (0, 0)\t0.1\n  (2, 0)\t0.2\n  (3, 0)\t0.3\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1541400526490_-958234137",
+      "id": "20181105-154846_129126070",
+      "dateCreated": "2018-11-05 15:48:46.490",
+      "dateStarted": "2018-11-16 11:38:58.162",
+      "dateFinished": "2018-11-16 11:39:00.735",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "labeled point sample",
+      "text": "%pyspark\nfrom pyspark.mllib.regression import LabeledPoint\n\nv7 \u003d LabeledPoint(1.0, v1)\n\nprint(\u0027label:%s, features:%s\u0027 % (v7.label, v7.features))",
+      "user": "jake",
+      "dateUpdated": "2018-11-16 11:39:00.464",
+      "config": {
+        "colWidth": 3.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "label:1.0, features:[0.1,0.0,0.2,0.3]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1541400786507_1639457907",
+      "id": "20181105-155306_770510420",
+      "dateCreated": "2018-11-05 15:53:06.507",
+      "dateStarted": "2018-11-16 11:39:00.468",
+      "dateFinished": "2018-11-16 11:39:00.756",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "create sparse vector",
+      "text": "%pyspark\nfrom pyspark.mllib.util import MLUtils\nfrom pyspark.sql import SparkSession\n\npath \u003d \u0027hdfs:///raw/sample_libsvm_data.txt\u0027\nv7 \u003d MLUtils.loadLibSVMFile(spark.sparkContext, path)\nlp1 \u003d v7.first()\n\nprint(\u0027label:%s, features:%s\u0027 % (lp1.label, lp1.features))\n# print(lp1)",
+      "user": "jake",
+      "dateUpdated": "2018-11-16 11:39:00.799",
+      "config": {
+        "colWidth": 3.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "label:0.0, features:(692,[127,128,129,130,131,154,155,156,157,158,159,181,182,183,184,185,186,187,188,189,207,208,209,210,211,212,213,214,215,216,217,235,236,237,238,239,240,241,242,243,244,245,262,263,264,265,266,267,268,269,270,271,272,273,289,290,291,292,293,294,295,296,297,300,301,302,316,317,318,319,320,321,328,329,330,343,344,345,346,347,348,349,356,357,358,371,372,373,374,384,385,386,399,400,401,412,413,414,426,427,428,429,440,441,442,454,455,456,457,466,467,468,469,470,482,483,484,493,494,495,496,497,510,511,512,520,521,522,523,538,539,540,547,548,549,550,566,567,568,569,570,571,572,573,574,575,576,577,578,594,595,596,597,598,599,600,601,602,603,604,622,623,624,625,626,627,628,629,630,651,652,653,654,655,656,657],[51.0,159.0,253.0,159.0,50.0,48.0,238.0,252.0,252.0,252.0,237.0,54.0,227.0,253.0,252.0,239.0,233.0,252.0,57.0,6.0,10.0,60.0,224.0,252.0,253.0,252.0,202.0,84.0,252.0,253.0,122.0,163.0,252.0,252.0,252.0,253.0,252.0,252.0,96.0,189.0,253.0,167.0,51.0,238.0,253.0,253.0,190.0,114.0,253.0,228.0,47.0,79.0,255.0,168.0,48.0,238.0,252.0,252.0,179.0,12.0,75.0,121.0,21.0,253.0,243.0,50.0,38.0,165.0,253.0,233.0,208.0,84.0,253.0,252.0,165.0,7.0,178.0,252.0,240.0,71.0,19.0,28.0,253.0,252.0,195.0,57.0,252.0,252.0,63.0,253.0,252.0,195.0,198.0,253.0,190.0,255.0,253.0,196.0,76.0,246.0,252.0,112.0,253.0,252.0,148.0,85.0,252.0,230.0,25.0,7.0,135.0,253.0,186.0,12.0,85.0,252.0,223.0,7.0,131.0,252.0,225.0,71.0,85.0,252.0,145.0,48.0,165.0,252.0,173.0,86.0,253.0,225.0,114.0,238.0,253.0,162.0,85.0,252.0,249.0,146.0,48.0,29.0,85.0,178.0,225.0,253.0,223.0,167.0,56.0,85.0,252.0,252.0,252.0,229.0,215.0,252.0,252.0,252.0,196.0,130.0,28.0,199.0,252.0,252.0,253.0,252.0,252.0,233.0,145.0,25.0,128.0,252.0,253.0,252.0,141.0,37.0])\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1541402770012_-1478486201",
+      "id": "20181105-162610_483456457",
+      "dateCreated": "2018-11-05 16:26:10.012",
+      "dateStarted": "2018-11-16 11:39:00.806",
+      "dateFinished": "2018-11-16 11:39:01.602",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2018-11-05 17:43:28.512",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1541402217087_473045383",
+      "id": "20181105-161657_437415191",
+      "dateCreated": "2018-11-05 16:16:57.087",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "vector sample and logistic regression example",
+      "text": "%pyspark\nfrom pyspark.ml.classification import LogisticRegression\nfrom pyspark.ml.classification import LogisticRegressionModel\nfrom pyspark.ml.feature import VectorAssembler\nfrom pyspark.ml.pipeline import Pipeline\nfrom pyspark.ml.pipeline import PipelineModel\n\nfrom pyspark.sql import SparkSession\n\n# 훈련용 데이터 (키, 몸무게, 나이, 성별)\ntraining \u003d spark.createDataFrame([\n    (161.0, 69.87, 29, 1.0),\n    (176.78, 74.35, 34, 1.0),\n    (159.23, 58.32, 29, 0.0)\n    ]).toDF(\u0027height\u0027, \u0027weight\u0027, \u0027age\u0027, \u0027gender\u0027)\n\ntraining.cache()\n\n# 테스트용 데이터 \ntest \u003d spark.createDataFrame([\n    (169.4, 75.3, 42),\n    (185.1, 85.0, 37),\n    (161.6, 61.2, 28)\n    ]).toDF(\u0027height\u0027, \u0027weight\u0027, \u0027age\u0027)\n\ntraining.show()\n\n# training 데이터에 features 칼럼 추가\nassembler \u003d VectorAssembler(inputCols\u003d[\u0027height\u0027, \u0027weight\u0027, \u0027age\u0027], outputCol\u003d\u0027features\u0027)\nassembled_training \u003d assembler.transform(training)\n\n# 모델 생성 알고리즘 (로지스틱 회귀 평가자)\nlr \u003d LogisticRegression(maxIter\u003d10, regParam\u003d0.01, labelCol\u003d\u0027gender\u0027)\nprint(type(lr))\n\n# 모델 생성\nmodel \u003d lr.fit(assembled_training)\nprint(type(model))\n\n# 예측값 생성\nmodel.transform(assembled_training).show()\n\n# 파이프라인\npipeline \u003d Pipeline(stages\u003d[assembler, lr])\nprint(type(pipeline))\n\n# 파이프라인 모델 생성\npipelineModel \u003d pipeline.fit(training)\nprint(type(pipelineModel))\n\n# 파이프라인 모델을 이용한 예측값 생성\npipelineModel.transform(training).show()\n\npath_model \u003d \u0027hdfs:///ml_model/regression-model\u0027\npath_pipeline_model \u003d \u0027hdfs:///ml_model/pipelinemodel\u0027\n\n# model.write.overwrite().save(path_model)\n# pipelineModel.write.overwrite().save(path_pipeline_model)\n\nmodel.write.save(path_model)\npipelineModel.write.save(path_pipeline_model)\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-11-06 15:27:41.484",
+      "config": {
+        "colWidth": 5.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+------+------+---+------+\n|height|weight|age|gender|\n+------+------+---+------+\n| 161.0| 69.87| 29|   1.0|\n|176.78| 74.35| 34|   1.0|\n|159.23| 58.32| 29|   0.0|\n+------+------+---+------+\n\n\u003cclass \u0027pyspark.ml.classification.LogisticRegression\u0027\u003e\n\u003cclass \u0027pyspark.ml.classification.LogisticRegressionModel\u0027\u003e\n+------+------+---+------+-------------------+--------------------+--------------------+----------+\n|height|weight|age|gender|           features|       rawPrediction|         probability|prediction|\n+------+------+---+------+-------------------+--------------------+--------------------+----------+\n| 161.0| 69.87| 29|   1.0| [161.0,69.87,29.0]|[-2.4890615171055...|[0.07662857486628...|       1.0|\n|176.78| 74.35| 34|   1.0|[176.78,74.35,34.0]|[-1.5515034131417...|[0.17486923465734...|       1.0|\n|159.23| 58.32| 29|   0.0|[159.23,58.32,29.0]|[2.48077740707284...|[0.92278320971457...|       0.0|\n+------+------+---+------+-------------------+--------------------+--------------------+----------+\n\n\u003cclass \u0027pyspark.ml.pipeline.Pipeline\u0027\u003e\n\u003cclass \u0027pyspark.ml.pipeline.PipelineModel\u0027\u003e\n+------+------+---+------+-------------------+--------------------+--------------------+----------+\n|height|weight|age|gender|           features|       rawPrediction|         probability|prediction|\n+------+------+---+------+-------------------+--------------------+--------------------+----------+\n| 161.0| 69.87| 29|   1.0| [161.0,69.87,29.0]|[-2.4890615171055...|[0.07662857486628...|       1.0|\n|176.78| 74.35| 34|   1.0|[176.78,74.35,34.0]|[-1.5515034131417...|[0.17486923465734...|       1.0|\n|159.23| 58.32| 29|   0.0|[159.23,58.32,29.0]|[2.48077740707284...|[0.92278320971457...|       0.0|\n+------+------+---+------+-------------------+--------------------+--------------------+----------+\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to execute line 59: model.write.save(path_model)\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-5886474130727753259.py\", line 375, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 59, in \u003cmodule\u003e\nAttributeError: \u0027function\u0027 object has no attribute \u0027save\u0027\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1541404891659_-775523460",
+      "id": "20181105-170131_1366250949",
+      "dateCreated": "2018-11-05 17:01:31.659",
+      "dateStarted": "2018-11-05 18:51:11.948",
+      "dateFinished": "2018-11-05 18:51:13.458",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2018-11-05 17:15:13.070",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1541405713068_996748818",
+      "id": "20181105-171513_441555191",
+      "dateCreated": "2018-11-05 17:15:13.068",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "regression/study01",
+  "id": "2DV8CSDUD",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

@@ -1,0 +1,401 @@
+{
+  "paragraphs": [
+    {
+      "title": "Sample Code",
+      "text": "%pyspark\r\nfrom pyspark.ml.regression import LinearRegression\r\n\r\n# Load training data\r\ntraining \u003d spark.read.format(\"libsvm\")\\\r\n    .load(\"hdfs:///raw/sample_linear_regression_data.txt\")\r\n\r\nlr \u003d LinearRegression(maxIter\u003d10, regParam\u003d0.3, elasticNetParam\u003d0.8)\r\n\r\n# Fit the model\r\nlrModel \u003d lr.fit(training)\r\n\r\n# Print the coefficients and intercept for linear regression\r\nprint(\"Coefficients: %s\" % str(lrModel.coefficients))\r\nprint(\"Intercept: %s\" % str(lrModel.intercept))\r\n\r\n# Summarize the model over the training set and print out some metrics\r\ntrainingSummary \u003d lrModel.summary\r\nprint(\"numIterations: %d\" % trainingSummary.totalIterations)\r\nprint(\"objectiveHistory: %s\" % str(trainingSummary.objectiveHistory))\r\ntrainingSummary.residuals.show()\r\nprint(\"RMSE: %f\" % trainingSummary.rootMeanSquaredError)\r\nprint(\"r2: %f\" % trainingSummary.r2)\r\n",
+      "user": "jake",
+      "dateUpdated": "2019-04-12 09:30:22.065",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Coefficients: [0.0,0.32292516677405936,-0.3438548034562218,1.9156017023458414,0.05288058680386263,0.765962720459771,0.0,-0.15105392669186682,-0.21587930360904642,0.22025369188813426]\nIntercept: 0.1598936844239736\nnumIterations: 7\nobjectiveHistory: [0.49999999999999994, 0.4967620357443381, 0.4936361664340463, 0.4936351537897608, 0.4936351214177871, 0.49363512062528014, 0.4936351206216114]\n+--------------------+\n|           residuals|\n+--------------------+\n|  -9.889232683103197|\n|  0.5533794340053554|\n|  -5.204019455758823|\n| -20.566686715507508|\n|    -9.4497405180564|\n|  -6.909112502719486|\n|  -10.00431602969873|\n|   2.062397807050484|\n|  3.1117508432954772|\n| -15.893608229419382|\n|  -5.036284254673026|\n|   6.483215876994333|\n|  12.429497299109002|\n|  -20.32003219007654|\n| -2.0049838218725005|\n| -17.867901734183793|\n|   7.646455887420495|\n| -2.2653482182417406|\n|-0.10308920436195645|\n|  -1.380034070385301|\n+--------------------+\nonly showing top 20 rows\n\nRMSE: 10.189077\nr2: 0.022861\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://210.102.142.14:4041/jobs/job?id\u003d143",
+            "http://210.102.142.14:4041/jobs/job?id\u003d143",
+            "http://210.102.142.14:4041/jobs/job?id\u003d144",
+            "http://210.102.142.14:4041/jobs/job?id\u003d144",
+            "http://210.102.142.14:4041/jobs/job?id\u003d145",
+            "http://210.102.142.14:4041/jobs/job?id\u003d145",
+            "http://210.102.142.14:4041/jobs/job?id\u003d146",
+            "http://210.102.142.14:4041/jobs/job?id\u003d146",
+            "http://210.102.142.14:4041/jobs/job?id\u003d147",
+            "http://210.102.142.14:4041/jobs/job?id\u003d147",
+            "http://210.102.142.14:4041/jobs/job?id\u003d148",
+            "http://210.102.142.14:4041/jobs/job?id\u003d148",
+            "http://210.102.142.14:4041/jobs/job?id\u003d149",
+            "http://210.102.142.14:4041/jobs/job?id\u003d149"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1540282018192_1609629087",
+      "id": "20180828-191042_923440523",
+      "dateCreated": "2018-10-23 17:06:58.192",
+      "dateStarted": "2019-04-12 09:30:22.076",
+      "dateFinished": "2019-04-12 09:30:28.347",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nprint(training)\ntraining.show()\ntraining.toPandas().to_csv(\u0027training.csv\u0027)",
+      "user": "jake",
+      "dateUpdated": "2019-04-12 09:32:17.785",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540282018192_-1730630255",
+      "id": "20180827-160600_573374094",
+      "dateCreated": "2018-10-23 17:06:58.192",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n\ntraining2 \u003d spark.read.format(\u0027libsvm\u0027).load(\u0027hdfs:///raw/sample_linear_regression_data.txt\u0027)\ntraining2.printSchema()\ntraining2.show()\nprint(training2.toPandas())\n",
+      "user": "jake",
+      "dateUpdated": "2019-04-12 09:32:51.121",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 5.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- label: double (nullable \u003d true)\n |-- features: vector (nullable \u003d true)\n\n+-------------------+--------------------+\n|              label|            features|\n+-------------------+--------------------+\n| -9.490009878824548|(10,[0,1,2,3,4,5,...|\n| 0.2577820163584905|(10,[0,1,2,3,4,5,...|\n| -4.438869807456516|(10,[0,1,2,3,4,5,...|\n|-19.782762789614537|(10,[0,1,2,3,4,5,...|\n| -7.966593841555266|(10,[0,1,2,3,4,5,...|\n| -7.896274316726144|(10,[0,1,2,3,4,5,...|\n| -8.464803554195287|(10,[0,1,2,3,4,5,...|\n| 2.1214592666251364|(10,[0,1,2,3,4,5,...|\n| 1.0720117616524107|(10,[0,1,2,3,4,5,...|\n|-13.772441561702871|(10,[0,1,2,3,4,5,...|\n| -5.082010756207233|(10,[0,1,2,3,4,5,...|\n|  7.887786536531237|(10,[0,1,2,3,4,5,...|\n| 14.323146365332388|(10,[0,1,2,3,4,5,...|\n|-20.057482615789212|(10,[0,1,2,3,4,5,...|\n|-0.8995693247765151|(10,[0,1,2,3,4,5,...|\n| -19.16829262296376|(10,[0,1,2,3,4,5,...|\n|  5.601801561245534|(10,[0,1,2,3,4,5,...|\n|-3.2256352187273354|(10,[0,1,2,3,4,5,...|\n| 1.5299675726687754|(10,[0,1,2,3,4,5,...|\n| -0.250102447941961|(10,[0,1,2,3,4,5,...|\n+-------------------+--------------------+\nonly showing top 20 rows\n\n         label                                           features\n0    -9.490010  (0.4551273600657362, 0.36644694351969087, -0.3...\n1     0.257782  (0.8386555657374337, -0.1270180511534269, 0.49...\n2    -4.438870  (0.5025608135349202, 0.14208069682973434, 0.16...\n3   -19.782763  (-0.0388509668871313, -0.4166870051763918, 0.8...\n4    -7.966594  (-0.06195495876886281, 0.6546448480299902, -0....\n5    -7.896274  (-0.15805658673794265, 0.26573958270655806, 0....\n6    -8.464804  (0.39449745853945895, 0.817229160415142, -0.60...\n7     2.121459  (-0.005346215048158909, -0.9453716674280683, -...\n8     1.072012  (0.7880855916368177, 0.19767407429003536, 0.95...\n9   -13.772442  (-0.3697050572653644, -0.11452811582755928, -0...\n10   -5.082011  (-0.43560342773870375, 0.9349906440170221, 0.8...\n11    7.887787  (0.11276440263810383, -0.7684997525607482, 0.1...\n12   14.323146  (-0.2049276879687938, 0.1470694373531216, -0.4...\n13  -20.057483  (-0.3205057828114841, 0.51605972926996, 0.4521...\n14   -0.899569  (0.4508991072414843, 0.589749448443134, 0.6464...\n15  -19.168293  (0.09798746565879424, -0.34288007110901964, 0....\n16    5.601802  (0.6949189734965766, -0.32697929564739403, -0....\n17   -3.225635  (0.35278245969741096, 0.7022211035026023, 0.56...\n18    1.529968  (-0.13079299081883855, 0.0983382230287082, 0.1...\n19   -0.250102  (-0.8062832278617296, 0.8266289890474885, 0.22...\n20   12.792268  (-0.008461200645088818, -0.648273596036564, -0...\n21    6.082193  (0.42519013450094767, 0.09441503345243984, -0....\n22   -7.481405  (0.03324842612749346, 0.07055844751995122, -0....\n23    6.739534  (0.1774546460228057, -0.6783644553523549, -0.4...\n24    3.780807  (0.01715676997104909, 0.8975962429865936, -0.4...\n25    4.564039  (0.07478785545033317, -0.8672651994084235, 0.4...\n26   -0.319568  (0.054527683864544096, -0.15591931640565093, 0...\n27   11.290453  (0.20173310976772196, 0.8657502566551409, 0.93...\n28   -4.003499  (0.8325875503351796, -0.5956350140619129, 0.12...\n29  -19.872991  (-0.9325810772922609, -0.6411471147334535, 0.9...\n..         ...                                                ...\n471  -6.345937  (0.9537835418930307, 0.4598546399405288, -0.25...\n472   1.114407  (-0.5721838436595965, 0.1201917297381252, -0.5...\n473   8.688243  (0.2245581140502393, -0.0697600364101425, -0.7...\n474  14.896036  (0.20630949870309911, -0.5738578325975092, 0.5...\n475   4.396559  (0.5565602414172521, 0.1444095747909111, 0.028...\n476   1.745714  (0.3668576517164046, -0.5352200081463954, 0.58...\n477 -15.334767  (-0.036676500783341615, 0.804758241454594, -0....\n478   5.017248  (-0.5925393497160352, 0.48506599831456443, -0....\n479   6.201511  (-0.6802942101330738, 0.898957584078176, 0.853...\n480  19.174936  (-0.20026105252200788, 0.7276178994821614, 0.7...\n481 -14.822153  (0.7255660700197897, -0.22751988933383926, -0....\n482  -6.310082  (-0.7692076133438608, 0.8533601511731044, 0.67...\n483   8.853803  (0.46950948246522195, -0.6148693581037883, 0.0...\n484 -10.293714  (-0.17971950768550893, -0.6621720204354751, 0....\n485   0.239856  (0.050526696983213215, 0.8544297176525815, 0.8...\n486  21.577200  (-0.5878491135126271, 0.802134056970349, -0.54...\n487  -0.783654  (0.5766794801558166, 0.8281463568384935, 0.508...\n488   6.710414  (-0.6919803228062729, -0.6526904017578161, -0....\n489   5.384747  (-0.9661857672086316, -0.519769534339731, -0.4...\n490   7.688510  (0.3892872094452817, -0.13306620868059982, -0....\n491   2.254700  (-0.5963883101717473, -0.01115153603404151, 0....\n492   5.597710  (-0.5323512235815979, 0.03366944321271936, 0.5...\n493 -12.977849  (-0.5908891529017144, -0.7678208242918028, 0.8...\n494  10.358872  (-0.09126023790482862, 0.18852634121926526, -0...\n495   0.425050  (0.7771717566171905, -0.8729202752916785, -0.2...\n496  -0.874349  (-0.9087681208947878, -0.292625136739453, -0.3...\n497  -5.615144  (-0.6688289820084299, -0.4623159855015393, 0.0...\n498  -0.182940  (0.09377558075225512, 0.5774384503027374, -0.7...\n499  18.479681  (0.9635517137863321, 0.9954507816218203, 0.119...\n500   1.385065  (0.14476184437006356, -0.11280617018445871, -0...\n\n[501 rows x 2 columns]\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://210.102.142.14:4041/jobs/job?id\u003d155",
+            "http://210.102.142.14:4041/jobs/job?id\u003d155",
+            "http://210.102.142.14:4041/jobs/job?id\u003d156",
+            "http://210.102.142.14:4041/jobs/job?id\u003d156",
+            "http://210.102.142.14:4041/jobs/job?id\u003d157",
+            "http://210.102.142.14:4041/jobs/job?id\u003d157"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1540282018192_820481063",
+      "id": "20180829-111158_760757482",
+      "dateCreated": "2018-10-23 17:06:58.192",
+      "dateStarted": "2019-04-12 09:32:51.130",
+      "dateFinished": "2019-04-12 09:32:51.368",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport pyspark.mllib\nimport pyspark.mllib.regression\nfrom pyspark.sql.functions import udf\nfrom pyspark.mllib.regression import LabeledPoint\n\nudf_dt2h \u003d udf(lambda s: int(s.split(\":\")[0]))\n\nnt \u003d spark.read.parquet(\u0027hdfs:///ds/nt_srs.parquet\u0027)\ndf_cctswr \u003d nt.select(\u0027date\u0027, \u0027time\u0027, \u0027cct\u0027, \u0027swr\u0027)\\\n              .filter(\u0027date \u003e\u003d \"2017-04-12\"\u0027)\\\n              .withColumn(\u0027hour\u0027, udf_dt2h(\u0027time\u0027))\n\ndf_cctswr.describe([\u0027cct\u0027, \u0027swr\u0027]).show()\ndf_cctswr \u003d df_cctswr.select(\u0027cct\u0027, \u0027swr\u0027).rdd",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:58.192",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540282018192_845807920",
+      "id": "20180829-112921_1103611349",
+      "dateCreated": "2018-10-23 17:06:58.192",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n\ntmp \u003d df_cctswr.map(lambda line: LabeledPoint(line[0], [line[1:]]))\ntmp.take(5)",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:58.193",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540282018192_-1984705453",
+      "id": "20180829-134655_1987480277",
+      "dateCreated": "2018-10-23 17:06:58.192",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark.mllib.util import MLUtils\nfrom pyspark.mllib.linalg import Vectors\nfrom pyspark.mllib.feature import StandardScaler\n\nfeatures \u003d df_cctswr.map(lambda row: row[1:])\nstandardizer \u003d StandardScaler()\nmodel \u003d standardizer.fit(features)\nfeatures_transform \u003d model.transform(features)\n# features_transform.take(5)\n\nlabel \u003d df_cctswr.map(lambda row: row[0])\ntransformedData \u003d label.zip(features_transform)\n# transformedData.take(5)\ntransformedData \u003d transformedData.map(lambda row: LabeledPoint(row[0], [row[1]]))\ntransformedData.take(5)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:58.193",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540282018193_1289611402",
+      "id": "20180829-134825_1069608746",
+      "dateCreated": "2018-10-23 17:06:58.193",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark.mllib.regression import LinearRegressionWithSGD\n\ntrainingData, testingData \u003d transformedData.randomSplit([.8,.2],seed\u003d1234)\nlinearModel \u003d LinearRegressionWithSGD.train(trainingData,1000,.2)\nlinearModel.weights",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:58.193",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540282018193_-2086951934",
+      "id": "20180829-144604_789913821",
+      "dateCreated": "2018-10-23 17:06:58.193",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:58.193",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540282018193_277693802",
+      "id": "20180829-145338_1929595402",
+      "dateCreated": "2018-10-23 17:06:58.193",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark.ml.classification import LogisticRegression\nfrom pyspark.ml.classification import LogisticRegressionModel\nfrom pyspark.ml.feature import VectorAssembler\nfrom pyspark.ml.pipeline import Pipeline\nfrom pyspark.ml.pipeline import PipelineModel\n\n# 훈련용 데이터 (키 몸무게 나이 성별)\ntraining \u003d spark.createDataFrame([\n    (161.0, 69.87, 29, 1.0),\n    (176.78, 74.35, 34, 1.0),\n    (159.23, 58.32, 29, 0.0)]).toDF(\u0027height\u0027, \u0027weight\u0027, \u0027age\u0027, \u0027gender\u0027)\ntraining.cache()\n\n# 테스트용 데이터\ntest \u003d spark.createDataFrame([\n    (169.4, 75.3, 42),\n    (185.1, 85.0, 37),\n    (161.6, 61.2, 28)]).toDF(\u0027height\u0027, \u0027weight\u0027, \u0027age\u0027)\n\ntraining.show()\n\nassembler \u003d VectorAssembler(inputCols\u003d[\u0027height\u0027, \u0027weight\u0027, \u0027age\u0027], outputCol\u003d\u0027features\u0027)\n\n# training 데이터에 features 칼럼 추가\nassembled_training \u003d assembler.transform(training)\nassembled_training.show()\n\n\n# #### Jake added\n# assembled_training \u003d assembled_training.drop(\u0027height\u0027, \u0027weight\u0027, \u0027age\u0027)\n# assembled_training \u003d assembled_training.withColumnRenamed(\u0027gender\u0027, \u0027label\u0027)\n# ###############\n# assembled_training.show()\n\n#모델 생성 알고리즘 (로지스틱 회귀 평가자)\n# lr \u003d LogisticRegression(maxIter\u003d10, regParam\u003d0.01, weightCol\u003d\u0027gender\u0027)\nlr \u003d LogisticRegression(maxIter\u003d10, regParam\u003d0.01, labelCol\u003d\u0027gender\u0027)\n\n# #모델 생성\nmodel \u003d lr.fit(assembled_training)\n\n# #예측값 생성\nmodel.transform(assembled_training).show(3, False)",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:58.193",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540282018193_-1919464995",
+      "id": "20180829-154321_600842769",
+      "dateCreated": "2018-10-23 17:06:58.193",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n\n#파이프라인\npipeline \u003d Pipeline(stages\u003d[assembler, lr])\n\n#파이프라인 모델 생성\npipelineModel \u003d pipeline.fit(training)\n\n# 파이프라인 모델을 이용한 예측값 생성\npipelineModel.transform(training).show()\n\n# path1 \u003d \u0027hdfs:///ml_models/regression-01\u0027\n# path2 \u003d \u0027hdfs:///ml_models/pipeline-01\u0027\n\n#모델 저장\n# model.write.overwrite().save(path1)\n# pipelineModel.write.overwrite().save(path2)\n\n#저장된 모델 불러오기\n# loadedModel \u003d LogisticRegressionModel.load(path1)\n# loadedPipelineModel \u003d PipielineModel.load(path2)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:58.193",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540282018193_715458693",
+      "id": "20180829-154531_596981530",
+      "dateCreated": "2018-10-23 17:06:58.193",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:58.194",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540282018193_-1104023516",
+      "id": "20180829-170107_1428299103",
+      "dateCreated": "2018-10-23 17:06:58.193",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "/regression/180827_linear_regression",
+  "id": "2DUFVX97R",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

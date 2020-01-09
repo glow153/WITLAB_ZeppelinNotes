@@ -1,0 +1,1564 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n# From here: Natural Light Data Analyzing Practice.",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.252",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059251_1414663441",
+      "id": "20180221-092737_1603348630",
+      "dateCreated": "2018-10-16 14:00:59.251",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Initiate rawdata from HDFS",
+      "text": "val cas_nt \u003d sc.textFile(\"hdfs:///cas_nt/cas_nt\")\nval cas_uv \u003d sc.textFile(\"hdfs:///cas_uv/cas_uv\")\nval kma_jake \u003d sc.textFile(\"hdfs:///kma_jake/openapi\")\nval kma_km \u003d sc.textFile(\"hdfs:///kma_km/rss\")\nval sun \u003d sc.textFile(\"hdfs:///sunriseset/sunriseset\")\nval fp \u003d sc.textFile(\"hdfs:///fp_jake/fp\")\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.255",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059254_381233006",
+      "id": "20180221-022136_1196557991",
+      "dateCreated": "2018-10-16 14:00:59.254",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val nt_dates \u003d cas_nt.map(line \u003d\u003e line.split(\",\"))\n                     .map(r \u003d\u003e r(0).split(\u0027 \u0027))\n                     .map(r \u003d\u003e (r(0), 1))\n                     .reduceByKey(_ + _)\nval df_nt_dates \u003d nt_dates.toDF(\"datetime\", \"records\")\ndf_nt_dates.registerTempTable(\"Available_Dates\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.255",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059255_1281002560",
+      "id": "20180313-175853_1040249685",
+      "dateCreated": "2018-10-16 14:00:59.255",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from Available_Dates\nwhere records \u003e 720\norder by datetime desc",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.255",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059255_1547986635",
+      "id": "20180313-180541_1344218573",
+      "dateCreated": "2018-10-16 14:00:59.255",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "case class Illum(datetime: String, lux: Double)\nval rdd_cas_nt \u003d cas_nt.map(line \u003d\u003e line.split(\",\"))\n                       .map(s \u003d\u003e Illum(s(0).toString, s(14).toDouble))\nval df \u003d rdd_cas_nt.toDF(\"datetime\", \"lux\")\nz.put(\"illum\", rdd_cas_nt)\ndf.createOrReplaceTempView(\"illum\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.255",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 444.6,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059255_438645155",
+      "id": "20180213-071049_1982383491",
+      "dateCreated": "2018-10-16 14:00:59.255",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from illum\nwhere datetime between \u00272018-04-03 07:27:00.0\u0027 and \u00272018-04-03 18:03:59.0\u0027\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.256",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 8.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059256_339957971",
+      "id": "20180220-081647_1474460972",
+      "dateCreated": "2018-10-16 14:00:59.256",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n# KMA OpenAPI data analysis",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.256",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059256_-1133318675",
+      "id": "20180409-194115_21482150",
+      "dateCreated": "2018-10-16 14:00:59.256",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "180319",
+      "text": "def average[T](ts: Iterable[T])(implicit num: Numeric[T]) \u003d {\n    num.toDouble( ts.sum ) / ts.size\n}\n\nval sky_km \u003d kma_km.map(line \u003d\u003e line.split(\",\"))\n                   .map(s \u003d\u003e (s(0).substring(0,16)\n                                  .replace(\"-\", \"\")\n                                  .replace(\":\", \"\"),\n                              s(8).toDouble.toInt))\n\nval cct \u003d cas_nt.map(line \u003d\u003e line.split(\",\"))\n                .map(arr \u003d\u003e (arr(0).substring(0,13)\n                                  .replace(\"-\", \"\")\n                                  .replace(\":\", \"\")\n                                  +\"00\",\n                             arr(34).toDouble))\n                .groupByKey\n                .map(s \u003d\u003e (s._1, average(s._2)))\n                .filter(s \u003d\u003e s._2 \u003c 10000)\n                // .filter(s \u003d\u003e s._1 )\n\nval result_sky \u003d sky_km.collect.mkString(\", \")\nval result_cct \u003d cct.collect.mkString(\", \")\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.256",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059256_329343518",
+      "id": "20180319-193048_713994567",
+      "dateCreated": "2018-10-16 14:00:59.256",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val rdd_dhskycct \u003d sky_km.join(cct)\n                .map(s \u003d\u003e (s._1.split(\" \")(0),\n                           s._1.split(\" \")(1),\n                           s._2._1,\n                           s._2._2))\nrdd_dhskycct.collect\nval df_skycct1 \u003d rdd_dhskycct.toDF(\"date\", \"hour\", \"sky\", \"cct\")\n\n// val skycct2 \u003d sky_km.join(cct)\n//                     .map(s \u003d\u003e (s._1,\n//                           s._2._1,\n//                           s._2._2))\n                           \n// val df_skycct2\u003d skycct2.toDF(\"datehour\", \"sky\", \"cct\")\n                \n// // df.show()\n// df1.createOrReplaceTempView(\"dhskycct\")\n// df_skycct2.createOrReplaceTempView(\"dskycct\")\n\nz.put(\"skycct\", df_skycct1)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.256",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059256_-179714606",
+      "id": "20180319-205239_902357969",
+      "dateCreated": "2018-10-16 14:00:59.256",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from dskycct\n-- where datehour between \u002720180201 0000\u0027 and \u002720180301 0000\u0027\norder by datehour asc\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.256",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "scatterChart",
+              "height": 364.0,
+              "optionOpen": false,
+              "setting": {
+                "lineChart": {},
+                "scatterChart": {
+                  "yAxis": {
+                    "name": "cct",
+                    "index": 2.0,
+                    "aggr": "sum"
+                  },
+                  "xAxis": {
+                    "name": "sky",
+                    "index": 1.0,
+                    "aggr": "sum"
+                  }
+                },
+                "multiBarChart": {}
+              },
+              "keys": [
+                {
+                  "name": "datehour",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "sky",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cct",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059256_-48530648",
+      "id": "20180319-193759_494308120",
+      "dateCreated": "2018-10-16 14:00:59.256",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.257",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059257_-1758499248",
+      "id": "20180409-195309_419473512",
+      "dateCreated": "2018-10-16 14:00:59.257",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Sun Rise Set RDD",
+      "text": "val sunriseset \u003d sun.map(s \u003d\u003e s.split(\u0027,\u0027))\n                    .map(s \u003d\u003e (s(0),\n                               s(1).substring(0,5),\n                               s(2).substring(0,5))\n                        )\n                    .filter(_._1 \u003e \"2017-04-01\")\n                    .collect\n\ndef get_sunriseset_time(day: String) \u003d {\n    val e \u003d sunriseset.filter(_._1 \u003d\u003d day)(0)\n    Map(\"rise\" -\u003e e._2, \"set\" -\u003e e._3)\n}\n\nval date \u003d \"2018-02-08\"\nval srs \u003d get_sunriseset_time(date)",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.257",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059257_-205915432",
+      "id": "20180405-213124_1308702983",
+      "dateCreated": "2018-10-16 14:00:59.257",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n# Analysis for Getting Correlation Between SKY and SWR",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.257",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059257_-1836874389",
+      "id": "20180320-161403_1791121318",
+      "dateCreated": "2018-10-16 14:00:59.257",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val swr \u003d cas_nt.map(line \u003d\u003e line.split(\",\"))\n                .map(arr \u003d\u003e (arr(0).substring(0,13)\n                                  .replace(\"-\", \"\")\n                                  .replace(\":\", \"\")\n                                  +\"00\",\n                             arr(57).toDouble\n                             ))\n                .filter(t \u003d\u003e t._2 \u003c 100)\n                .filter(t \u003d\u003e t._2 \u003e 0)\n                .groupByKey\n                .map(s \u003d\u003e (s._1, average(s._2)))\n                .filter(s \u003d\u003e s._2 \u003c 10000)\n                // .filter(s \u003d\u003e s._1 )\n\nval rdd_skyswr \u003d sky_km.join(swr)\n                       .map(s \u003d\u003e (s._1.split()(0),      //date\n                                      (s._1.split()(1), //hour\n                                          (s._2._1,     //sky\n                                          s._2._2)      //swr\n                                      )\n                                  ))\n                       .groupByKey\n                       .\n\nval rdd_skyswr2 \u003d sky_km.join(swr)\n                       .map(s \u003d\u003e (s._1.split()(0),\n                                  s._1.split()(1),\n                                  s._2._1,\n                                  s._2._2))\n\nval df_sky_swr \u003d rdd_skyswr2.toDF(\"date\", \"hour\", \"sky\", \"swr\")\ndf_sky_swr.createOrReplaceTempView(\"skyswr\")\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.257",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059257_-184103701",
+      "id": "20180320-085512_168545222",
+      "dateCreated": "2018-10-16 14:00:59.257",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from skyswr\n-- where datehour between \u002720180101 0000\u0027 and \u002720180331 2400\u0027\norder by date asc\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.258",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 8.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "scatterChart",
+              "height": 300.0,
+              "optionOpen": true,
+              "setting": {
+                "scatterChart": {
+                  "yAxis": {
+                    "name": "swr",
+                    "index": 3.0,
+                    "aggr": "sum"
+                  },
+                  "xAxis": {
+                    "name": "sky",
+                    "index": 2.0,
+                    "aggr": "sum"
+                  }
+                },
+                "lineChart": {}
+              },
+              "keys": [
+                {
+                  "name": "datehour",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "sky",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "swr",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059257_1982110062",
+      "id": "20180320-085554_1355612839",
+      "dateCreated": "2018-10-16 14:00:59.257",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.258",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059258_-288394244",
+      "id": "20180405-202912_470863847",
+      "dateCreated": "2018-10-16 14:00:59.258",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "SWR 2nd arrange - 180405",
+      "text": "val srs \u003d get_sunriseset_time(\"2018-02-08\")\nval swr_a \u003d cas_nt.map(line \u003d\u003e line.split(\",\"))\n                  .map(arr \u003d\u003e (arr(0).substring(0,10),//yyyy-mm-dd\n                               (arr(0).substring(11,16),//hh:mm\n                                arr(57).toDouble)   //idx57 \u003d swr\n                              )\n                      )\n                  .filter(_._2._2 \u003e 0)\n                  .filter(_._2._2 \u003c 100)\n                  .groupByKey\n                  .filter(_._1 \u003d\u003d \"2018-02-08\")\n                  .map(_._2)\n                  .collect()(0)\n                  .toList\n                  .filter(_._1 \u003e\u003d srs(\"rise\"))\n                  .filter(_._1 \u003c\u003d srs(\"set\"))\n                  .map(t \u003d\u003e (t._1.split(\":\")(0), t._2))\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.258",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 281.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059258_-482664978",
+      "id": "20180405-201027_1296114947",
+      "dateCreated": "2018-10-16 14:00:59.258",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Getting SWR method - 180406",
+      "text": "\ndef average[T](ts: Iterable[T])(implicit num: Numeric[T]) \u003d {\n    num.toDouble( ts.sum ) / ts.size\n}\n\n\n//date format : yyyy-mm-dd\ndef daily_swr(date: String):List[(Int, Double)] \u003d {\n    val srs \u003d get_sunriseset_time(date)\n    \n    val swr_a \u003d cas_nt.map(line \u003d\u003e line.split(\",\"))\n                      .map(arr \u003d\u003e (arr(0).substring(0,10),//yyyy-mm-dd\n                                   (arr(0).substring(11,16),//hh:mm\n                                    arr(57).toDouble)   //idx57 \u003d swr\n                                  )\n                          )\n                      .filter(_._2._2 \u003e 0)\n                      .filter(_._2._2 \u003c 100)\n                      .groupByKey\n                      .filter(_._1 \u003d\u003d date)        //pick one day data\n                      .map(_._2)\n                      .collect()(0)\n                      .toList                       //make List\n                      .filter(_._1 \u003e\u003d srs(\"rise\"))\n                      .filter(_._1 \u003c\u003d srs(\"set\"))\n                      .map(t \u003d\u003e (t._1.split(\":\")(0).toInt, t._2))\n                      \n    return swr_a\n}\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.258",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 281.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059258_1551479869",
+      "id": "20180406-165633_542535882",
+      "dateCreated": "2018-10-16 14:00:59.258",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.258",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059258_-1620849170",
+      "id": "20180406-201708_1007720567",
+      "dateCreated": "2018-10-16 14:00:59.258",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "All SWR Data - 180406",
+      "text": "def average[T](ts: Iterable[T])(implicit num: Numeric[T]) \u003d {\n    num.toDouble( ts.sum ) / ts.size\n}\n\nval swr_a \u003d cas_nt.map(line \u003d\u003e line.split(\",\"))\n                  .map(arr \u003d\u003e (arr(0).substring(0,10),//yyyy-mm-dd\n                               (arr(0).substring(11,16),//hh:mm\n                                arr(57).toDouble)   //idx57 \u003d swr\n                              )\n                      )\n                  .filter(_._2._2 \u003e 0)\n                  .filter(_._2._2 \u003c 100)\n                  .groupByKey           //group by date\n                  .map(t \u003d\u003e (t._1, t._2.toList)) //date, (hour, swr)\n                  .map(t \u003d\u003e (t._1, t._2\n                                    .map(s \u003d\u003e (s._1.split(\":\")(0),\n                                               s._2))\n                                    .groupBy(s \u003d\u003e s._1)\n                                    .toList)\n                            )\n                  .map(t \u003d\u003e (t._1,  //date\n                             t._2   //arr((hour,list((hour,swr))))\n                              .map(s \u003d\u003e (s._1.toInt,\n                                         average(s._2.map(_._2))\n                                        )\n                                  )\n                            )\n                      )     //arr((date,arr((hour,swr_avg))))\n                //   .collect\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.258",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 318.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059258_221217051",
+      "id": "20180406-180625_826569516",
+      "dateCreated": "2018-10-16 14:00:59.258",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "",
+      "text": "//goal format : arr((date,arr((hour,swr_avg,pm10,pm25))))\n//           -\u003e arr((hour,swr_avg,pm10,pm25))\n\n//need : arr((date,arr((hour,pm10,pm25))))\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.259",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059258_-2115803772",
+      "id": "20180406-165051_1973570764",
+      "dateCreated": "2018-10-16 14:00:59.259",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "SWR 2nd arrange, visualizer - 180405",
+      "text": "%sql\nselect * from swr_0208\norder by hour asc\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.259",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059259_-1925142001",
+      "id": "20180405-201224_423772482",
+      "dateCreated": "2018-10-16 14:00:59.259",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.259",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059259_-1056992583",
+      "id": "20180405-201347_1725366869",
+      "dateCreated": "2018-10-16 14:00:59.259",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Practice02 - FineParticles",
+      "text": "def replaceNone(s: String):Int \u003d {\n    if (s \u003d\u003d \"-\") -1\n    else s.toInt\n}\n\nval rdd_fp_all \u003d fp.map(_.split(\",\"))\nval rdd_fp \u003d rdd_fp_all.map(a \u003d\u003e (a(0).split(\" \")(0),\n                                   (a(0).split(\" \")(1)\n                                        .split(\":\")(0).toInt,\n                                     (replaceNone(a(1)),\n                                      replaceNone(a(2)))\n                                   )\n                                 )\n                            )\n                       .groupByKey\n                       .map(t \u003d\u003e (t._1, t._2.toList))\n                    //   .collect\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.259",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059259_-941769882",
+      "id": "20180406-171240_1082387691",
+      "dateCreated": "2018-10-16 14:00:59.259",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Practice02 - FineParticles and SWR",
+      "text": "val rdd_swr_fp \u003d swr_a.join(rdd_fp).collect\nvar rdd_result \u003d sc.parallelize(Array[(Double, Int, Int)]())\nfor(e \u003c- rdd_swr_fp){\n    try{\n        val rls1 \u003d sc.parallelize(e._2._1)\n        val rls2 \u003d sc.parallelize(e._2._2)\n        val srs \u003d get_sunriseset_time(e._1)\n        \n        val risetime \u003d srs(\"rise\").split(\":\")(0).toInt\n        val settime \u003d srs(\"set\").split(\":\")(0).toInt\n        \n        val rdd_tmp \u003d rls1.join(rls2)\n                         .map(t \u003d\u003e (\n                             t._1,      //hour\n                             (t._2._1, t._2._2._1, t._2._2._2)  //swr,pm10,pm25\n                         ))\n                         .filter(_._1 \u003e risetime)\n                         .filter(_._1 \u003c settime)\n                         .map(t \u003d\u003e (t._2._1, t._2._2, t._2._3))  //swr,pm10,pm25\n        rdd_result \u003d rdd_result ++ rdd_tmp\n    } catch {\n        case e: ArrayIndexOutOfBoundsException \u003d\u003e {\n            \n        }\n    }\n}\n\nrdd_result.collect\nval df_swr_fp \u003d rdd_result.toDF(\"swr\", \"pm10\", \"pm25\")\ndf_swr_fp.createOrReplaceTempView(\"swr_fp\")\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.259",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059259_294142560",
+      "id": "20180406-172836_904466129",
+      "dateCreated": "2018-10-16 14:00:59.259",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "SWR and FineParticles at 180208 - 180405",
+      "text": "%sql\nselect * from swr_fp\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.260",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "scatterChart",
+              "height": 300.0,
+              "optionOpen": true,
+              "setting": {
+                "lineChart": {},
+                "scatterChart": {
+                  "xAxis": {
+                    "name": "swr",
+                    "index": 0.0,
+                    "aggr": "sum"
+                  },
+                  "yAxis": {
+                    "name": "pm10",
+                    "index": 1.0,
+                    "aggr": "sum"
+                  }
+                }
+              },
+              "keys": [
+                {
+                  "name": "swr",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "pm10",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059259_2007332666",
+      "id": "20180405-202903_1870858696",
+      "dateCreated": "2018-10-16 14:00:59.259",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.260",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059260_1391199983",
+      "id": "20180406-201800_387620848",
+      "dateCreated": "2018-10-16 14:00:59.260",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "test 180409",
+      "text": "var arr_n \u003d Array[String]()\nfor(e \u003c- 1 to 10){\n    arr_n :+\u003d e.toString\n}\narr_n.mkString(\", \")",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.260",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059260_-594159889",
+      "id": "20180406-173535_1268562008",
+      "dateCreated": "2018-10-16 14:00:59.260",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.260",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059260_-271105046",
+      "id": "20180406-171354_635335199",
+      "dateCreated": "2018-10-16 14:00:59.260",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val sky \u003d kma_jake.map(line \u003d\u003e line.split(\",\"))\n                  .map(s \u003d\u003e (s(0), s(6)))\nval df_weather \u003d sky.toDF(\"datetime\", \"sky\")\ndf_weather.registerTempTable(\"sky\")\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.260",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059260_581282555",
+      "id": "20180221-061352_61078731",
+      "dateCreated": "2018-10-16 14:00:59.260",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from sky",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.260",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 8.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "scatterChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "scatterChart": {
+                  "xAxis": {
+                    "name": "_1",
+                    "index": 0.0,
+                    "aggr": "sum"
+                  },
+                  "yAxis": {
+                    "name": "_2",
+                    "index": 1.0,
+                    "aggr": "sum"
+                  }
+                }
+              }
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059260_-62066001",
+      "id": "20180313-184924_1124774077",
+      "dateCreated": "2018-10-16 14:00:59.260",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.261",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059260_1494595933",
+      "id": "20180326-183947_1545732664",
+      "dateCreated": "2018-10-16 14:00:59.260",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val rdd_sun \u003d sun.map(str \u003d\u003e str.split(\",\"))\n                 .map(a \u003d\u003e List(a(0).replace(\"-\",\"\"),\n                                a(1).split(\":\")(0) + \"00\",\n                                a(2).split(\":\")(0) + \"00\"\n                                ))\nrdd_sun.collect\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.261",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059261_579491300",
+      "id": "20180326-190024_293400042",
+      "dateCreated": "2018-10-16 14:00:59.261",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "rdd_skyswr.collect",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.261",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059261_234795052",
+      "id": "20180326-191157_1953622234",
+      "dateCreated": "2018-10-16 14:00:59.261",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "sun.map(s \u003d\u003e s.split(\u0027,\u0027))\n   .collect",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.261",
+      "config": {
+        "lineNumbers": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059261_1541415312",
+      "id": "20180403-125056_376505853",
+      "dateCreated": "2018-10-16 14:00:59.261",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.261",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059261_232025905",
+      "id": "20180326-190026_654117349",
+      "dateCreated": "2018-10-16 14:00:59.261",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n\nrdd_cas_nt \u003d z.get(\u0027illum\u0027)\nls \u003d []\nfor e in rdd_cas_nt.collect():\n    ls.append(e.toString()\n                .replace(\u0027(\u0027, \u0027\u0027)\n                .replace(\u0027)\u0027, \u0027\u0027)\n                .split(\u0027,\u0027))\n\nls[:10]",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.261",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059261_272538534",
+      "id": "20180313-184951_1008181167",
+      "dateCreated": "2018-10-16 14:00:59.261",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport matplotlib.pyplot as plt\nimport numpy as np\n\nskycct \u003d z.get(\u0027skycct\u0027)\n# s \u003d sc.parallelize(skycct)\n\nlskycct \u003d []\nfor e in skycct.collect():\n    item \u003d e.toString()\\\n            .encode(\u0027utf-8\u0027,\u0027ignore\u0027)\\\n            .replace(\u0027[\u0027,\u0027\u0027)\\\n            .replace(\u0027]\u0027,\u0027\u0027)\\\n            .split(\u0027,\u0027)\n    item[2] \u003d int(item[2])\n    item[3] \u003d float(item[3])\n    lskycct.append(item)\n\nprint(lskycct)\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.262",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059262_-1689653180",
+      "id": "20180320-173648_1586912316",
+      "dateCreated": "2018-10-16 14:00:59.262",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.262",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059262_-222076155",
+      "id": "20180326-185913_750329065",
+      "dateCreated": "2018-10-16 14:00:59.262",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "////////////////////////////////////////////////////////////////////////////////////",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.262",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059262_636182887",
+      "id": "20180405-203326_600265779",
+      "dateCreated": "2018-10-16 14:00:59.262",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "FineParticle - 180405",
+      "text": "fp.collect\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.262",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059262_1276322814",
+      "id": "20180319-175201_851989424",
+      "dateCreated": "2018-10-16 14:00:59.262",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "FineParticle and SWR - 180405",
+      "text": "",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.262",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059262_-442588100",
+      "id": "20180405-203357_1561126580",
+      "dateCreated": "2018-10-16 14:00:59.262",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.263",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059262_1336010621",
+      "id": "20180405-201200_866122486",
+      "dateCreated": "2018-10-16 14:00:59.262",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:00:59.263",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666059263_2011593717",
+      "id": "20180416-094526_1165579600",
+      "dateCreated": "2018-10-16 14:00:59.263",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "__old/natural light data center",
+  "id": "2DVFV5PRG",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

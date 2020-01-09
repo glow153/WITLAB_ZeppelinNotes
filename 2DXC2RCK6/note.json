@@ -1,0 +1,102 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\nimport requests\nimport json\nimport csv\nimport datetime\nimport os\n\n\nclass ParticulateMatterFetcher:\n    service_key \u003d \u0027zo2rUB1wM3I11GNZFDuB84l4C94PZjP6cEb4qEff%2B94h83%2Fihaj1JJS75%2Bm0uHdFCchJw7SyGE0HZgKiZDpq%2FA%3D%3D\u0027\n    url \u003d \u0027http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty\u0027\n    data_dict \u003d {}\n\n    @staticmethod\n    def datetime_corrector(sDatetime):\n        sdate \u003d sDatetime.split()[0]\n        stime \u003d sDatetime.split()[1]\n        dtdate \u003d datetime.datetime.strptime(sdate, \u0027%Y-%m-%d\u0027)\n        if stime[:2] \u003d\u003d \u002724\u0027:\n            oneday \u003d datetime.timedelta(days\u003d1)\n            dtdate +\u003d oneday\n            sdate \u003d dtdate.strftime(\u0027%Y-%m-%d\u0027)\n            stime \u003d \u002700\u0027 + stime[2:]\n        return sdate + \u0027 \u0027 + stime\n\n    def fetchinfo(self, station\u003d\u0027nearest\u0027, term\u003d\u0027daily\u0027):\n        queryParams \u003d \u0027?ServiceKey\u003d\u0027 + self.service_key\n        if station \u003d\u003d \u0027nearest\u0027:\n            queryParams +\u003d \u0027\u0026stationName\u003d성성동\u0027\n        else:\n            queryParams +\u003d \u0027\u0026stationName\u003d\u0027 + station\n\n        if term \u003d\u003d \u0027daily\u0027:\n            queryParams +\u003d \u0027\u0026dataTerm\u003dDAILY\u0026numOfRows\u003d25\u0027\n        elif term \u003d\u003d \u0027month\u0027:\n            queryParams +\u003d \u0027\u0026dataTerm\u003dMONTH\u0026numOfRows\u003d744\u0027\n        elif term \u003d\u003d \u00273month\u0027:\n            queryParams +\u003d \u0027\u0026dataTerm\u003d3MONTH\u0026numOfRows\u003d2232\u0027\n\n        queryParams +\u003d \u0027\u0026_returnType\u003djson\u0027\n\n        self.data_dict \u003d json.loads(requests.get(self.url + queryParams).text)\n\n    def to_csv(self, local_outfilepath):\n        outfile \u003d open(local_outfilepath, \u0027w\u0027, encoding\u003d\u0027utf-8\u0027, newline\u003d\u0027\u0027)\n        csv_writer \u003d csv.writer(outfile)\n        colume_name \u003d [\u0027dataTime\u0027, \u0027pm10Value\u0027, \u0027pm25Value\u0027]\n        if os.path.getsize(local_outfilepath) \u003e 0:\n            csv_writer.writerow(colume_name)\n        lsData \u003d self.data_dict[\u0027list\u0027]\n        lsData_rev \u003d []\n        # reverse row list\n        for i in reversed(range(len(lsData))):\n            lsData_rev.append(lsData[i])\n\n        for item in lsData_rev:\n            row \u003d []\n            for key in colume_name:\n                row.append(item[key])\n            row[0] \u003d self.datetime_corrector(row[0])\n            csv_writer.writerow(row)\n    \n    # def csv2parquet(local_infilepath, hdfs_outpath):\n        \n",
+      "user": "jake",
+      "dateUpdated": "2019-03-12 18:31:43.702",
+      "config": {
+        "colWidth": 6.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1544667869242_2064934249",
+      "id": "20181213-112429_1680903122",
+      "dateCreated": "2018-12-13 11:24:29.242",
+      "dateStarted": "2019-03-12 18:31:43.705",
+      "dateFinished": "2019-03-12 18:31:43.710",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ncsv_path \u003d \u0027/home/witlab/pm_cheonan-new.csv\u0027\n\npm \u003d ParticulateMatterFetcher()\npm.fetchinfo(station\u003d\u0027성성동\u0027, term\u003d\u00273month\u0027)\npm.to_csv(csv_path)\n",
+      "user": "jake",
+      "dateUpdated": "2019-03-14 19:08:26.735",
+      "config": {
+        "colWidth": 6.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1544667903933_1881221208",
+      "id": "20181213-112503_305176979",
+      "dateCreated": "2018-12-13 11:25:03.933",
+      "dateStarted": "2019-03-12 18:31:46.112",
+      "dateFinished": "2019-03-12 18:31:47.669",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2018-12-13 11:25:34.995",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1544667934994_1570975293",
+      "id": "20181213-112534_2121912353",
+      "dateCreated": "2018-12-13 11:25:34.994",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "pyjake/api_공데포_미세먼지(성성동)",
+  "id": "2DXC2RCK6",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "hbase:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

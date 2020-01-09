@@ -1,0 +1,85 @@
+{
+  "paragraphs": [
+    {
+      "text": "%hbase\nlist",
+      "user": "jake",
+      "dateUpdated": "2019-03-05 10:42:35.062",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/undefined"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "org.jruby.exceptions.RaiseException: (NameError) cannot link Java class org.apache.hadoop.hbase.HConstants, probable missing dependency: org/apache/commons/lang3/ArrayUtils\n\tat org.jruby.javasupport.JavaUtilities.get_proxy_or_package_under_package(org/jruby/javasupport/JavaUtilities.java:54)\n\tat (Anonymous).method_missing(/builtin/javasupport/java.rb:51)\n\tat Module.HBaseConstants(/home/witlab/apps/hbase/lib/ruby/hbase_constants.rb:39)\n\tat (Anonymous).(root)(/home/witlab/apps/hbase/lib/ruby/hbase_constants.rb:34)\n\tat org.jruby.RubyKernel.require(org/jruby/RubyKernel.java:1062)\n\tat (Anonymous).(root)(/home/witlab/apps/hbase/lib/ruby/hbase_constants.rb:105)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1544675515883_-2057923071",
+      "id": "20181213-133155_1029567316",
+      "dateCreated": "2018-12-13 13:31:55.883",
+      "dateStarted": "2019-03-05 10:42:35.073",
+      "dateFinished": "2019-03-05 10:42:38.219",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "user": "jake",
+      "dateUpdated": "2018-12-13 13:32:05.113",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/undefined"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1544675520523_1277197482",
+      "id": "20181213-133200_655276223",
+      "dateCreated": "2018-12-13 13:32:00.523",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/hbase/test01",
+  "id": "2DYJ8NR36",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "hbase:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

@@ -1,0 +1,1968 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n# 30 Minutes Scala",
+      "user": "jake",
+      "dateUpdated": "2018-10-30 15:02:43.525",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003e30 Minutes Scala\u003c/h1\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094826_541159545",
+      "id": "20180312-155511_690002912",
+      "dateCreated": "2018-10-16 14:01:34.826",
+      "dateStarted": "2018-10-30 15:02:43.525",
+      "dateFinished": "2018-10-30 15:02:45.630",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "object LearnScala{\n    def main(): Unit \u003d {\n        println(\"Hello, world!\")\n    }\n}\n\nLearnScala.main()\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-30 18:12:09.102",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "defined object LearnScala\nHello, world!\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094826_1353929501",
+      "id": "20180312-160955_1719886899",
+      "dateCreated": "2018-10-16 14:01:34.826",
+      "dateStarted": "2018-10-30 18:12:09.303",
+      "dateFinished": "2018-10-30 18:12:17.116",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "var x \u003d 1+2\nx \u003d 3*4\nprintln(x)\n\nval y\u003d1+2\n// y\u003d2*3\nprintln(y)\n\nvar a,b,c\u003d5\nprintln(a)\nprintln(b)\nprintln(c)",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.827",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094826_2026314564",
+      "id": "20180312-161420_808484129",
+      "dateCreated": "2018-10-16 14:01:34.826",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "var x \u003d 10\nvar y \u003d 1\n\nprintln(\"1. \" + x + \" is bigger than \" + y)\nprintln(s\"2. $x is bigger than $y\")\nprintln(s\"3. $x + $y \u003d ${x+y}\")\nprintf(\"4. pi is %f\",Math.PI)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.827",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094827_462921716",
+      "id": "20180312-161614_1374671840",
+      "dateCreated": "2018-10-16 14:01:34.827",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val range1 \u003d 1 to 10\nprintln(s\"1. 1 to 10 -\u003e \\n\\t $range1\")\nprintln(s\"2. 1 until 10 -\u003e ${1 until 10}\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.827",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094827_-692312827",
+      "id": "20180312-161904_32007417",
+      "dateCreated": "2018-10-16 14:01:34.827",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val reverse \u003d \"Scala\".reverse\nprintln(s\"1. $reverse\")\nval cap \u003d \"scala\".capitalize\nprintln(s\"2. $cap\")\nval multi \u003d \"Scala!\"*7\nprintln(s\"3. $multi\")\nval int \u003d \"123\".toInt\nprintln(s\"4. $int\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.827",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094827_1801964741",
+      "id": "20180327-162752_1495245253",
+      "dateCreated": "2018-10-16 14:01:34.827",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "def add(x:Int, y:Int):Int \u003d {\n    return x + y\n}\n\ndef addWithoutReturn(x:Int, y:Int) \u003d {\n    x + y\n}\n\ndef addWithoutBlock(x:Int, y:Int) \u003d x + y\n\nprintln(s\"1) ${add(1,2)}\")\nprintln(s\"2) ${addWithoutReturn(1,2)}\")\nprintln(s\"3) ${addWithoutBlock(1,2)}\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.827",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094827_646250968",
+      "id": "20180319-172419_1043778509",
+      "dateCreated": "2018-10-16 14:01:34.827",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Anonymous Function",
+      "text": "def doWithOneAndTwo(f: (Int, Int) \u003d\u003e Int) \u003d {\n    f(1, 2)\n}\n\nval call1 \u003d doWithOneAndTwo((x:Int, y:Int) \u003d\u003e x + y)\nval call2 \u003d doWithOneAndTwo((x,y) \u003d\u003e x + y)\nval call3 \u003d doWithOneAndTwo(_ + _)\n\nprintln(call1, call2, call3)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.827",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094827_-669000702",
+      "id": "20180327-163037_623268536",
+      "dateCreated": "2018-10-16 14:01:34.827",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Anonymous Function 2",
+      "text": "def add1(x:Int, y:Int) \u003d x + y  //method\nval add2 \u003d (x:Int, y:Int) \u003d\u003e x + y  //anonymous func\nval add3:(Int,Int)\u003d\u003eInt \u003d _ + _ //anonymous func\nval add4 \u003d (_ + _):(Int,Int)\u003d\u003eInt  //anonymous func\n\nprintln(s\"[1] ${add1(42,13)}\")\nprintln(s\"[2] ${add2(42,13)}\")\nprintln(s\"[3] ${add3(42,13)}\")\nprintln(s\"[4] ${add4(42,13)}\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.828",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094827_573563282",
+      "id": "20180327-163945_1886004399",
+      "dateCreated": "2018-10-16 14:01:34.827",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Tuple",
+      "text": "val t1 \u003d new Tuple3(1, \"Hello\", true)\nval t2 \u003d (1, \"Hello\", true)\n\nprintln(t2)\n\nvar numbers \u003d (1,2,3,4)\nval sum \u003d numbers._1 + numbers._2 + numbers._3 + numbers._4\nprintln(sum)",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.828",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094828_-1681395842",
+      "id": "20180327-164318_1271082667",
+      "dateCreated": "2018-10-16 14:01:34.828",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Tuple 2",
+      "text": "def swap1(x:String, y:String) \u003d (y,x)\nval swap2 \u003d (x:String, y:String) \u003d\u003e (y,x)\nval (a,b) \u003d swap1(\"hello\", \"world\")\nval (c,d) \u003d swap2(\"hello\", \"world\")\nprintln(a,b)\nprintln(c,d)",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.828",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094828_-573909864",
+      "id": "20180327-164533_1013834405",
+      "dateCreated": "2018-10-16 14:01:34.828",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Variable",
+      "text": "var (x,y,z,c,python,java) \u003d (1,2,3,true,false,\"no!\")\n// val (x,y,z,c,python,java) \u003d (1,2,3,true,false,\"no!\")\nprintln(x,y,z,c,python,java)\nz \u003d 10\nprintln(x,y,z,c,python,java)",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.828",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094828_-1731606262",
+      "id": "20180327-164923_446334350",
+      "dateCreated": "2018-10-16 14:01:34.828",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Loop",
+      "text": "var i, sum \u003d 0\nwhile(i\u003c10) {\n    sum +\u003d i\n    i +\u003d 1\n}\n\nprintln(s\"1. $sum\")\n\nsum \u003d 0\n\nfor(i \u003c- 0 until 10) {\n    sum +\u003d i\n}\nprintln(s\"2. $sum\")\n\nsum \u003d 0\n\nsum \u003d (0 until 10).sum\nprintln(s\"3. $sum\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.828",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094828_-208951472",
+      "id": "20180327-165220_1679062002",
+      "dateCreated": "2018-10-16 14:01:34.828",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Loop 2",
+      "text": "var i, sum \u003d 0\nfor(a \u003c- 1 to 3) {\n    for(b \u003c- 10 to 12){\n        print(a,b)\n    }\n}\nprintln()\nfor(a \u003c- 1 to 3; b \u003c- 10 to 12) {\n    print(a,b)\n}\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.829",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094829_1028397731",
+      "id": "20180327-170428_1050807865",
+      "dateCreated": "2018-10-16 14:01:34.829",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Condition",
+      "text": "if(true)\n    println(\"한줄은 {}를 생략할 수 있다.\")\nif(1 + 1 \u003d\u003d 2) {\n    println(\"여러줄은\")\n    println(\"{}가 필요합니다.\")\n}else{\n    println(\"컴퓨터가 미쳤나봐요.\")\n}\n\nval likeEggs \u003d false\nval breakfast \u003d \n    if(likeEggs) \"계란후라이\" else \"사과\"\nprintln(s\"아침메뉴 : ${breakfast}\")\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.829",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094829_1999403436",
+      "id": "20180327-170656_1713926701",
+      "dateCreated": "2018-10-16 14:01:34.829",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Array",
+      "text": "def printArray[K](array:Array[K]) \u003d\n    println(array.mkString(\"Array(\",\", \",\")\"))\n    \nval array1 \u003d Array(1,2,3)\nprint(\"1. \")\nprintArray(array1)\n\nval array2 \u003d Array(\"a\",2,true)\nprint(\"2. \")\nprintArray(array2)\n\nval itemAtIndex0 \u003d array1(0)\narray1(0) \u003d 4\nprint(\"3. \")\nprintArray(array1)\nprintln(itemAtIndex0)\n\n//배열 붙일때는 ++연산자 사용\n//앞에 붙일때는 +:, 뒤에 붙일때는 :+\nval concatenated \u003d \"앞에 붙이기\" +: (array1 ++ array2) :+ \"뒤에 붙이기\"\nprint(\"4. array1과 array2를 더하면: \")\nprintArray(concatenated)",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.829",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094829_1121970028",
+      "id": "20180327-171046_651384735",
+      "dateCreated": "2018-10-16 14:01:34.829",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Array 2",
+      "text": "array2.indexOf(\"a\")\n\nval array3 \u003d Array(\"a\", \"a\", \"b\", \"b\", 1, 2, 3, 3)\narray3.indexOf(\"a\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.829",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094829_784328283",
+      "id": "20180327-171428_977907969",
+      "dateCreated": "2018-10-16 14:01:34.829",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n# Zeppelin Lecture (cyber.dbguide.net)",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.830",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094829_-564268159",
+      "id": "20180319-144300_1564897860",
+      "dateCreated": "2018-10-16 14:01:34.829",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val list \u003d List(1, 2, 3)\nval rdd \u003d sc.parallelize(list)",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.830",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 90.3,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094830_81805617",
+      "id": "20180212-080723_923110205",
+      "dateCreated": "2018-10-16 14:01:34.830",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "list.size\nrdd.count\nlist.filter(x \u003d\u003e x \u003e 1).size\nrdd.filter(x \u003d\u003e x \u003e 1).count\nrdd.collect\nrdd.map(x \u003d\u003e x * 2).filter(x \u003d\u003e x \u003e 2).collect",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.830",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 86.6,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094830_786023390",
+      "id": "20180212-090240_342749144",
+      "dateCreated": "2018-10-16 14:01:34.830",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val list2 \u003d List(List(1, 2), List(3, 4))\nval rdd2 \u003d sc.parallelize(list2)\nrdd2.collect\nrdd2.flatMap(list \u003d\u003e list.map(x \u003d\u003e x * 2)).collect",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.830",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 141.75,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094830_1558520551",
+      "id": "20180213-014926_1296288175",
+      "dateCreated": "2018-10-16 14:01:34.830",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val rdd3 \u003d sc.parallelize(List(1,2,2,3))\nval rdd4 \u003d sc.parallelize(List(2,3,4))\nrdd3.intersection(rdd4).collect\nrdd3.distinct().collect",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.830",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 5.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 84.6,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094830_-923177252",
+      "id": "20180213-015109_950096695",
+      "dateCreated": "2018-10-16 14:01:34.830",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val rdd5 \u003d sc.parallelize(List((1, \"A\"), (2, \"B\")))\nval rdd6 \u003d sc.parallelize(List((1, \"C\"), (3, \"D\")))\nrdd5.join(rdd6).collect",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.831",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 137.45,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094831_201878004",
+      "id": "20180213-020151_553806671",
+      "dateCreated": "2018-10-16 14:01:34.831",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "\n\nval rdd7 \u003d sc.parallelize(List(\"1\", \"2\", \"3\", \"4\"))\nrdd7.reduce((a, b) \u003d\u003e a + b)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.831",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 100.3,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094831_34093554",
+      "id": "20180213-020741_2071207257",
+      "dateCreated": "2018-10-16 14:01:34.831",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.831",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094831_225608531",
+      "id": "20180221-074149_2144431135",
+      "dateCreated": "2018-10-16 14:01:34.831",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n# Spark 2 Programming Study",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.831",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094831_1168317957",
+      "id": "20180319-143237_1690408607",
+      "dateCreated": "2018-10-16 14:01:34.831",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-0",
+      "text": "val rdd1 \u003d sc.parallelize(1 to 10)\nval rdd2 \u003d rdd1.map(_ + 1)\nrdd2.collect",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.831",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094831_1181105178",
+      "id": "20180319-143450_873502437",
+      "dateCreated": "2018-10-16 14:01:34.831",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-1",
+      "text": "import org.apache.spark.SparkContext\n\nclass PassingFnctionSample {\n    val count \u003d 1\n    def add(i: Int): Int \u003d {\n        count + i\n    }\n    def runMapSample(sc: SparkContext) {\n        val rdd1 \u003d sc.parallelize(1 to 10)\n        val rdd2 \u003d rdd1.map(add)\n        println(count)\n    }\n}\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.832",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094831_1969925399",
+      "id": "20180319-143606_1953239743",
+      "dateCreated": "2018-10-16 14:01:34.831",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-2",
+      "text": "object Operations {\n    def add(i: Int): Int \u003d {\n        i + 1\n    }\n}\nval rdd1 \u003d sc.parallelize(1 to 10)\nval rdd2 \u003d rdd1.map(Operations.add)\nrdd2.collect\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.832",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094832_-1644358590",
+      "id": "20180319-145427_411079553",
+      "dateCreated": "2018-10-16 14:01:34.832",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-6~7",
+      "text": "val rdd1 \u003d sc.parallelize(List(\"a\", \"b\", \"c\", \"d\", \"e\"))\nval rdd2 \u003d sc.parallelize(1 to 1000, 10)\nrdd2.partitions.length",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.832",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094832_531649853",
+      "id": "20180319-145637_169316629",
+      "dateCreated": "2018-10-16 14:01:34.832",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-9, 2-12",
+      "text": "val rdd \u003d sc.parallelize(1 to 10)\nval result1 \u003d rdd.collect\nprintln(result1.mkString(\", \"))\n\nval result2 \u003d rdd.count\nprintln(result2)",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.832",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094832_1032466064",
+      "id": "20180319-150235_315076436",
+      "dateCreated": "2018-10-16 14:01:34.832",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-15",
+      "text": "val rdd \u003d sc.parallelize(1 to 5)\nval result \u003d rdd.map(_ + 1)\nprintln(result.collect.mkString(\", \"))",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.832",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094832_993842707",
+      "id": "20180319-151159_671071691",
+      "dateCreated": "2018-10-16 14:01:34.832",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-18, 2-21",
+      "text": "val fruits \u003d List(\"apple,orange\", \"grape,apple,mango\", \"blueberry,tomato\")\nval rddf \u003d sc.parallelize(fruits)\nval rddf1 \u003d rddf.map(_.split(\",\"))\n                .collect()\nprintln(rddf1.map(_.mkString(\"{\",\", \",\"}\"))\n             .mkString(\"{\",\", \",\"}\"))\nval rddf2 \u003d rddf.flatMap(_.split(\",\"))\nprint(rddf2.collect.mkString(\",\"))",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.832",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094832_-101210388",
+      "id": "20180319-151917_1374363111",
+      "dateCreated": "2018-10-16 14:01:34.832",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-22",
+      "text": "val fruits \u003d List(\"apple,orange\", \"grape,apple,mango\", \"blueberry,tomato\")\nval rddf1 \u003d sc.parallelize(fruits)\nval rddf2 \u003d rddf1.flatMap(log \u003d\u003e {\n        //apple 이라는 단어가 포함된 경우만 처리하고 싶다\n        if(log.contains(\"apple\")) {\n            Some(log.indexOf(\"apple\"))\n        } else {\n            None\n        }\n    })\nprintln(\" \")\nprint(rddf2.collect().mkString(\", \"))",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.832",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094832_-170257995",
+      "id": "20180319-152628_355540558",
+      "dateCreated": "2018-10-16 14:01:34.832",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-23, 2-26 mapPartitions withindex",
+      "text": "val rdd1 \u003d sc.parallelize(1 to 10, 3)\nval rdd2 \u003d rdd1.mapPartitions(numbers \u003d\u003e {\n    print(\"DB connect!\")\n    numbers.map{\n        number \u003d\u003e number + 1\n    }\n})\n\nprintln(rdd2.collect.mkString(\", \"))\nprintln(\" \")\n\nval rdd3 \u003d rdd1.mapPartitionsWithIndex((idx, numbers) \u003d\u003e{\n    numbers.flatMap{\n        case number if idx \u003d\u003d 1 \u003d\u003e Option(number + 1)\n        case _                  \u003d\u003e None\n    }\n})\n\nprintln(rdd3.collect.mkString(\", \"))",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.833",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094833_-1664111623",
+      "id": "20180319-153631_11904997",
+      "dateCreated": "2018-10-16 14:01:34.833",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-29",
+      "text": "val rdd \u003d sc.parallelize(List(\"a\", \"b\", \"c\")).map((_, 1))\nval result \u003d rdd.mapValues(i \u003d\u003e i + 1)\nprintln(result.collect.mkString(\"\\t\"))\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.833",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094833_172357307",
+      "id": "20180319-155333_1538553921",
+      "dateCreated": "2018-10-16 14:01:34.833",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-32",
+      "text": "val rdd \u003d sc.parallelize(Seq((1, \"a,b\"), (2, \"a,c\"), (1, \"d,e\")))\nval result \u003d rdd.flatMapValues(_.split(\",\"))\nprintln(result.collect.mkString(\"\\t\"))\n\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.833",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094833_-180726582",
+      "id": "20180319-160302_1976399800",
+      "dateCreated": "2018-10-16 14:01:34.833",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-35",
+      "text": "val rdd1 \u003d sc.parallelize(List(\"a\", \"b\", \"c\"))\nval rdd2 \u003d sc.parallelize(List(1, 2, 3))\nval result \u003d rdd1.zip(rdd2) //keys.zip(values)\nprintln(result.collect.mkString(\", \"))\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.833",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094833_-418528991",
+      "id": "20180319-160522_691624798",
+      "dateCreated": "2018-10-16 14:01:34.833",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-38",
+      "text": "val rdd1 \u003d sc.parallelize(List(\"a\", \"b\", \"c\"), 3)\nval rdd2 \u003d sc.parallelize(List(0, 1, 2, 3, 4), 3)\nval result \u003d rdd1.zipPartitions(rdd2) { //keys.zipPartitions(values)\n    (it1, it2) \u003d\u003e for {\n        v1 \u003c- it1;\n        v2 \u003c- it2\n    } yield v1 + v2\n} \nprintln(result.collect.mkString(\", \"))",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.833",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094833_-1870301108",
+      "id": "20180319-160735_666691999",
+      "dateCreated": "2018-10-16 14:01:34.833",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-40",
+      "text": "val rdd \u003d sc.parallelize(1 to 10)\nval result \u003d rdd.groupBy {\n    case i: Int if(i % 2 \u003d\u003d 0) \u003d\u003e \"even\"\n    case _                     \u003d\u003e \"odd\"\n}\n// result.collect.foreach {\n//     v \u003d\u003e println(s\"${v._1} : [${v._2.mkString(\", \")}]\")\n// }\nresult.collect\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.834",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094833_1642276644",
+      "id": "20180319-161611_1351191622",
+      "dateCreated": "2018-10-16 14:01:34.833",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-43",
+      "text": "val rdd \u003d sc.parallelize(List(\"a\", \"b\", \"c\", \"b\", \"c\")).map((_, 1))\nval result \u003d rdd.groupByKey\n\nresult.collect.foreach {\n    v \u003d\u003e println(s\"${v._1} : [${v._2.mkString(\", \")}]\")\n}",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.834",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094834_-1042627394",
+      "id": "20180319-162754_1382889348",
+      "dateCreated": "2018-10-16 14:01:34.834",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-46",
+      "text": "val rdd1 \u003d sc.parallelize(List( (\"k1\", \"v1\"),\n                                (\"k2\", \"v2\"),\n                                (\"k1\", \"v3\") ))\nval rdd2 \u003d sc.parallelize(List( (\"k1\", \"v4\") ))\nval result2 \u003d rdd1.cogroup(rdd2)\n\nresult2.collect.foreach {\n    case (k, (v_1, v_2)) \u003d\u003e {\n        println(s\"($k, [${v_1.mkString(\",\")}], [${v_2.mkString(\",\")}])\")\n    }\n}\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.834",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094834_-1114205920",
+      "id": "20180319-165159_1592650567",
+      "dateCreated": "2018-10-16 14:01:34.834",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-46 - jake",
+      "text": "result2.collect.foreach{\n    case (a, b) \u003d\u003e {\n        println(s\"$a, ${b._1.mkString(\",\")}, ${b._2.mkString(\",\")}\")\n    }\n}\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.834",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094834_-547701825",
+      "id": "20180319-170637_1553623007",
+      "dateCreated": "2018-10-16 14:01:34.834",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-49",
+      "text": "val rdd \u003d sc.parallelize(List(1, 2, 3, 1, 2, 3, 1, 2, 3))\nval result \u003d rdd.distinct()\nprintln(result.collect.mkString(\", \"))\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.834",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094834_514046226",
+      "id": "20180319-171735_2069604866",
+      "dateCreated": "2018-10-16 14:01:34.834",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-52",
+      "text": "val rdd1 \u003d sc.parallelize(List(1, 2, 3))\nval rdd2 \u003d sc.parallelize(List(\"a\", \"b\", \"c\"))\nval rdd3 \u003d sc.parallelize(List(\"!\", \"@\", \"#\"))\nval result \u003d rdd1.cartesian(rdd2).cartesian(rdd3)\nprintln(result.collect.mkString(\", \"))\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.834",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094834_-1892406344",
+      "id": "20180319-172113_607810328",
+      "dateCreated": "2018-10-16 14:01:34.834",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-52",
+      "text": "val rdd1 \u003d sc.parallelize(List(1, 2, 3))\nval rdd2 \u003d sc.parallelize(List(\"a\", \"b\", \"c\"))\nval rdd3 \u003d sc.parallelize(List(\"!\", \"@\", \"#\"))\nval result \u003d rdd1.cartesian(rdd2).cartesian(rdd3)\nprintln(result.collect.mkString(\", \"))\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.835",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094835_-891622551",
+      "id": "20180319-172306_478070885",
+      "dateCreated": "2018-10-16 14:01:34.835",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Ex2-55",
+      "text": "val rdd1 \u003d sc.parallelize(List(\"a\", \"b\", \"c\", \"d\", \"e\"))\nval rdd2 \u003d sc.parallelize(List(\"d\", \"e\"))\nval result \u003d rdd1.subtract(rdd2)\nprintln(result.collect.mkString(\", \"))\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.835",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094835_2045153552",
+      "id": "20180319-172830_1232223123",
+      "dateCreated": "2018-10-16 14:01:34.835",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val rdd1 \u003d sc.parallelize(List(\"a\", \"b\", \"c\"))\nval rdd2 \u003d sc.parallelize(List(\"d\", \"e\", \"f\"))\nval result \u003d rdd1.union(rdd2)\nprintln(result.collect.mkString(\", \"))\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.835",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094835_-1357789029",
+      "id": "20180319-173631_1649470905",
+      "dateCreated": "2018-10-16 14:01:34.835",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val rdd1 \u003d sc.parallelize(List(\"a\", \"b\", \"c\"))\nval rdd2 \u003d sc.parallelize(List(\"d\", \"e\", \"f\"))\nval result \u003d rdd1.union(rdd2)\nprintln(result.collect.mkString(\", \"))\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.835",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094835_-99169748",
+      "id": "20180405-220351_1277829410",
+      "dateCreated": "2018-10-16 14:01:34.835",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.836",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094836_-1681021552",
+      "id": "20180319-161211_1616832642",
+      "dateCreated": "2018-10-16 14:01:34.836",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "SelfPractice_180319",
+      "text": "def average[T]( ts: Iterable[T] )( implicit num: Numeric[T] ) \u003d {\n  num.toDouble( ts.sum ) / ts.size\n}\n\nval rddjake \u003d sc.parallelize(\n    Array(  (\"2018-03-01 01:00:04.0\", 10),\n            (\"2018-03-01 01:10:04.0\", 24),\n            (\"2018-03-01 01:20:04.0\", 7),\n            (\"2018-03-01 01:30:04.0\", 4),\n            (\"2018-03-01 01:40:04.0\", 10),\n            (\"2018-03-01 01:50:04.0\", 9),\n            (\"2018-03-01 02:00:04.0\", 10),\n            (\"2018-03-01 02:10:04.0\", 8),\n            (\"2018-03-02 01:00:04.0\", 11),\n            (\"2018-03-02 01:10:04.0\", 23),\n            (\"2018-03-02 01:20:04.0\", 4),\n            (\"2018-03-02 01:30:04.0\", 7),\n            (\"2018-03-02 01:40:04.0\", 19),\n            (\"2018-03-02 01:50:04.0\", 97),\n            (\"2018-03-02 02:00:04.0\", 17),\n            (\"2018-03-02 02:10:04.0\", 4),\n            (\"2018-03-03 01:00:04.0\", 1),\n            (\"2018-03-03 01:10:04.0\", 2),\n            (\"2018-03-03 01:20:04.0\", 0),\n            (\"2018-03-03 01:30:04.0\", 7),\n            (\"2018-03-03 01:40:04.0\", 1),\n            (\"2018-03-03 01:50:04.0\", 7),\n            (\"2018-03-03 02:00:04.0\", 7),\n            (\"2018-03-03 02:10:04.0\", 8) ))\nval result \u003d rddjake.map(s \u003d\u003e (s._1.split(\" \")(0), s._2))\n                    .groupByKey\n                    .map(s \u003d\u003e (s._1, average(s._2)))\nresult.toDF().registerTempTable(\"testjake\")\n\nz.put(\"r\", result)\n\nprint(result.collect.mkString(\", \"))\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.836",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094836_1899313420",
+      "id": "20180319-194154_473525376",
+      "dateCreated": "2018-10-16 14:01:34.836",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from testjake",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.836",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094836_1746418102",
+      "id": "20180319-202005_1665267765",
+      "dateCreated": "2018-10-16 14:01:34.836",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.836",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094836_801613094",
+      "id": "20180316-173315_315205268",
+      "dateCreated": "2018-10-16 14:01:34.836",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport matplotlib.pyplot as plt\n\nrdd \u003d z.get(\u0027r\u0027)\nls \u003d []\nfor e in rdd.collect():\n    ls.append(e.toString()\n                .replace(\u0027(\u0027, \u0027\u0027)\n                .replace(\u0027)\u0027, \u0027\u0027)\n                .split(\u0027,\u0027))\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.837",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094837_568692329",
+      "id": "20180320-134112_2076086638",
+      "dateCreated": "2018-10-16 14:01:34.837",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.837",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094837_-1284996707",
+      "id": "20180320-191417_2132898383",
+      "dateCreated": "2018-10-16 14:01:34.837",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Correlation test",
+      "text": "import org.apache.spark.mllib.linalg._\r\nimport org.apache.spark.mllib.stat.Statistics\r\nimport org.apache.spark.rdd.RDD\r\n\r\nval seriesX: RDD[Double] \u003d sc.parallelize(Array(1, 2, 3, 3, 5))  // a series\r\n// must have the same number of partitions and cardinality as seriesX\r\nval seriesY: RDD[Double] \u003d sc.parallelize(Array(11, 22, 33, 33, 555))\r\n\r\n// compute the correlation using Pearson\u0027s method. Enter \"spearman\" for Spearman\u0027s method. If a\r\n// method is not specified, Pearson\u0027s method will be used by default.\r\nval correlation: Double \u003d Statistics.corr(seriesX, seriesY, \"pearson\")\r\nprintln(s\"Correlation is: $correlation\")\r\n\r\nval data: RDD[Vector] \u003d sc.parallelize(\r\n  Seq(\r\n    Vectors.dense(1.0, 10.0, 100.0),\r\n    Vectors.dense(2.0, 20.0, 200.0),\r\n    Vectors.dense(5.0, 33.0, 366.0))\r\n)  // note that each Vector is a row and not a column\r\n\r\n// calculate the correlation matrix using Pearson\u0027s method. Use \"spearman\" for Spearman\u0027s method\r\n// If a method is not specified, Pearson\u0027s method will be used by default.\r\nval correlMatrix: Matrix \u003d Statistics.corr(data, \"pearson\")\r\nprintln(correlMatrix.toString)\r\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.837",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094837_-1300692085",
+      "id": "20180418-102242_1753263847",
+      "dateCreated": "2018-10-16 14:01:34.837",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "\r\nval seq \u003d Seq(\r\n    Vectors.dense(1.0, 10.0, 100.0, 1000.0),\r\n    Vectors.dense(2.0, 20.0, 200.0, 2000.0),\r\n    Vectors.dense(5.0, 33.0, 366.0, 2973.0))\r\n\r\nStatistics.corr(sc.parallelize(seq), \"pearson\")\r\n\r\nseq +: Seq(Vectors.dense(4.0, 40.0, 405.0, 4500.0))\r\n\r\nStatistics.corr(sc.parallelize(seq), \"pearson\")\r\n\r\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.838",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094837_296235730",
+      "id": "20180430-115015_287288722",
+      "dateCreated": "2018-10-16 14:01:34.837",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\r\nfrom pyspark.mllib.stat import Statistics\r\nimport numpy as np\r\n\r\nseriesX \u003d sc.parallelize([1.0, 2.0, 3.0, 3.0, 5.0])  # a series\r\n# seriesY must have the same number of partitions and cardinality as seriesX\r\nseriesY \u003d sc.parallelize([11.0, 22.0, 33.0, 33.0, 555.0])\r\n\r\n# Compute the correlation using Pearson\u0027s method. Enter \"spearman\" for Spearman\u0027s method.\r\n# If a method is not specified, Pearson\u0027s method will be used by default.\r\nprint(\"Correlation is: \" + str(Statistics.corr(seriesX, seriesY, method\u003d\"pearson\")))\r\n\r\ndata \u003d sc.parallelize(\r\n    [np.array([1.0, 10.0, 100.0]), np.array([2.0, 20.0, 200.0]), np.array([5.0, 33.0, 366.0])]\r\n)  # an RDD of Vectors\r\n\r\n# calculate the correlation matrix using Pearson\u0027s method. Use \"spearman\" for Spearman\u0027s method.\r\n# If a method is not specified, Pearson\u0027s method will be used by default.\r\nprint(Statistics.corr(data, method\u003d\"pearson\"))\r\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-31 17:17:55.842",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Correlation is: 0.8500286768773001\n[[1.         0.97888347 0.99038957]\n [0.97888347 1.         0.99774832]\n [0.99038957 0.99774832 1.        ]]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1564560676718_-1262142119",
+      "id": "20190731-171116_578476793",
+      "dateCreated": "2019-07-31 17:11:16.718",
+      "dateStarted": "2019-07-31 17:17:55.874",
+      "dateFinished": "2019-07-31 17:17:57.052",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:34.838",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666094838_1667388416",
+      "id": "20180501-162553_2115211513",
+      "dateCreated": "2018-10-16 14:01:34.838",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "/_basic/scala and spark tutorial",
+  "id": "2DSUUD9Z6",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

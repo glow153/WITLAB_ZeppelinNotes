@@ -1,0 +1,121 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n# Overview\n## About raw data\n* 기상청 UVI 데이터 (10분 단위)\n* source : HTTP POST (기상자료개방포털은 시간단위만 올라옴, 해당 요청 무작위 사용 자제 권고)\n* fname format (hdfs) : /raw/uvi\n* content format\n    \u003e 20180101,300,105,0\n20180101,300,108,0\n20180101,300,112,0\n20180101,300,115,0\n20180101,300,131,0\n20180101,300,132,0\n20180101,300,133,0\n\n\n## About formatted data\n* raw data -\u003e parquet dataframe으로 변환 (date, hm, locationCode, uvi)\n",
+      "user": "jake",
+      "dateUpdated": "2019-03-12 17:49:41.626",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eOverview\u003c/h1\u003e\n\u003ch2\u003eAbout raw data\u003c/h2\u003e\n\u003cul\u003e\n  \u003cli\u003e기상청 UVI 데이터 (10분 단위)\u003c/li\u003e\n  \u003cli\u003esource : HTTP POST (기상자료개방포털은 시간단위만 올라옴, 해당 요청 무작위 사용 자제 권고)\u003c/li\u003e\n  \u003cli\u003efname format (hdfs) : /raw/uvi\u003c/li\u003e\n  \u003cli\u003e\n  \u003cp\u003econtent format\u003c/p\u003e\n  \u003cblockquote\u003e\n    \u003cp\u003e20180101,300,105,0\u003cbr/\u003e20180101,300,108,0\u003cbr/\u003e20180101,300,112,0\u003cbr/\u003e20180101,300,115,0\u003cbr/\u003e20180101,300,131,0\u003cbr/\u003e20180101,300,132,0\u003cbr/\u003e20180101,300,133,0\u003c/p\u003e\n  \u003c/blockquote\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eAbout formatted data\u003c/h2\u003e\n\u003cul\u003e\n  \u003cli\u003eraw data -\u0026gt; parquet dataframe으로 변환 (date, hm, locationCode, uvi)\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280072212_-327678271",
+      "id": "20181010-140111_1062737035",
+      "dateCreated": "2018-10-23 16:34:32.212",
+      "dateStarted": "2018-11-03 17:54:35.454",
+      "dateFinished": "2018-11-03 17:54:37.564",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "def func",
+      "text": "%pyspark\nfrom pyspark.sql.types import Row\n\ndef kma_uvi_10min2parquet(infilepath, outfilepath):\n    kma_uvi \u003d sc.textFile(\u0027hdfs://\u0027 + infilepath)\\\n                .map(lambda s: s.split(\u0027,\u0027))\\\n                .map(lambda s: Row(datetime\u003d\u0027%s-%s-%s %s:%s\u0027 % (s[0][:4], s[0][4:6], s[0][6:],\n                                                                (\u00270\u0027 if len(s[1])\u003d\u003d3 else \u0027\u0027) + s[1][:len(s[1])-2],\n                                                                s[1][len(s[1])-2:]),\n                                   time\u003ds[1], stCode\u003ds[2], uvi\u003ds[3])).toDF()\n    kma_uvi.write.mode(\u0027overwrite\u0027).parquet(\u0027hdfs://\u0027 + outfilepath)\n",
+      "user": "jake",
+      "dateUpdated": "2018-11-03 17:57:13.972",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280072213_-479149063",
+      "id": "20181010-140102_1111056982",
+      "dateCreated": "2018-10-23 16:34:32.213",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "run test",
+      "text": "%pyspark\nkma_uvi_10min2parquet(\u0027/raw/uvi\u0027, \u0027/ds/kma_uvi.parquet\u0027)\n",
+      "user": "jake",
+      "dateUpdated": "2018-11-03 17:57:23.386",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280072213_1669316561",
+      "id": "20181012-195114_909700937",
+      "dateCreated": "2018-10-23 16:34:32.213",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "pyjake/_old_기상청_UVI_관측자료(10min)",
+  "id": "2DTHD36W5",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "hbase:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

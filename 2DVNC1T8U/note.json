@@ -1,0 +1,31 @@
+{
+  "paragraphs": [
+    {
+      "user": "jake",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1541234192771_-146731495",
+      "id": "20181103-173632_1124887592",
+      "dateCreated": "2018-11-03 17:36:32.771",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/BigDataAnalysisPractice/UV_PM_01",
+  "id": "2DVNC1T8U",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

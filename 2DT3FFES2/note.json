@@ -1,0 +1,326 @@
+{
+  "paragraphs": [
+    {
+      "text": "import org.apache.spark.mllib.linalg._\nimport org.apache.spark.mllib.stat.Statistics\nimport org.apache.spark.rdd.RDD\n\nval cas_nt \u003d sc.textFile(\"hdfs:///cas_nt/cas_nt\")\n                .map(s \u003d\u003e s.split(\",\"))\n                .map(s \u003d\u003e Array(s(0).split(\" \")(0), //date\n                                s(0).split(\" \")(1), //time\n                                s(14), //photometric (2)\n                                s(15), s(16), s(17), s(18), //uva, uvb, uvc, vis (3,4,5,6)\n                                s(23), s(24), s(25), s(26), //color_coord_x, y, z, u (7,8,9,10)\n                                s(29), s(30), s(31), //peak_wl, centroid_wl, dominant_wl (11,12,13)\n                                s(34), s(38), s(57) //cct, cri, swr (14,15,16)\n                ))\nval cas_uv \u003d sc.textFile(\"hdfs:///cas_uv/cas_uv\")\n                .map(s \u003d\u003e s.split(\",\"))\n                .map(s \u003d\u003e Array(s(0).split(\" \")(0), //date\n                                s(0).split(\" \")(1), //time\n                                s(2), s(3), s(4), //CAS_UVB, CAS_UVA, CAS_VitDUV (2,3,4)\n                                s(5), s(6), s(7), s(8), //CAS_EryUV, CAS_EryUVB, CAS_EryUVA, CAS_EryUVI (5,6,7,8)\n                                s(10), s(11), //CAS_UVB_RATIO, CAS_UVA_RATIO (9,10)\n                                s(12), s(13) //CAS_EryUVB_RATIO, CAS_EryUVA_RATIO (11,12)\n                                ))\nval sun \u003d sc.textFile(\"hdfs:///sunriseset/sunriseset\")\nval sunriseset \u003d sun.map(s \u003d\u003e s.split(\",\"))\n                    .map(s \u003d\u003e (s(0),\n                               s(1),\n                               s(3))\n                        )\n                    .filter(_._1 \u003e \"2017-04-01\")\n                    .collect\n\ndef get_sunriseset_time(day: String) \u003d {\n    val e \u003d sunriseset.filter(_._1 \u003d\u003d day)(0)\n    Map(\"rise\" -\u003e e._2, \"set\" -\u003e e._3)\n}",
+      "user": "jake",
+      "dateUpdated": "2018-11-01 18:19:19.739",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1540279492400_-1675920266",
+      "id": "20180502-105829_426612513",
+      "dateCreated": "2018-10-23 16:24:52.400",
+      "dateStarted": "2018-11-01 18:19:19.752",
+      "dateFinished": "2018-11-01 18:19:31.061",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val nt \u003d cas_nt.filter(s \u003d\u003e s(0) \u003d\u003d \"2018-04-28\")\n                .groupBy(_(1))\n                .map(s \u003d\u003e (s._1, s._2.toList))\nval uv \u003d cas_uv.filter(s \u003d\u003e s(0) \u003d\u003d \"2018-01-06\"\n                        || s(0) \u003d\u003d \"2018-01-28\"\n                        || s(0) \u003d\u003d \"2018-02-08\")\n                .groupBy(_(1))\n                .map(s \u003d\u003e (s._1, s._2.toList))\n\n// val nt_cl \u003d nt.collect\n// val uv_cl \u003d uv.collect",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:24:52.402",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540279492401_92047466",
+      "id": "20180508-175544_125961216",
+      "dateCreated": "2018-10-23 16:24:52.401",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val nt_uv \u003d nt.join(uv)\n              .map(s \u003d\u003e (s._2._1, s._2._2))\n              .map(s \u003d\u003e (\n                    // s._1(0)(0), s._1(0)(1), //date, time\n                    s._1(0)(0), s._1(0)(1).substring(0,5), //date, time\n                    s._1(0)(2).toDouble, s._1(0)(6).toDouble, \n                    s._1(0)(7).toDouble, s._1(0)(8).toDouble, s._1(0)(9).toDouble, s._1(0)(10).toDouble,\n                    s._1(0)(14).toDouble, s._1(0)(15).toDouble, s._1(0)(16).toDouble, \n                    s._2(0)(2).toDouble, s._2(0)(3).toDouble, s._2(0)(4).toDouble,\n                    s._2(0)(5).toDouble, s._2(0)(6).toDouble, s._2(0)(7).toDouble, s._2(0)(8).toDouble,\n                    s._2(0)(9).toDouble, s._2(0)(10).toDouble, s._2(0)(11).toDouble, s._2(0)(12).toDouble\n                    )\n              )\n              .filter(s \u003d\u003e s._2 \u003e get_sunriseset_time(s._1)(\"rise\"))\n              .filter(s \u003d\u003e s._2 \u003c get_sunriseset_time(s._1)(\"set\"))\n              .map(s \u003d\u003e (\n                    s._1, s._2.split(\":\")(0).toInt, //date, time\n                    s._3, s._4, s._5, s._6, s._7, s._8, s._9, s._10, s._11, s._12,\n                    s._13, s._14, s._15, s._16, s._17, s._18, s._19, s._20, s._21, s._22\n                    )\n              )",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:24:52.402",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540279492402_-80330792",
+      "id": "20180508-185858_1852424143",
+      "dateCreated": "2018-10-23 16:24:52.402",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val df \u003d nt_uv.toDF(\"date\", \"time\",\n                    \"lux\", \"vis\", \"clrco_x\", \"clrco_y\", \"clrco_z\", \"clrco_u\",\n                    \"cct\", \"cri\", \"swr\",\n                    \"uvb\", \"uva\", \"duv\", \"euv\", \"euvb\", \"euva\", \"uvi\",\n                    \"uvbr\", \"uvar\", \"euvbr\", \"euvar\")\n\ndf.createOrReplaceTempView(\"nt_uv\")\nz.put(\"df_ntuv\", df)",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:24:52.402",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540279492402_313754860",
+      "id": "20180514-161747_1940249496",
+      "dateCreated": "2018-10-23 16:24:52.402",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Accumulation Process (continue)",
+      "text": "val nt_uv_accum \u003d nt_uv.groupBy(s \u003d\u003e s._1 + s._2)\n                        .map(s \u003d\u003e (s._1, s._2.toList))\n                        ",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:24:52.402",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540279492402_1964673005",
+      "id": "20180515-120429_1034177022",
+      "dateCreated": "2018-10-23 16:24:52.402",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Temporary (python)",
+      "text": "%pyspark\ndef correlation_matrix(df):\n    from matplotlib import pyplot as plt\n    from matplotlib import cm as cm\n\n    fig \u003d plt.figure()\n    ax1 \u003d fig.add_subplot(111)\n    cmap \u003d cm.get_cmap(\u0027jet\u0027, 30)\n    cax \u003d ax1.imshow(df.corr(), interpolation\u003d\"nearest\", cmap\u003dcmap)\n    ax1.grid(True)\n    plt.title(\u0027Abalone Feature Correlation\u0027)\n    labels\u003d[\u0027lux\u0027,\u0027vis\u0027,\u0027ccx\u0027,\u0027ccy\u0027,\u0027ccz\u0027,\u0027ccu\u0027,\u0027cct\u0027,\u0027cri\u0027,\u0027swr\u0027,\u0027uvb\u0027,\u0027uva\u0027,\u0027duv\u0027,\u0027eua\u0027,\u0027eub\u0027,\u0027uvi\u0027,\u0027uar\u0027,\u0027ebr\u0027,\u0027ear\u0027]\n    ax1.set_xticklabels(labels,fontsize\u003d6)\n    ax1.set_yticklabels(labels,fontsize\u003d6)\n    # Add colorbar, make sure to specify tick locations to match desired ticklabels\n    fig.colorbar(cax, ticks\u003d[.75,.8,.85,.90,.95,1])\n    plt.show()\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:24:52.403",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540279492402_-730236819",
+      "id": "20180508-201437_1446957387",
+      "dateCreated": "2018-10-23 16:24:52.402",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from nt_uv\nwhere\n0 \u003c swr and swr \u003c 25\nand 0 \u003c cct and cct \u003c 10000\nand 0 \u003c cri\nand 0 \u003c uvbr and 0 \u003c uvar and 0 \u003c euvbr and 0 \u003c euvar\norder by date, time",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:24:52.403",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "scatterChart",
+              "height": 390.547,
+              "optionOpen": true,
+              "setting": {
+                "scatterChart": {
+                  "xAxis": {
+                    "name": "cct",
+                    "index": 8.0,
+                    "aggr": "sum"
+                  },
+                  "yAxis": {
+                    "name": "swr",
+                    "index": 10.0,
+                    "aggr": "sum"
+                  },
+                  "group": {
+                    "name": "time",
+                    "index": 1.0,
+                    "aggr": "sum"
+                  }
+                }
+              }
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540279492403_116641609",
+      "id": "20180514-165327_2081406521",
+      "dateCreated": "2018-10-23 16:24:52.403",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark.mllib.common import _py2java, _java2py\n\ndf_ntuv \u003d _java2py(sc, z.get(\u0027df_ntuv\u0027))\n\n# columnlist \u003d [\u0027lux\u0027,\u0027vis\u0027,\u0027ccx\u0027,\u0027ccy\u0027,\u0027ccz\u0027,\u0027ccu\u0027,\u0027cct\u0027,\u0027cri\u0027,\u0027swr\u0027,\u0027uvb\u0027,\u0027uva\u0027,\u0027duv\u0027,\u0027euv\u0027,\u0027eua\u0027,\u0027eub\u0027,\u0027uvi\u0027,\u0027ubr\u0027,\u0027uar\u0027,\u0027ebr\u0027,\u0027ear\u0027]\ncolumnlist \u003d df_ntuv.columns\ncolumncaption \u003d \u0027        \u0027\n\nfor c in columnlist[2:]:\n    columncaption +\u003d \u0027%8s\u0027 % c\nprint(columncaption)\n\nfor col1 in columnlist[2:]:\n    ptrline \u003d \u0027%8s\u0027 % col1\n    for col2 in columnlist[2:]:\n        ptrline +\u003d \u0027%8.3f\u0027 % df_ntuv.corr(col1,col2)\n    print(ptrline)\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:24:52.403",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 414.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540279492403_-1620221742",
+      "id": "20180514-171135_546184030",
+      "dateCreated": "2018-10-23 16:24:52.403",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:24:52.403",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540279492403_1377414887",
+      "id": "20180517-180853_349174102",
+      "dateCreated": "2018-10-23 16:24:52.403",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "/correlation/Correlation Practice",
+  "id": "2DT3FFES2",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

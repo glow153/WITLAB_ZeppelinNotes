@@ -1,0 +1,87 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n# Overview\n## About raw data\n* 기상청 에어로졸 데이터\n* source : 기상자료 개방포털 - 기후변화 - 기후변화감시 - 에어로졸[(link)](https://data.kma.go.kr/data/gaw/selectAerosolRltmList.do?pgmNo\u003d629)\n* fname format (hdfs) : /raw/kma_aerosol_location\n* content format\n    \u003e 지점,일시,평균 크기별 부피농도(0.5~20㎛)(μ㎥/㎤)\n    132,2017-01-01,36.786\n    132,2017-01-02,88.487\n\n\n## About formatted data\n* raw data -\u003e parquet dataframe으로 변환 (date, concentration)\n* date : \"yyyy-mm-dd\"\n* concentration : float\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:25:27.646",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eOverview\u003c/h1\u003e\n\u003ch2\u003eAbout raw data\u003c/h2\u003e\n\u003cul\u003e\n  \u003cli\u003e기상청 에어로졸 데이터\u003c/li\u003e\n  \u003cli\u003esource : 기상자료 개방포털 - 기후변화 - 기후변화감시 - 에어로졸\u003ca href\u003d\"https://data.kma.go.kr/data/gaw/selectAerosolRltmList.do?pgmNo\u003d629\"\u003e(link)\u003c/a\u003e\u003c/li\u003e\n  \u003cli\u003efname format (hdfs) : /raw/kma_aerosol_location\u003c/li\u003e\n  \u003cli\u003e\n  \u003cp\u003econtent format\u003c/p\u003e\n  \u003cblockquote\u003e\n    \u003cp\u003e지점,일시,평균 크기별 부피농도(0.5~20㎛)(μ㎥/㎤)\u003cbr/\u003e132,2017-01-01,36.786\u003cbr/\u003e132,2017-01-02,88.487\u003c/p\u003e\n  \u003c/blockquote\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eAbout formatted data\u003c/h2\u003e\n\u003cul\u003e\n  \u003cli\u003eraw data -\u0026gt; parquet dataframe으로 변환 (date, concentration)\u003c/li\u003e\n  \u003cli\u003edate : \u0026ldquo;yyyy-mm-dd\u0026rdquo;\u003c/li\u003e\n  \u003cli\u003econcentration : float\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540279527646_2002632065",
+      "id": "20181010-102037_2141322483",
+      "dateCreated": "2018-10-23 16:25:27.646",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark.sql import Row\naero \u003d sc.textFile(\u0027hdfs:///raw/kma_aerosol_anmyeon\u0027)\\\n         .map(lambda s: s.split(\u0027,\u0027))\\\n         .collect()\n\naero.pop(0)\n\naero \u003d sc.parallelize(aero)\\\n         .filter(lambda s: s is not header)\\\n         .map(lambda s: Row(date\u003ds[0], concentration\u003ds[1]))\\\n         .toDF()\n\naero.write.mode(\u0027overwrite\u0027)\\\n    .parquet(\u0027hdfs:///ds/aerosol_anmyeon.parquet\u0027)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:25:27.647",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540279527647_-387262220",
+      "id": "20181010-102027_1942593659",
+      "dateCreated": "2018-10-23 16:25:27.647",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "pyjake/file_기상청_에어로졸",
+  "id": "2DWFXHWGQ",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "hbase:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

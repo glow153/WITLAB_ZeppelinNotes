@@ -1,0 +1,74 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\nfrom pyspark import storagelevel\nfrom pyspark.streaming.context import StreamingContext\n\nssc \u003d StreamingContext(sc, 3)\n\nrdd1 \u003d sc.parallelize([\u0027Spark Streaming Sample ssc\u0027])\nrdd2 \u003d sc.parallelize([\u0027Spark Queue Spark API\u0027])\n\ninputQueue \u003d [rdd1, rdd2]\nlines \u003d ssc.queueStream(inputQueue, True)\nwords \u003d lines.flatMap(lambda v: v.split(\u0027 \u0027))\nwords.countByValue().pprint()\n\nssc.start()\nssc.awaitTermination()\n",
+      "user": "jake",
+      "dateUpdated": "2019-08-30 14:18:42.242",
+      "config": {
+        "colWidth": 3.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "-------------------------------------------\nTime: 2019-08-30 14:18:42\n-------------------------------------------\n(\u0027Spark\u0027, 1)\n(\u0027Sample\u0027, 1)\n(\u0027Streaming\u0027, 1)\n(\u0027ssc\u0027, 1)\n\n-------------------------------------------\nTime: 2019-08-30 14:18:45\n-------------------------------------------\n(\u0027Spark\u0027, 2)\n(\u0027API\u0027, 1)\n(\u0027Queue\u0027, 1)\n\n-------------------------------------------\nTime: 2019-08-30 14:18:48\n-------------------------------------------\n\n-------------------------------------------\nTime: 2019-08-30 14:18:51\n-------------------------------------------\n\n-------------------------------------------\nTime: 2019-08-30 14:18:54\n-------------------------------------------\n\n-------------------------------------------\nTime: 2019-08-30 14:18:57\n-------------------------------------------\n\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to execute line 15: ssc.awaitTermination()\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-1342120677357127181.py\", line 380, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 15, in \u003cmodule\u003e\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/streaming/context.py\", line 192, in awaitTermination\n    self._jssc.awaitTermination()\n  File \"/home/witlab/apps/spark/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py\", line 1255, in __call__\n    answer \u003d self.gateway_client.send_command(command)\n  File \"/home/witlab/apps/spark/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py\", line 985, in send_command\n    response \u003d connection.send_command(command)\n  File \"/home/witlab/apps/spark/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py\", line 1152, in send_command\n    answer \u003d smart_decode(self.stream.readline()[:-1])\n  File \"/usr/lib/python3.6/socket.py\", line 586, in readinto\n    return self._sock.recv_into(b)\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/context.py\", line 252, in signal_handler\n    raise KeyboardInterrupt()\nKeyboardInterrupt\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1567142181857_969092707",
+      "id": "20190830-141621_2051872233",
+      "dateCreated": "2019-08-30 14:16:21.857",
+      "dateStarted": "2019-08-30 14:18:38.580",
+      "dateFinished": "2019-08-30 14:19:00.086",
+      "status": "ABORT",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2019-08-30 14:18:38.576",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1567142318572_574493469",
+      "id": "20190830-141838_1375767163",
+      "dateCreated": "2019-08-30 14:18:38.572",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Master\u0027s Thesis/spark_streaming_01",
+  "id": "2EMA4WR3R",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

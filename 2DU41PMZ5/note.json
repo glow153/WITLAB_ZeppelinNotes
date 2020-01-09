@@ -1,0 +1,708 @@
+{
+  "paragraphs": [
+    {
+      "title": "def",
+      "text": "import org.apache.spark.sql.functions.udf\n\nval udf_dt2date \u003d udf{s: String \u003d\u003e s.split(\" \")(0)}\nval udf_dt2time \u003d udf{s: String \u003d\u003e s.split(\" \")(1)}\nval udf_dt2hm \u003d udf{s: String \u003d\u003e s.split(\" \")(1).substring(0,5)}\n\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-18 20:01:36.783",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.sql.functions.udf\nudf_dt2date: org.apache.spark.sql.expressions.UserDefinedFunction \u003d UserDefinedFunction(\u003cfunction1\u003e,StringType,Some(List(StringType)))\nudf_dt2time: org.apache.spark.sql.expressions.UserDefinedFunction \u003d UserDefinedFunction(\u003cfunction1\u003e,StringType,Some(List(StringType)))\nudf_dt2hm: org.apache.spark.sql.expressions.UserDefinedFunction \u003d UserDefinedFunction(\u003cfunction1\u003e,StringType,Some(List(StringType)))\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112861_1230596822",
+      "id": "20180803-014532_1508722745",
+      "dateCreated": "2018-10-23 16:35:12.861",
+      "dateStarted": "2019-09-18 20:01:36.817",
+      "dateFinished": "2019-09-18 20:01:37.063",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Sun to parquet",
+      "text": "val sun \u003d sc.textFile(\"hdfs:///raw/sun\")\n            .map(s \u003d\u003e s.split(\",\"))\n            .map(s \u003d\u003e (s(0),s(1),s(2),s(3)))\n            .filter(_._1 \u003e \"2017-04-02\")\n            .toDF(\"date\",\"rise\",\"culmination\",\"set\")\n\nsun.write.mode(\"overwrite\").parquet(\"hdfs:///sun/srs.parquet\")\n\ndef getsrs(day: String) \u003d {\n    var rs \u003d sun.collect\n                .filter(s \u003d\u003e s(0) \u003d\u003d day)\n                \n    Map(\"rise\" -\u003e rs(0).getString(1),\n        \"set\" -\u003e rs(0).getString(3))\n}\ngetsrs(\"2019-03-20\")\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-24 10:20:29.521",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true,
+        "editorHide": false,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "sun: org.apache.spark.sql.DataFrame \u003d [date: string, rise: string ... 2 more fields]\ngetsrs: (day: String)scala.collection.immutable.Map[String,String]\nres1: scala.collection.immutable.Map[String,String] \u003d Map(rise -\u003e 06:36, set -\u003e 18:42)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112861_-392697442",
+      "id": "20180719-185439_1856142033",
+      "dateCreated": "2018-10-23 16:35:12.862",
+      "dateStarted": "2019-07-24 10:20:29.531",
+      "dateFinished": "2019-07-24 10:20:32.739",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "safe sunriseset",
+      "text": "val sunriseset \u003d sc.textFile(\"hdfs:///raw/sun\")\n                    .map(s \u003d\u003e s.split(\",\"))\n                    .map(s \u003d\u003e (s(0), s(1), s(3)) )\n                    .filter(_._1 \u003e \"2017-04-02\")\n                    .collect\n\ndef getsrs_safe(day: String) \u003d {\n    try {\n        val e \u003d sunriseset.filter(_._1 \u003d\u003d day)(0)\n        Map(\"rise\" -\u003e e._2, \"set\" -\u003e e._3)\n    } catch {\n        case e: ArrayIndexOutOfBoundsException \u003d\u003e {\n            println(\"there is no data in srs!\")\n        }\n        Map(\"rise\" -\u003e \"00:00\", \"set\" -\u003e \"23:59\")\n    }\n}",
+      "user": "jake",
+      "dateUpdated": "2019-09-18 20:01:44.240",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 87.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 315.0 failed 4 times, most recent failure: Lost task 0.3 in stage 315.0 (TID 16456, 210.102.142.12, executor 10): java.lang.ClassCastException: cannot assign instance of scala.collection.immutable.List$SerializationProxy to field org.apache.spark.rdd.RDD.org$apache$spark$rdd$RDD$$dependencies_ of type scala.collection.Seq in instance of org.apache.spark.rdd.MapPartitionsRDD\n\tat java.io.ObjectStreamClass$FieldReflector.setObjFieldValues(ObjectStreamClass.java:2287)\n\tat java.io.ObjectStreamClass.setObjFieldValues(ObjectStreamClass.java:1417)\n\tat java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2293)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.readObject(ObjectInputStream.java:431)\n\tat scala.collection.immutable.List$SerializationProxy.readObject(List.scala:490)\n\tat sun.reflect.GeneratedMethodAccessor10.invoke(Unknown Source)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1170)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2178)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.readObject(ObjectInputStream.java:431)\n\tat org.apache.spark.serializer.JavaDeserializationStream.readObject(JavaSerializer.scala:75)\n\tat org.apache.spark.serializer.JavaSerializerInstance.deserialize(JavaSerializer.scala:114)\n\tat org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:83)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:121)\n\tat org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:402)\n\tat org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1360)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:408)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\n\nDriver stacktrace:\n  at org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1887)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1875)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1874)\n  at scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)\n  at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)\n  at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:1874)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:926)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:926)\n  at scala.Option.foreach(Option.scala:257)\n  at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:926)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2108)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2057)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2046)\n  at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)\n  at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:737)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2061)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2082)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2101)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2126)\n  at org.apache.spark.rdd.RDD$$anonfun$collect$1.apply(RDD.scala:945)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)\n  at org.apache.spark.rdd.RDD.withScope(RDD.scala:363)\n  at org.apache.spark.rdd.RDD.collect(RDD.scala:944)\n  ... 47 elided\nCaused by: java.lang.ClassCastException: cannot assign instance of scala.collection.immutable.List$SerializationProxy to field org.apache.spark.rdd.RDD.org$apache$spark$rdd$RDD$$dependencies_ of type scala.collection.Seq in instance of org.apache.spark.rdd.MapPartitionsRDD\n  at java.io.ObjectStreamClass$FieldReflector.setObjFieldValues(ObjectStreamClass.java:2287)\n  at java.io.ObjectStreamClass.setObjFieldValues(ObjectStreamClass.java:1417)\n  at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2293)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.readObject(ObjectInputStream.java:431)\n  at scala.collection.immutable.List$SerializationProxy.readObject(List.scala:490)\n  at sun.reflect.GeneratedMethodAccessor10.invoke(Unknown Source)\n  at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n  at java.lang.reflect.Method.invoke(Method.java:498)\n  at java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1170)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2178)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.readObject(ObjectInputStream.java:431)\n  at org.apache.spark.serializer.JavaDeserializationStream.readObject(JavaSerializer.scala:75)\n  at org.apache.spark.serializer.JavaSerializerInstance.deserialize(JavaSerializer.scala:114)\n  at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:83)\n  at org.apache.spark.scheduler.Task.run(Task.scala:121)\n  at org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:402)\n  at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1360)\n  at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:408)\n  ... 3 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112862_-2139140579",
+      "id": "20180821-165357_742738552",
+      "dateCreated": "2018-10-23 16:35:12.862",
+      "dateStarted": "2019-09-18 20:01:44.257",
+      "dateFinished": "2019-09-18 20:01:44.919",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "safe srs python",
+      "text": "%pyspark\nsrs \u003d sc.textFile(\"hdfs:///raw/sun\")\\\n        .map(lambda s: s.split(\",\"))\\\n        .map(lambda s: [s[0],\n                        s[1],\n                        s[3]])\\\n        .filter(lambda s: s[0] \u003e \"2017-04-02\")\\\n        .collect()\n\ndef getsrs_safe(day):\n    try:\n        e \u003d list(filter(lambda s: s[0] \u003d\u003d day, srs))\n        return {\"rise\": e[0][1], \"set\": e[0][2]}\n    except IndexError:\n        print(\"there is no data!\")\n        return {\"rise\": \"00:00\",\n                \"set\": \"23:59\"}\n\ngetsrs_safe(\u00272018-01-05\u0027)\n\n\n\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-24 10:20:33.578",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "{\u0027set\u0027: \u002717:28\u0027, \u0027rise\u0027: \u002707:44\u0027}\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112862_-1837662404",
+      "id": "20180821-170118_1654045286",
+      "dateCreated": "2018-10-23 16:35:12.862",
+      "dateStarted": "2019-07-24 10:20:33.595",
+      "dateFinished": "2019-07-24 10:20:35.289",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "user": "jake",
+      "dateUpdated": "2019-07-24 10:20:35.296",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1555376017755_306512479",
+      "id": "20190416-095337_912798009",
+      "dateCreated": "2019-04-16 09:53:37.755",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "cas nt to parquet",
+      "text": "val cas_nt \u003d sc.textFile(\"hdfs:///raw/cas_nt\")\n                .map(s \u003d\u003e s.split(\",\"))\n                .map(s \u003d\u003e (s(0), //datetime\n                            s(14).toDouble, //illum\n                            s(34).toDouble, //cct\n                            s(57).toDouble)) //swr\n                .toDF(\"datetime\",\"illum\",\"cct\",\"swr\")\n                .withColumn(\"date\", udf_dt2date(\u0027datetime))\n                .withColumn(\"time\", udf_dt2hm(\u0027datetime))\n                .select(\"date\",\"time\",\"illum\",\"cct\",\"swr\")\n                \ncas_nt.write.mode(\"overwrite\")\n                .parquet(\"hdfs:///nl/witlab/cas/nt.parquet\")\ncas_nt.show()\n",
+      "user": "jake",
+      "dateUpdated": "2019-08-05 22:43:29.820",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "cas_nt: org.apache.spark.sql.DataFrame \u003d [date: string, time: string ... 3 more fields]\n+----------+-----+-------+-------+-------+\n|      date| time|  illum|    cct|    swr|\n+----------+-----+-------+-------+-------+\n|2017-04-01|03:50|22.7197|3850.99|16.4118|\n|2017-04-01|03:50|24.8804|3991.46| 17.182|\n|2017-04-01|03:51|25.6526|4034.75|17.3983|\n|2017-04-01|03:51|26.3389|4074.07|17.6263|\n|2017-04-01|03:51|27.8327|4151.43|18.0227|\n|2017-04-01|03:52|29.9957|4260.49|18.5578|\n|2017-04-01|03:52|32.1492|4353.76|19.0176|\n|2017-04-01|03:52|33.2403|4396.43|19.2211|\n|2017-04-01|03:52|35.3819|4479.26|19.6013|\n|2017-04-01|03:53|36.5114|4516.64|19.7662|\n|2017-04-01|03:53|38.6913|4587.48|20.0879|\n|2017-04-01|03:53|39.7652|4622.79|20.2369|\n|2017-04-01|03:54|41.9552|4682.98|20.4933|\n|2017-04-01|03:54| 44.127|4740.01|20.7377|\n|2017-04-01|03:54|45.2126|4766.45|20.8402|\n|2017-04-01|03:55|47.3704|4815.98|21.0579|\n|2017-04-01|03:55|49.5672|4859.86|21.2388|\n|2017-04-01|03:55|51.7477|4902.37| 21.395|\n|2017-04-01|03:56|56.0876|4982.94|21.7141|\n|2017-04-01|03:56| 58.235|5016.17|21.8456|\n+----------+-----+-------+-------+-------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112862_-1571263854",
+      "id": "20180803-014653_1468662933",
+      "dateCreated": "2018-10-23 16:35:12.862",
+      "dateStarted": "2019-08-05 22:43:38.559",
+      "dateFinished": "2019-08-05 22:44:52.736",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "UV to parquet - fixed stopping problem",
+      "text": "val cas_uv \u003d sc.textFile(\"hdfs:///raw/cas_uv\")\n                .map(s \u003d\u003e s.split(\",\"))\n                .map(s \u003d\u003e (s(0), //delete millisecond\n                            s(2).toDouble,\n                            s(3).toDouble,\n                            s(4).toDouble,\n                            s(5).toDouble,\n                            s(6).toDouble,\n                            s(7).toDouble,\n                            s(8).toDouble))\n                .toDF(\"datetime\",\"uvb\",\"uva\",\"duv\",\n                        \"euv\",\"euvb\",\"euva\",\"uvi\")\n                .withColumn(\"date\", udf_dt2date(\u0027datetime))\n                .withColumn(\"time\", udf_dt2hm(\u0027datetime))\n                .select(\"date\",\"time\",\"uvb\",\"uva\",\"duv\",\n                        \"euv\",\"euvb\",\"euva\",\"uvi\")\n\ncas_uv.write\n      .mode(\"overwrite\")\n      .parquet(\"hdfs:////nl/witlab/cas/uv.parquet\")\ncas_uv.where(\"date \u003d \\\"2019-03-08\\\"\").show()\n",
+      "user": "jake",
+      "dateUpdated": "2019-08-05 22:43:30.074",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "cas_uv: org.apache.spark.sql.DataFrame \u003d [date: string, time: string ... 7 more fields]\n+----------+-----+----------+-----------+----------+----------+----------+----------+----------+\n|      date| time|       uvb|        uva|       duv|       euv|      euvb|      euva|       uvi|\n+----------+-----+----------+-----------+----------+----------+----------+----------+----------+\n|2019-03-08|00:00|1.21809E-5| 1.83605E-6|1.07821E-5|2.82615E-5|7.70524E-6|5.67938E-8|3.10481E-4|\n|2019-03-08|00:01|1.82112E-5| 6.34134E-6|1.34769E-5|1.64569E-5|1.17812E-5|4.91835E-8|4.73217E-4|\n|2019-03-08|00:02|7.61303E-6|-1.61485E-6|8.23041E-6|2.95174E-5|4.57195E-6|2.19124E-8|1.83755E-4|\n|2019-03-08|00:03|1.22896E-5|-2.28571E-6|1.03128E-5|2.94674E-5|8.88601E-6| 3.8459E-8|3.56979E-4|\n|2019-03-08|00:04|1.29802E-5| 9.60024E-6|1.05791E-5|2.88805E-5|8.43193E-6|5.78182E-8| 3.3959E-4|\n|2019-03-08|00:06|9.36436E-6| 8.92449E-6|5.86673E-6|1.48128E-5|3.23183E-6|8.16353E-8|1.32539E-4|\n|2019-03-08|00:07|1.51635E-5| 3.05681E-6|1.26695E-5|2.88001E-5|1.07874E-5|4.37035E-8|4.33245E-4|\n|2019-03-08|00:08| 9.7588E-6| 1.21666E-5| 7.0541E-6|2.13402E-5|3.35356E-6| 7.1027E-8|1.36983E-4|\n|2019-03-08|00:09|9.30203E-6| 1.73051E-6|8.61969E-6| 2.8595E-5|4.75682E-6|6.18035E-8|1.92745E-4|\n|2019-03-08|00:10|1.35487E-5| 5.97697E-6| 1.1647E-5|2.89965E-5|8.20927E-6|6.26508E-8|3.30877E-4|\n|2019-03-08|00:11|1.11465E-5| 7.82393E-6|8.15796E-6|2.43681E-5|4.77228E-6|7.25889E-8|1.93795E-4|\n|2019-03-08|00:12| 1.1922E-5| 5.98511E-6|1.03702E-5|2.71733E-5|7.95753E-6|4.69769E-8| 3.2018E-4|\n|2019-03-08|00:13| 6.9672E-6| 5.08059E-6| 4.5368E-6| 2.0874E-5|3.32042E-7|6.76697E-8|1.59885E-5|\n|2019-03-08|00:14|1.80097E-5| 6.37433E-6|1.46985E-5|3.44019E-5|1.12042E-5| 5.8137E-8|4.50493E-4|\n|2019-03-08|00:15|1.62059E-5| 2.88109E-6|1.45324E-5|3.20665E-5|1.19017E-5|5.27633E-8| 4.7818E-4|\n|2019-03-08|00:16|1.78062E-5| 7.47251E-6|1.59801E-5|3.58307E-5|1.21408E-5|5.04201E-8|4.87648E-4|\n|2019-03-08|00:17| 1.9146E-5| 6.37326E-6|1.53976E-5| 3.7651E-5| 1.2791E-5|7.66842E-8|5.14707E-4|\n|2019-03-08|00:18|2.15952E-5| 9.38659E-6|1.78622E-5|3.84081E-5|1.40885E-5|5.79641E-8|5.65859E-4|\n|2019-03-08|00:19|1.41577E-5| 9.29066E-6|1.09032E-5|2.85551E-5|7.36431E-6|6.72267E-8|2.97261E-4|\n|2019-03-08|00:20|1.48626E-5| 1.32524E-5|1.40079E-5|3.93678E-5| 1.0182E-5|5.44698E-8| 4.0946E-4|\n+----------+-----+----------+-----------+----------+----------+----------+----------+----------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112862_-1751855039",
+      "id": "20180719-174022_256792618",
+      "dateCreated": "2018-10-23 16:35:12.862",
+      "dateStarted": "2019-08-05 22:43:41.120",
+      "dateFinished": "2019-08-05 22:45:16.754",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "cas nt to parquet - sunriseset",
+      "text": "val cas_nt_srs \u003d sc.textFile(\"hdfs:///raw/cas_nt\")\n                    .map(s \u003d\u003e s.split(\",\"))\n                    .map(s \u003d\u003e (s(0), //datetime\n                                s(14).toDouble, //illum\n                                s(34).toDouble, //cct\n                                s(57).toDouble)) //swr\n                    .filter(s \u003d\u003e s._1.substring(11,16) \u003e\u003d getsrs_safe(s._1.split(\" \")(0))(\"rise\"))\n                    .filter(s \u003d\u003e s._1.substring(11,16) \u003c\u003d getsrs_safe(s._1.split(\" \")(0))(\"set\"))\n                    .toDF(\"datetime\",\"illum\",\"cct\",\"swr\")\n                    .withColumn(\"date\", udf_dt2date(\u0027datetime))\n                    .withColumn(\"time\", udf_dt2hm(\u0027datetime))\n                    .select(\"date\",\"time\",\"illum\",\"cct\",\"swr\")\n\ncas_nt_srs.write\n          .mode(\"overwrite\")\n          .parquet(\"hdfs:////nl/witlab/cas/nt_srs.parquet\")\ncas_nt_srs.show()\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-08-05 22:43:30.761",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "cas_nt_srs: org.apache.spark.sql.DataFrame \u003d [date: string, time: string ... 3 more fields]\n+----------+-----+-------+-------+-------+\n|      date| time|  illum|    cct|    swr|\n+----------+-----+-------+-------+-------+\n|2017-04-01|03:50|22.7197|3850.99|16.4118|\n|2017-04-01|03:50|24.8804|3991.46| 17.182|\n|2017-04-01|03:51|25.6526|4034.75|17.3983|\n|2017-04-01|03:51|26.3389|4074.07|17.6263|\n|2017-04-01|03:51|27.8327|4151.43|18.0227|\n|2017-04-01|03:52|29.9957|4260.49|18.5578|\n|2017-04-01|03:52|32.1492|4353.76|19.0176|\n|2017-04-01|03:52|33.2403|4396.43|19.2211|\n|2017-04-01|03:52|35.3819|4479.26|19.6013|\n|2017-04-01|03:53|36.5114|4516.64|19.7662|\n|2017-04-01|03:53|38.6913|4587.48|20.0879|\n|2017-04-01|03:53|39.7652|4622.79|20.2369|\n|2017-04-01|03:54|41.9552|4682.98|20.4933|\n|2017-04-01|03:54| 44.127|4740.01|20.7377|\n|2017-04-01|03:54|45.2126|4766.45|20.8402|\n|2017-04-01|03:55|47.3704|4815.98|21.0579|\n|2017-04-01|03:55|49.5672|4859.86|21.2388|\n|2017-04-01|03:55|51.7477|4902.37| 21.395|\n|2017-04-01|03:56|56.0876|4982.94|21.7141|\n|2017-04-01|03:56| 58.235|5016.17|21.8456|\n+----------+-----+-------+-------+-------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112862_1660066645",
+      "id": "20180821-164738_1997026007",
+      "dateCreated": "2018-10-23 16:35:12.862",
+      "dateStarted": "2019-08-05 22:44:53.306",
+      "dateFinished": "2019-08-05 22:46:26.078",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "UV to parquet - sunriseset",
+      "text": "val cas_uv_srs \u003d sc.textFile(\"hdfs:///raw/cas_uv\")\n                    .map(s \u003d\u003e s.split(\",\"))\n                    .map(s \u003d\u003e (s(0), //delete millisecond\n                                s(2).toDouble,\n                                s(3).toDouble,\n                                s(4).toDouble,\n                                s(5).toDouble,\n                                s(6).toDouble,\n                                s(7).toDouble,\n                                s(8).toDouble))\n                    .filter(s \u003d\u003e s._1.substring(11,16) \u003e\u003d getsrs_safe(s._1.split(\" \")(0))(\"rise\"))\n                    .filter(s \u003d\u003e s._1.substring(11,16) \u003c\u003d getsrs_safe(s._1.split(\" \")(0))(\"set\"))\n                    .toDF(\"datetime\",\"uvb\",\"uva\",\"duv\",\n                          \"euv\",\"euvb\",\"euva\",\"uvi\")\n                    .withColumn(\"date\", udf_dt2date(\u0027datetime))\n                    .withColumn(\"time\", udf_dt2hm(\u0027datetime))\n                    .select(\"date\",\"time\",\"uvb\",\"uva\",\"duv\",\n                            \"euv\",\"euvb\",\"euva\",\"uvi\")\n\ncas_uv_srs.write\n          .mode(\"overwrite\")\n          .parquet(\"hdfs:////nl/witlab/cas/uv_srs.parquet\")\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-08-05 22:43:31.314",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "cas_uv_srs: org.apache.spark.sql.DataFrame \u003d [date: string, time: string ... 7 more fields]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112863_-1881288787",
+      "id": "20180821-164739_935133779",
+      "dateCreated": "2018-10-23 16:35:12.863",
+      "dateStarted": "2019-08-05 22:45:17.280",
+      "dateFinished": "2019-08-05 22:46:31.767",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "jake",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1566370151025_1758653762",
+      "id": "20190821-154911_1730431928",
+      "dateCreated": "2019-08-21 15:49:11.025",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "wth observer to parquet",
+      "text": "val wtob\n\u003d sc.textFile(\"hdfs:///raw/wtob\")\n    .map(s \u003d\u003e s.split(\",\"))\n    .map(s \u003d\u003e (s(0),s(1),s(4),s(5),s(6),\n                s(11),s(12),s(13),s(14),\n                s(16),s(17),s(18),s(19),\n                s(21),s(22),s(24),s(25),\n                s(31),s(35),s(36)))\n    .toDF(\"datetime\",\"tempout\",\"humout\",\"dewpt\",\"windspeed\",\n            \"windchill\",\"heatidx\",\"thiwidx\",\"thsidx\",\n            \"rain\",\"rainrate\",\"solarrad\",\"solarenergy\",\n            \"uvindex\",\"uvdose\",\"heatdd\",\"cooldd\",\n            \"airindensity\",\"issrecept\",\"arcint\")\n\nwtob.write\n    .mode(\"overwrite\")\n    .parquet(\"hdfs:///weather/witlab/wtob.parquet\")\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-01 14:49:57.292",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "org.apache.spark.SparkException: Job aborted.\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$.write(FileFormatWriter.scala:196)\n  at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:159)\n  at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult$lzycompute(commands.scala:104)\n  at org.apache.spark.sql.execution.command.DataWritingCommandExec.sideEffectResult(commands.scala:102)\n  at org.apache.spark.sql.execution.command.DataWritingCommandExec.doExecute(commands.scala:122)\n  at org.apache.spark.sql.execution.SparkPlan$$anonfun$execute$1.apply(SparkPlan.scala:131)\n  at org.apache.spark.sql.execution.SparkPlan$$anonfun$execute$1.apply(SparkPlan.scala:127)\n  at org.apache.spark.sql.execution.SparkPlan$$anonfun$executeQuery$1.apply(SparkPlan.scala:155)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n  at org.apache.spark.sql.execution.SparkPlan.executeQuery(SparkPlan.scala:152)\n  at org.apache.spark.sql.execution.SparkPlan.execute(SparkPlan.scala:127)\n  at org.apache.spark.sql.execution.QueryExecution.toRdd$lzycompute(QueryExecution.scala:80)\n  at org.apache.spark.sql.execution.QueryExecution.toRdd(QueryExecution.scala:80)\n  at org.apache.spark.sql.DataFrameWriter$$anonfun$runCommand$1.apply(DataFrameWriter.scala:668)\n  at org.apache.spark.sql.DataFrameWriter$$anonfun$runCommand$1.apply(DataFrameWriter.scala:668)\n  at org.apache.spark.sql.execution.SQLExecution$$anonfun$withNewExecutionId$1.apply(SQLExecution.scala:78)\n  at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:125)\n  at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:73)\n  at org.apache.spark.sql.DataFrameWriter.runCommand(DataFrameWriter.scala:668)\n  at org.apache.spark.sql.DataFrameWriter.saveToV1Source(DataFrameWriter.scala:276)\n  at org.apache.spark.sql.DataFrameWriter.save(DataFrameWriter.scala:270)\n  at org.apache.spark.sql.DataFrameWriter.save(DataFrameWriter.scala:228)\n  at org.apache.spark.sql.DataFrameWriter.parquet(DataFrameWriter.scala:557)\n  ... 47 elided\nCaused by: org.apache.spark.SparkException: Job aborted due to stage failure: Task 1 in stage 213.0 failed 4 times, most recent failure: Lost task 1.3 in stage 213.0 (TID 4190, 210.102.142.13, executor 6): java.lang.ClassCastException: cannot assign instance of scala.collection.immutable.List$SerializationProxy to field org.apache.spark.rdd.RDD.org$apache$spark$rdd$RDD$$dependencies_ of type scala.collection.Seq in instance of org.apache.spark.rdd.MapPartitionsRDD\n\tat java.io.ObjectStreamClass$FieldReflector.setObjFieldValues(ObjectStreamClass.java:2287)\n\tat java.io.ObjectStreamClass.setObjFieldValues(ObjectStreamClass.java:1417)\n\tat java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2293)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.readObject(ObjectInputStream.java:431)\n\tat scala.collection.immutable.List$SerializationProxy.readObject(List.scala:490)\n\tat sun.reflect.GeneratedMethodAccessor8.invoke(Unknown Source)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1170)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2178)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.readObject(ObjectInputStream.java:431)\n\tat scala.collection.immutable.List$SerializationProxy.readObject(List.scala:490)\n\tat sun.reflect.GeneratedMethodAccessor8.invoke(Unknown Source)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1170)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2178)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n\tat java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n\tat java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n\tat java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n\tat java.io.ObjectInputStream.readObject(ObjectInputStream.java:431)\n\tat org.apache.spark.serializer.JavaDeserializationStream.readObject(JavaSerializer.scala:75)\n\tat org.apache.spark.serializer.JavaSerializerInstance.deserialize(JavaSerializer.scala:114)\n\tat org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:83)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:121)\n\tat org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:402)\n\tat org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1360)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:408)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\n\nDriver stacktrace:\n  at org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1887)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1875)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1874)\n  at scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)\n  at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)\n  at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:1874)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:926)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:926)\n  at scala.Option.foreach(Option.scala:257)\n  at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:926)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2108)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2057)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2046)\n  at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)\n  at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:737)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2061)\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$.write(FileFormatWriter.scala:166)\n  ... 69 more\nCaused by: java.lang.ClassCastException: cannot assign instance of scala.collection.immutable.List$SerializationProxy to field org.apache.spark.rdd.RDD.org$apache$spark$rdd$RDD$$dependencies_ of type scala.collection.Seq in instance of org.apache.spark.rdd.MapPartitionsRDD\n  at java.io.ObjectStreamClass$FieldReflector.setObjFieldValues(ObjectStreamClass.java:2287)\n  at java.io.ObjectStreamClass.setObjFieldValues(ObjectStreamClass.java:1417)\n  at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2293)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.readObject(ObjectInputStream.java:431)\n  at scala.collection.immutable.List$SerializationProxy.readObject(List.scala:490)\n  at sun.reflect.GeneratedMethodAccessor8.invoke(Unknown Source)\n  at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n  at java.lang.reflect.Method.invoke(Method.java:498)\n  at java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1170)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2178)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.readObject(ObjectInputStream.java:431)\n  at scala.collection.immutable.List$SerializationProxy.readObject(List.scala:490)\n  at sun.reflect.GeneratedMethodAccessor8.invoke(Unknown Source)\n  at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n  at java.lang.reflect.Method.invoke(Method.java:498)\n  at java.io.ObjectStreamClass.invokeReadObject(ObjectStreamClass.java:1170)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2178)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)\n  at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)\n  at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)\n  at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)\n  at java.io.ObjectInputStream.readObject(ObjectInputStream.java:431)\n  at org.apache.spark.serializer.JavaDeserializationStream.readObject(JavaSerializer.scala:75)\n  at org.apache.spark.serializer.JavaSerializerInstance.deserialize(JavaSerializer.scala:114)\n  at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:83)\n  at org.apache.spark.scheduler.Task.run(Task.scala:121)\n  at org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:402)\n  at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1360)\n  at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:408)\n  ... 3 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112863_-715788852",
+      "id": "20180803-034911_848366866",
+      "dateCreated": "2018-10-23 16:35:12.863",
+      "dateStarted": "2019-10-01 14:49:57.336",
+      "dateFinished": "2019-10-01 14:50:03.696",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "wth observer to parquet - python",
+      "text": "%pyspark\nfrom pyspark.sql import Row\nwtob \u003d sc.textFile(\u0027hdfs:///raw/wtob\u0027)\\\n         .map(lambda s: s.split(\u0027,\u0027))\\\n         .map(lambda s: Row(datetime\u003ds[0], tempout\u003ds[1], humout\u003ds[4], dewpt\u003ds[5], windspeed\u003ds[6],\n                            windchill\u003ds[11], heatidx\u003ds[12], thiwidx\u003ds[13], thsidx\u003ds[14],\n                            rain\u003ds[16], rainrate\u003ds[17], solarrad\u003ds[18], solarenergy\u003ds[19],\n                            uvindex\u003ds[21], uvdose\u003ds[22], heatdd\u003ds[24], cooldd\u003ds[25],\n                            airindensity\u003ds[31], issrecept\u003ds[35], arcint\u003ds[36]))\\\n         .toDF()\n\nwtob.write.mode(\"overwrite\")\\\n    .parquet(\"hdfs:///weather/witlab/wtob.parquet\")\n",
+      "user": "jake",
+      "dateUpdated": "2019-11-13 14:45:27.020",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/python",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://witlab-nldc:4043/jobs/job?id\u003d55",
+            "http://witlab-nldc:4043/jobs/job?id\u003d55",
+            "http://witlab-nldc:4043/jobs/job?id\u003d55",
+            "http://witlab-nldc:4043/jobs/job?id\u003d55",
+            "http://witlab-nldc:4043/jobs/job?id\u003d55",
+            "http://witlab-nldc:4043/jobs/job?id\u003d55",
+            "http://witlab-nldc:4043/jobs/job?id\u003d55",
+            "http://witlab-nldc:4043/jobs/job?id\u003d56",
+            "http://witlab-nldc:4043/jobs/job?id\u003d56",
+            "http://witlab-nldc:4043/jobs/job?id\u003d56",
+            "http://witlab-nldc:4043/jobs/job?id\u003d56",
+            "http://witlab-nldc:4043/jobs/job?id\u003d56",
+            "http://witlab-nldc:4043/jobs/job?id\u003d56",
+            "http://witlab-nldc:4043/jobs/job?id\u003d56"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1566370144839_1689276421",
+      "id": "20190821-154904_1834968161",
+      "dateCreated": "2019-08-21 15:49:04.839",
+      "dateStarted": "2019-11-13 14:45:27.038",
+      "dateFinished": "2019-11-13 14:45:39.756",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "jake",
+      "dateUpdated": "2019-07-24 10:23:19.315",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1555484211841_1586474834",
+      "id": "20190417-155651_2134097627",
+      "dateCreated": "2019-04-17 15:56:51.841",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "PM to parquet",
+      "text": "def toIntEx(s: String): Int \u003d {\n    try{\n        s.toInt\n    } catch {\n        case e: NumberFormatException \u003d\u003e 0\n    }\n}\n\nval pm\n\u003d sc.textFile(\"hdfs:///raw/pm_ch_measured.csv\")\n    .map(s \u003d\u003e s.split(\",\"))\n    .map(s \u003d\u003e (s(0), toIntEx(s(1)), toIntEx(s(2))) ) \n    .toDF(\"datetime\",\"pm10\",\"pm25\")\n    .withColumn(\"date\", udf_dt2date(\u0027datetime))\n    .withColumn(\"time\", udf_dt2hm(\u0027datetime))\n    .select(\"date\",\"time\",\"pm10\",\"pm25\")\n\npm.write\n    .mode(\"overwrite\")\n    .parquet(\"hdfs:///ds/pm_ch_measured.parquet\")\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-24 10:23:22.816",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "toIntEx: (s: String)Int\npm: org.apache.spark.sql.DataFrame \u003d [date: string, time: string ... 2 more fields]\norg.apache.spark.SparkException: Job aborted.\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$write$1.apply$mcV$sp(FileFormatWriter.scala:213)\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$write$1.apply(FileFormatWriter.scala:166)\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$write$1.apply(FileFormatWriter.scala:166)\n  at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:65)\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$.write(FileFormatWriter.scala:166)\n  at org.apache.spark.sql.execution.datasources.InsertIntoHadoopFsRelationCommand.run(InsertIntoHadoopFsRelationCommand.scala:145)\n  at org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult$lzycompute(commands.scala:58)\n  at org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult(commands.scala:56)\n  at org.apache.spark.sql.execution.command.ExecutedCommandExec.doExecute(commands.scala:74)\n  at org.apache.spark.sql.execution.SparkPlan$$anonfun$execute$1.apply(SparkPlan.scala:117)\n  at org.apache.spark.sql.execution.SparkPlan$$anonfun$execute$1.apply(SparkPlan.scala:117)\n  at org.apache.spark.sql.execution.SparkPlan$$anonfun$executeQuery$1.apply(SparkPlan.scala:138)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n  at org.apache.spark.sql.execution.SparkPlan.executeQuery(SparkPlan.scala:135)\n  at org.apache.spark.sql.execution.SparkPlan.execute(SparkPlan.scala:116)\n  at org.apache.spark.sql.execution.QueryExecution.toRdd$lzycompute(QueryExecution.scala:92)\n  at org.apache.spark.sql.execution.QueryExecution.toRdd(QueryExecution.scala:92)\n  at org.apache.spark.sql.execution.datasources.DataSource.writeInFileFormat(DataSource.scala:435)\n  at org.apache.spark.sql.execution.datasources.DataSource.write(DataSource.scala:471)\n  at org.apache.spark.sql.execution.datasources.SaveIntoDataSourceCommand.run(SaveIntoDataSourceCommand.scala:48)\n  at org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult$lzycompute(commands.scala:58)\n  at org.apache.spark.sql.execution.command.ExecutedCommandExec.sideEffectResult(commands.scala:56)\n  at org.apache.spark.sql.execution.command.ExecutedCommandExec.doExecute(commands.scala:74)\n  at org.apache.spark.sql.execution.SparkPlan$$anonfun$execute$1.apply(SparkPlan.scala:117)\n  at org.apache.spark.sql.execution.SparkPlan$$anonfun$execute$1.apply(SparkPlan.scala:117)\n  at org.apache.spark.sql.execution.SparkPlan$$anonfun$executeQuery$1.apply(SparkPlan.scala:138)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n  at org.apache.spark.sql.execution.SparkPlan.executeQuery(SparkPlan.scala:135)\n  at org.apache.spark.sql.execution.SparkPlan.execute(SparkPlan.scala:116)\n  at org.apache.spark.sql.execution.QueryExecution.toRdd$lzycompute(QueryExecution.scala:92)\n  at org.apache.spark.sql.execution.QueryExecution.toRdd(QueryExecution.scala:92)\n  at org.apache.spark.sql.DataFrameWriter.runCommand(DataFrameWriter.scala:609)\n  at org.apache.spark.sql.DataFrameWriter.save(DataFrameWriter.scala:233)\n  at org.apache.spark.sql.DataFrameWriter.save(DataFrameWriter.scala:217)\n  at org.apache.spark.sql.DataFrameWriter.parquet(DataFrameWriter.scala:508)\n  ... 47 elided\nCaused by: org.apache.spark.SparkException: Job aborted due to stage failure: Task 0 in stage 18.0 failed 4 times, most recent failure: Lost task 0.3 in stage 18.0 (TID 148, 210.102.142.14, executor 0): org.apache.spark.SparkException: Task failed while writing rows\n\tat org.apache.spark.sql.execution.datasources.FileFormatWriter$.org$apache$spark$sql$execution$datasources$FileFormatWriter$$executeTask(FileFormatWriter.scala:270)\n\tat org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$write$1$$anonfun$apply$mcV$sp$1.apply(FileFormatWriter.scala:189)\n\tat org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$write$1$$anonfun$apply$mcV$sp$1.apply(FileFormatWriter.scala:188)\n\tat org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:87)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:109)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:338)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: org.apache.spark.SparkException: Failed to execute user defined function($anonfun$1: (string) \u003d\u003e string)\n\tat org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIterator.processNext(Unknown Source)\n\tat org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)\n\tat org.apache.spark.sql.execution.WholeStageCodegenExec$$anonfun$8$$anon$1.hasNext(WholeStageCodegenExec.scala:395)\n\tat org.apache.spark.sql.execution.datasources.FileFormatWriter$SingleDirectoryWriteTask.execute(FileFormatWriter.scala:313)\n\tat org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$org$apache$spark$sql$execution$datasources$FileFormatWriter$$executeTask$3.apply(FileFormatWriter.scala:256)\n\tat org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$org$apache$spark$sql$execution$datasources$FileFormatWriter$$executeTask$3.apply(FileFormatWriter.scala:254)\n\tat org.apache.spark.util.Utils$.tryWithSafeFinallyAndFailureCallbacks(Utils.scala:1374)\n\tat org.apache.spark.sql.execution.datasources.FileFormatWriter$.org$apache$spark$sql$execution$datasources$FileFormatWriter$$executeTask(FileFormatWriter.scala:259)\n\t... 8 more\nCaused by: java.lang.StringIndexOutOfBoundsException: String index out of range: 5\n\tat java.lang.String.substring(String.java:1963)\n\tat $anonfun$1.apply(\u003cconsole\u003e:26)\n\tat $anonfun$1.apply(\u003cconsole\u003e:26)\n\t... 16 more\n\nDriver stacktrace:\n  at org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1533)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1521)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1520)\n  at scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)\n  at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)\n  at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:1520)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:814)\n  at org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:814)\n  at scala.Option.foreach(Option.scala:257)\n  at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:814)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:1748)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1703)\n  at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:1692)\n  at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:48)\n  at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:630)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2029)\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$write$1.apply$mcV$sp(FileFormatWriter.scala:186)\n  ... 81 more\nCaused by: org.apache.spark.SparkException: Task failed while writing rows\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$.org$apache$spark$sql$execution$datasources$FileFormatWriter$$executeTask(FileFormatWriter.scala:270)\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$write$1$$anonfun$apply$mcV$sp$1.apply(FileFormatWriter.scala:189)\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$write$1$$anonfun$apply$mcV$sp$1.apply(FileFormatWriter.scala:188)\n  at org.apache.spark.scheduler.ResultTask.runTask(ResultTask.scala:87)\n  at org.apache.spark.scheduler.Task.run(Task.scala:109)\n  at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:338)\n  ... 3 more\nCaused by: org.apache.spark.SparkException: Failed to execute user defined function($anonfun$1: (string) \u003d\u003e string)\n  at org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIterator.processNext(Unknown Source)\n  at org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)\n  at org.apache.spark.sql.execution.WholeStageCodegenExec$$anonfun$8$$anon$1.hasNext(WholeStageCodegenExec.scala:395)\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$SingleDirectoryWriteTask.execute(FileFormatWriter.scala:313)\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$org$apache$spark$sql$execution$datasources$FileFormatWriter$$executeTask$3.apply(FileFormatWriter.scala:256)\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$$anonfun$org$apache$spark$sql$execution$datasources$FileFormatWriter$$executeTask$3.apply(FileFormatWriter.scala:254)\n  at org.apache.spark.util.Utils$.tryWithSafeFinallyAndFailureCallbacks(Utils.scala:1374)\n  at org.apache.spark.sql.execution.datasources.FileFormatWriter$.org$apache$spark$sql$execution$datasources$FileFormatWriter$$executeTask(FileFormatWriter.scala:259)\n  ... 8 more\nCaused by: java.lang.StringIndexOutOfBoundsException: String index out of range: 5\n  at java.lang.String.substring(String.java:1963)\n  at $anonfun$1.apply(\u003cconsole\u003e:26)\n  at $anonfun$1.apply(\u003cconsole\u003e:26)\n  ... 16 more\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112863_2017702692",
+      "id": "20180719-182953_836952435",
+      "dateCreated": "2018-10-23 16:35:12.863",
+      "dateStarted": "2019-07-24 10:23:22.833",
+      "dateFinished": "2019-07-24 10:23:23.987",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Sky to parquet",
+      "text": "val sky\n\u003d sc.textFile(\"hdfs:///raw/sky\")\n    .map(s \u003d\u003e s.split(\",\"))\n    .map(s \u003d\u003e (s(0),\n                s(1).toInt)) //sky\n    .toDF(\"datetime\",\"sky\")\n\nsky.write\n    .mode(\"overwrite\")\n    .parquet(\"hdfs:///ds/sky.parquet\")\n            \n        ",
+      "user": "jake",
+      "dateUpdated": "2019-03-06 09:18:45.810",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112863_-1632188598",
+      "id": "20180719-183142_1202410128",
+      "dateCreated": "2018-10-23 16:35:12.863",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "cas_wave_ratio to parquet - e",
+      "text": "val sky\n\u003d sc.textFile(\"hdfs:///raw/cas_wave_ratio\")\n    .map(s \u003d\u003e s.split(\",\"))\n    .map(s \u003d\u003e (s(0),\n                s(1).toInt)) //sky\n    .toDF(\"datetime\",\"sky\")\n\nsky.write\n    .mode(\"overwrite\")\n    .parquet(\"hdfs:///ds/sky.parquet\")\n            \n        ",
+      "user": "jake",
+      "dateUpdated": "2019-04-02 21:26:24.507",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 3.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1554207840296_1692733812",
+      "id": "20190402-212400_401171901",
+      "dateCreated": "2019-04-02 21:24:00.296",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "cas nt to parquet : rise+30m, set-30m",
+      "text": "%pyspark\nimport datetime\nfrom pyspark.sql import Row\ntimeintv \u003d datetime.timedelta(minutes\u003d30)\nfmtStr \u003d \u0027%H:%M\u0027\n\ncas_nt_srs2 \u003d sc.textFile(\"hdfs:///raw/cas_nt\")\\\n                .map(lambda s: s.split(\",\"))\\\n                .map(lambda s: [s[0], float(s[14]), float(s[34]), float(s[57])])\\\n                .filter(lambda s: datetime.datetime.strptime(s[0][11:16], fmtStr) \u003e\u003d datetime.datetime.strptime(getsrs_safe(s[0].split(\" \")[0])[\"rise\"], fmtStr) + timeintv)\\\n                .filter(lambda s: datetime.datetime.strptime(s[0][11:16], fmtStr) \u003c\u003d datetime.datetime.strptime(getsrs_safe(s[0].split(\" \")[0])[\"set\"], fmtStr) - timeintv)\\\n                .map(lambda s: Row(datetime\u003ds[0], illum\u003ds[1], cct\u003ds[2], swr\u003ds[3]))\\\n                .toDF()\\\n                .select(\u0027datetime\u0027,\u0027illum\u0027,\u0027cct\u0027,\u0027swr\u0027)\n\ncas_nt_srs2.write.mode(\"overwrite\").parquet(\"hdfs:///ds/nt_srs2.parquet\")\ncas_nt_srs2.show()\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-12-04 14:31:00.254",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+-------------------+-------+-------+-------+\n|           datetime|  illum|    cct|    swr|\n+-------------------+-------+-------+-------+\n|2017-04-01 03:50:30|22.7197|3850.99|16.4118|\n|2017-04-01 03:50:48|24.8804|3991.46| 17.182|\n|2017-04-01 03:51:08|25.6526|4034.75|17.3983|\n|2017-04-01 03:51:26|26.3389|4074.07|17.6263|\n|2017-04-01 03:51:44|27.8327|4151.43|18.0227|\n|2017-04-01 03:52:02|29.9957|4260.49|18.5578|\n|2017-04-01 03:52:20|32.1492|4353.76|19.0176|\n|2017-04-01 03:52:38|33.2403|4396.43|19.2211|\n|2017-04-01 03:52:58|35.3819|4479.26|19.6013|\n|2017-04-01 03:53:16|36.5114|4516.64|19.7662|\n|2017-04-01 03:53:34|38.6913|4587.48|20.0879|\n|2017-04-01 03:53:52|39.7652|4622.79|20.2369|\n|2017-04-01 03:54:10|41.9552|4682.98|20.4933|\n|2017-04-01 03:54:28| 44.127|4740.01|20.7377|\n|2017-04-01 03:54:48|45.2126|4766.45|20.8402|\n|2017-04-01 03:55:06|47.3704|4815.98|21.0579|\n|2017-04-01 03:55:24|49.5672|4859.86|21.2388|\n|2017-04-01 03:55:42|51.7477|4902.37| 21.395|\n|2017-04-01 03:56:00|56.0876|4982.94|21.7141|\n|2017-04-01 03:56:18| 58.235|5016.17|21.8456|\n+-------------------+-------+-------+-------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112863_227046798",
+      "id": "20180830-115105_683051076",
+      "dateCreated": "2018-10-23 16:35:12.863",
+      "dateStarted": "2018-12-04 10:18:49.659",
+      "dateFinished": "2018-12-04 10:19:06.549",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "cas natural tracker all",
+      "text": "val cas_nt \u003d sc.textFile(\"hdfs:///raw/cas_nt\")\n                .map(s \u003d\u003e s.split(\",\"))\n                .map(s \u003d\u003e (s(0), //datetime\n                            s(14).toDouble, //illum\n                            s(34).toDouble, //cct\n                            s(57).toDouble)) //swr\n                .toDF(\"datetime\",\"illum\",\"cct\",\"swr\")\n                .withColumn(\"date\", udf_dt2date(\u0027datetime))\n                .withColumn(\"time\", udf_dt2hm(\u0027datetime))\n                .select(\"date\",\"time\",\"illum\",\"cct\",\"swr\")\n                \ncas_nt.write.mode(\"overwrite\")\n                .parquet(\"hdfs:///nl/witlab/cas/nt.parquet\")\ncas_nt.show()\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-20 18:12:25.581",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280112863_1977087690",
+      "id": "20180803-012816_558805550",
+      "dateCreated": "2018-10-23 16:35:12.863",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "data_formatter/toParquet",
+  "id": "2DU41PMZ5",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

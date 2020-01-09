@@ -1,0 +1,653 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 18:05:57.936",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1570525557933_1335920130",
+      "id": "20191008-180557_1542495136",
+      "dateCreated": "2019-10-08 18:05:57.933",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport tensorflow as tf\n\nhello \u003d tf.constant(\u0027Hello, TensorFlow!\u0027)\nsess \u003d tf.Session()\nprint(sess.run(hello))",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 17:46:33.527",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "/home/witlab/.local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:516: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  _np_qint8 \u003d np.dtype([(\"qint8\", np.int8, 1)])\n/home/witlab/.local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:517: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  _np_quint8 \u003d np.dtype([(\"quint8\", np.uint8, 1)])\n/home/witlab/.local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:518: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  _np_qint16 \u003d np.dtype([(\"qint16\", np.int16, 1)])\n/home/witlab/.local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:519: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  _np_quint16 \u003d np.dtype([(\"quint16\", np.uint16, 1)])\n/home/witlab/.local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:520: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  _np_qint32 \u003d np.dtype([(\"qint32\", np.int32, 1)])\n/home/witlab/.local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  np_resource \u003d np.dtype([(\"resource\", np.ubyte, 1)])\n/home/witlab/.local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  _np_qint8 \u003d np.dtype([(\"qint8\", np.int8, 1)])\n/home/witlab/.local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  _np_quint8 \u003d np.dtype([(\"quint8\", np.uint8, 1)])\n/home/witlab/.local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  _np_qint16 \u003d np.dtype([(\"qint16\", np.int16, 1)])\n/home/witlab/.local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  _np_quint16 \u003d np.dtype([(\"quint16\", np.uint16, 1)])\n/home/witlab/.local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  _np_qint32 \u003d np.dtype([(\"qint32\", np.int32, 1)])\n/home/witlab/.local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or \u00271type\u0027 as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / \u0027(1,)type\u0027.\n  np_resource \u003d np.dtype([(\"resource\", np.ubyte, 1)])\n2019-10-08 17:46:32.701973: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA\n2019-10-08 17:46:32.723630: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3600000000 Hz\n2019-10-08 17:46:32.724118: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x480a120 executing computations on platform Host. Devices:\n2019-10-08 17:46:32.724162: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): \u003cundefined\u003e, \u003cundefined\u003e\nb\u0027Hello, TensorFlow!\u0027\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1570524338846_2147271893",
+      "id": "20191008-174538_593164028",
+      "dateCreated": "2019-10-08 17:45:38.847",
+      "dateStarted": "2019-10-08 17:46:28.587",
+      "dateFinished": "2019-10-08 17:46:32.728",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport tensorflow as tf\n\nnode1 \u003d tf.constant(3.0, tf.float32)\nnode2 \u003d tf.constant(4.0)\nnode3 \u003d tf.add(node1, node2)\nprint(node1, node2, node3)\n\nsess \u003d tf.Session()\nprint(\u0027sess\u0027)\nprint(sess.run([node1, node2, node3]))  # sess.run(op) \u003c- op is operation\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 17:49:28.326",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Tensor(\"Const_5:0\", shape\u003d(), dtype\u003dfloat32) Tensor(\"Const_6:0\", shape\u003d(), dtype\u003dfloat32) Tensor(\"Add_2:0\", shape\u003d(), dtype\u003dfloat32)\nsess\n[3.0, 4.0, 7.0]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1570524439232_1138940978",
+      "id": "20191008-174719_1037158065",
+      "dateCreated": "2019-10-08 17:47:19.232",
+      "dateStarted": "2019-10-08 17:48:31.098",
+      "dateFinished": "2019-10-08 17:48:31.134",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n\na \u003d tf.placeholder(tf.float32)\nb \u003d tf.placeholder(tf.float32)\nadder_node \u003d a + b\n\nprint(sess.run(adder_node, feed_dict\u003d{a:3, b:4.5}))\nprint(sess.run(adder_node, feed_dict\u003d{a:[1,3], b:[2,4]}))\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 17:50:27.526",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "7.5\n[3. 7.]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1570524567614_1774952534",
+      "id": "20191008-174927_1036661758",
+      "dateCreated": "2019-10-08 17:49:27.615",
+      "dateStarted": "2019-10-08 17:50:27.896",
+      "dateFinished": "2019-10-08 17:50:27.929",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Tensor의 이해",
+      "text": "%md\n\n| Rank  | Math entity            | Python example                                        | Shape                 |\n| :---- | :--------------------- | :---------------------------------------------------- | :-------------------- |\n| 0     | Scalar(magnitude only) | s \u003d 483                                               | \\[\\]                  |\n| 1     | Vector(mag\u0026direction)  | v \u003d \\[1.1, 2.2, 3.3\\]                                 | \\[D0\\]                |\n| 2     | Matrix (table of nums) | m \u003d \\[\\[1, 2, 3\\], \\[4, 5, 6\\]\\]                      | \\[D0, D1\\]            |\n| 3     | 3-Tensor(cube of nums) | t \u003d \\[\\[\\[2\\], \\[4\\], \\[6\\]\\], \\[8\\], \\[10\\], \\[12\\]\\]| \\[D0, D1, D2\\]        |\n| 4     | n-Tensor               | ...                                                   | \\[D0, D1, ..., Dn-1\\] |\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 18:09:13.588",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false,
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ctable\u003e\n  \u003cthead\u003e\n    \u003ctr\u003e\n      \u003cth align\u003d\"left\"\u003eRank \u003c/th\u003e\n      \u003cth align\u003d\"left\"\u003eMath entity \u003c/th\u003e\n      \u003cth align\u003d\"left\"\u003ePython example \u003c/th\u003e\n      \u003cth align\u003d\"left\"\u003eShape \u003c/th\u003e\n    \u003c/tr\u003e\n  \u003c/thead\u003e\n  \u003ctbody\u003e\n    \u003ctr\u003e\n      \u003ctd align\u003d\"left\"\u003e0 \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003eScalar(magnitude only) \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003es \u003d 483 \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003e[] \u003c/td\u003e\n    \u003c/tr\u003e\n    \u003ctr\u003e\n      \u003ctd align\u003d\"left\"\u003e1 \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003eVector(mag\u0026amp;direction) \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003ev \u003d [1.1, 2.2, 3.3] \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003e[D0] \u003c/td\u003e\n    \u003c/tr\u003e\n    \u003ctr\u003e\n      \u003ctd align\u003d\"left\"\u003e2 \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003eMatrix (table of nums) \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003em \u003d [[1, 2, 3], [4, 5, 6]] \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003e[D0, D1] \u003c/td\u003e\n    \u003c/tr\u003e\n    \u003ctr\u003e\n      \u003ctd align\u003d\"left\"\u003e3 \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003e3-Tensor(cube of nums) \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003et \u003d [[[2], [4], [6]], [8], [10], [12]]\u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003e[D0, D1, D2] \u003c/td\u003e\n    \u003c/tr\u003e\n    \u003ctr\u003e\n      \u003ctd align\u003d\"left\"\u003e4 \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003en-Tensor \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003e\u0026hellip; \u003c/td\u003e\n      \u003ctd align\u003d\"left\"\u003e[D0, D1, \u0026hellip;, Dn-1] \u003c/td\u003e\n    \u003c/tr\u003e\n  \u003c/tbody\u003e\n\u003c/table\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1570524720410_-1548383072",
+      "id": "20191008-175200_1376171928",
+      "dateCreated": "2019-10-08 17:52:00.410",
+      "dateStarted": "2019-10-08 18:09:13.590",
+      "dateFinished": "2019-10-08 18:09:13.597",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n# 선형회귀분석",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 18:59:15.890",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003e선형회귀분석\u003c/h1\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1564486351403_489114427",
+      "id": "20190730-203231_473979114",
+      "dateCreated": "2019-07-30 20:32:31.403",
+      "dateStarted": "2019-10-08 18:59:15.892",
+      "dateFinished": "2019-10-08 18:59:15.898",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport tensorflow as tf\nx_data \u003d [1., 2., 3.]\ny_data \u003d [1., 2., 3.]\n\n# weight and bias\n# tf.Variable: 텐서플로우가 학습을 진행하면서 변경하는 값\nW \u003d tf.Variable(tf.random_uniform([1]), name\u003d\u0027weight\u0027)\nb \u003d tf.Variable(tf.random_uniform([1]), name\u003d\u0027bias\u0027)\n\n# my hipothesis\nhypothesis \u003d W * x_data + b\n\n# simple cost func\ncost \u003d tf.reduce_mean(tf.square(hypothesis - y_data))\n\n# minimize\nrate \u003d tf.Variable(0.1)\noptimizer \u003d tf.train.GradientDescentOptimizer(rate)\ntrain \u003d optimizer.minimize(cost)\n\n# before starting\ninit \u003d tf.initialize_all_variables()\n\nsess \u003d tf.Session()\nsess.run(init)\n\n# fit the line\nfor step in range(2001):\n    sess.run(train)\n    if step % 20 \u003d\u003d 0:\n        print(\u0027{:4} {} {} {}\u0027.format(step, sess.run(cost), sess.run(W), sess.run(b)))\n\nsess.close()\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 19:05:23.362",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "   0 0.0425221286714077 [0.79573417] [0.5297991]\n  20 0.014610297977924347 [0.8596134] [0.31913164]\n  40 0.005520166829228401 [0.91370773] [0.1961627]\n  60 0.002085661282762885 [0.9469582] [0.12057655]\n  80 0.0007880242192186415 [0.96739644] [0.07411554]\n 100 0.00029773637652397156 [0.97995937] [0.04555706]\n 120 0.00011249233648413792 [0.9876815] [0.02800285]\n 140 4.250278652762063e-05 [0.99242806] [0.01721275]\n 160 1.6058615074143745e-05 [0.9953457] [0.01058029]\n 180 6.067560661904281e-06 [0.99713916] [0.00650344]\n 200 2.292344106535893e-06 [0.9982414] [0.00399748]\n 220 8.661781407681701e-07 [0.99891907] [0.00245718]\n 240 3.2719165687922214e-07 [0.9993356] [0.00151034]\n 260 1.2364978374534985e-07 [0.9995916] [0.00092841]\n 280 4.670484443636269e-08 [0.999749] [0.00057067]\n 300 1.7655432671404014e-08 [0.9998456] [0.00035079]\n 320 6.675430430647111e-09 [0.9999051] [0.00021563]\n 340 2.5155297844747793e-09 [0.99994165] [0.00013255]\n 360 9.51828837969515e-10 [0.9999642] [8.151196e-05]\n 380 3.610551857491373e-10 [0.99997795] [5.009633e-05]\n 400 1.3629630757350242e-10 [0.99998647] [3.076853e-05]\n 420 5.18648839153979e-11 [0.99999166] [1.8942967e-05]\n 440 1.927465652362681e-11 [0.9999949] [1.1623515e-05]\n 460 7.2238512914546416e-12 [0.99999684] [7.1332993e-06]\n 480 2.733220984610374e-12 [0.9999981] [4.447117e-06]\n 500 1.1226575225009583e-12 [0.9999988] [2.7066615e-06]\n 520 3.979039320256561e-13 [0.9999993] [1.6576198e-06]\n 540 1.5631940186722204e-13 [0.9999996] [1.037732e-06]\n 560 6.158037269129654e-14 [0.99999964] [7.198408e-07]\n 580 9.47390291759255e-14 [0.9999997] [5.6884244e-07]\n 600 3.789561370324927e-14 [0.9999999] [3.6221294e-07]\n 620 4.736951712906159e-15 [0.99999994] [1.6353073e-07]\n 640 0.0 [1.] [5.2268696e-08]\n 660 0.0 [1.] [5.2268696e-08]\n 680 0.0 [1.] [5.2268696e-08]\n 700 0.0 [1.] [5.2268696e-08]\n 720 0.0 [1.] [5.2268696e-08]\n 740 0.0 [1.] [5.2268696e-08]\n 760 0.0 [1.] [5.2268696e-08]\n 780 0.0 [1.] [5.2268696e-08]\n 800 0.0 [1.] [5.2268696e-08]\n 820 0.0 [1.] [5.2268696e-08]\n 840 0.0 [1.] [5.2268696e-08]\n 860 0.0 [1.] [5.2268696e-08]\n 880 0.0 [1.] [5.2268696e-08]\n 900 0.0 [1.] [5.2268696e-08]\n 920 0.0 [1.] [5.2268696e-08]\n 940 0.0 [1.] [5.2268696e-08]\n 960 0.0 [1.] [5.2268696e-08]\n 980 0.0 [1.] [5.2268696e-08]\n1000 0.0 [1.] [5.2268696e-08]\n1020 0.0 [1.] [5.2268696e-08]\n1040 0.0 [1.] [5.2268696e-08]\n1060 0.0 [1.] [5.2268696e-08]\n1080 0.0 [1.] [5.2268696e-08]\n1100 0.0 [1.] [5.2268696e-08]\n1120 0.0 [1.] [5.2268696e-08]\n1140 0.0 [1.] [5.2268696e-08]\n1160 0.0 [1.] [5.2268696e-08]\n1180 0.0 [1.] [5.2268696e-08]\n1200 0.0 [1.] [5.2268696e-08]\n1220 0.0 [1.] [5.2268696e-08]\n1240 0.0 [1.] [5.2268696e-08]\n1260 0.0 [1.] [5.2268696e-08]\n1280 0.0 [1.] [5.2268696e-08]\n1300 0.0 [1.] [5.2268696e-08]\n1320 0.0 [1.] [5.2268696e-08]\n1340 0.0 [1.] [5.2268696e-08]\n1360 0.0 [1.] [5.2268696e-08]\n1380 0.0 [1.] [5.2268696e-08]\n1400 0.0 [1.] [5.2268696e-08]\n1420 0.0 [1.] [5.2268696e-08]\n1440 0.0 [1.] [5.2268696e-08]\n1460 0.0 [1.] [5.2268696e-08]\n1480 0.0 [1.] [5.2268696e-08]\n1500 0.0 [1.] [5.2268696e-08]\n1520 0.0 [1.] [5.2268696e-08]\n1540 0.0 [1.] [5.2268696e-08]\n1560 0.0 [1.] [5.2268696e-08]\n1580 0.0 [1.] [5.2268696e-08]\n1600 0.0 [1.] [5.2268696e-08]\n1620 0.0 [1.] [5.2268696e-08]\n1640 0.0 [1.] [5.2268696e-08]\n1660 0.0 [1.] [5.2268696e-08]\n1680 0.0 [1.] [5.2268696e-08]\n1700 0.0 [1.] [5.2268696e-08]\n1720 0.0 [1.] [5.2268696e-08]\n1740 0.0 [1.] [5.2268696e-08]\n1760 0.0 [1.] [5.2268696e-08]\n1780 0.0 [1.] [5.2268696e-08]\n1800 0.0 [1.] [5.2268696e-08]\n1820 0.0 [1.] [5.2268696e-08]\n1840 0.0 [1.] [5.2268696e-08]\n1860 0.0 [1.] [5.2268696e-08]\n1880 0.0 [1.] [5.2268696e-08]\n1900 0.0 [1.] [5.2268696e-08]\n1920 0.0 [1.] [5.2268696e-08]\n1940 0.0 [1.] [5.2268696e-08]\n1960 0.0 [1.] [5.2268696e-08]\n1980 0.0 [1.] [5.2268696e-08]\n2000 0.0 [1.] [5.2268696e-08]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1564486104367_1965796166",
+      "id": "20190730-202824_487766498",
+      "dateCreated": "2019-07-30 20:28:24.367",
+      "dateStarted": "2019-10-08 19:05:23.387",
+      "dateFinished": "2019-10-08 19:05:24.039",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n\nx_data \u003d [1., 2., 3., 4.]\ny_data \u003d [2., 4., 6., 8.]\n\nw \u003d tf.Variable(tf.random_uniform([1]), name\u003d\u0027weight\u0027)\nb \u003d tf.Variable(tf.random_uniform([1]), name\u003d\u0027bias\u0027)\n\nx \u003d tf.placeholder(tf.float32, shape\u003d[None])\ny \u003d tf.placeholder(tf.float32, shape\u003d[None])\n\nhypothesis \u003d w * x + b\n\ncost \u003d tf.reduce_mean(tf.square(hypothesis - y))\n\nrate \u003d tf.Variable(0.1)\noptimizer \u003d tf.train.GradientDescentOptimizer(rate)\ntrain \u003d optimizer.minimize(cost)\n\ninit \u003d tf.initialize_all_variables()\n\nsess \u003d tf.Session()\nsess.run(init)\n\nfor step in range(2001):\n    cost_val, w_val, b_val, _ \u003d \\\n        sess.run([cost, w, b, train], feed_dict\u003d{x: x_data, y: y_data})\n    if step % 20 \u003d\u003d 0:\n        print(step, cost_val, w_val, b_val)\n\nprint(\u0027----------------------------------------\u0027)\nprint(sess.run(hypothesis, feed_dict\u003d{x: [5]}))\nprint(sess.run(hypothesis, feed_dict\u003d{x: [2.5]}))\nprint(sess.run(hypothesis, feed_dict\u003d{x: [2.5, 5]}))\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 19:10:22.042",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0 15.003689 [2.5768247] [1.0829414]\n20 0.033239543 [1.8530928] [0.43285024]\n40 0.009853574 [1.9198587] [0.23562537]\n60 0.0029211612 [1.9563646] [0.12829286]\n80 0.00086599943 [1.9762416] [0.06985277]\n100 0.00025673257 [1.9870641] [0.03803333]\n120 7.611039e-05 [1.9929566] [0.02070832]\n140 2.2562917e-05 [1.996165] [0.01127528]\n160 6.6895473e-06 [1.9979119] [0.00613917]\n180 1.9830932e-06 [1.9988631] [0.00334262]\n200 5.8786907e-07 [1.9993811] [0.00181997]\n220 1.7431267e-07 [1.999663] [0.00099096]\n240 5.1675002e-08 [1.9998165] [0.00053955]\n260 1.531248e-08 [1.9999001] [0.00029373]\n280 4.531387e-09 [1.9999455] [0.00015985]\n300 1.3424142e-09 [1.9999704] [8.7089065e-05]\n320 3.9979398e-10 [1.999984] [4.747581e-05]\n340 1.1745271e-10 [1.9999913] [2.5815478e-05]\n360 3.5356607e-11 [1.9999952] [1.4073364e-05]\n380 1.0402346e-11 [1.9999973] [7.636061e-06]\n400 3.0695446e-12 [1.9999986] [4.2028337e-06]\n420 7.9580786e-13 [1.9999993] [2.319327e-06]\n440 2.4158453e-13 [1.9999995] [1.2226019e-06]\n460 1.7053026e-13 [1.9999999] [7.100018e-07]\n480 1.2789769e-13 [1.9999999] [5.550297e-07]\n500 1.4210855e-14 [1.9999999] [4.0005776e-07]\n520 1.2789769e-13 [1.9999999] [1.9740213e-07]\n540 0.0 [2.] [1.1395561e-07]\n560 0.0 [2.] [1.1395561e-07]\n580 0.0 [2.] [1.1395561e-07]\n600 0.0 [2.] [1.1395561e-07]\n620 0.0 [2.] [1.1395561e-07]\n640 0.0 [2.] [1.1395561e-07]\n660 0.0 [2.] [1.1395561e-07]\n680 0.0 [2.] [1.1395561e-07]\n700 0.0 [2.] [1.1395561e-07]\n720 0.0 [2.] [1.1395561e-07]\n740 0.0 [2.] [1.1395561e-07]\n760 0.0 [2.] [1.1395561e-07]\n780 0.0 [2.] [1.1395561e-07]\n800 0.0 [2.] [1.1395561e-07]\n820 0.0 [2.] [1.1395561e-07]\n840 0.0 [2.] [1.1395561e-07]\n860 0.0 [2.] [1.1395561e-07]\n880 0.0 [2.] [1.1395561e-07]\n900 0.0 [2.] [1.1395561e-07]\n920 0.0 [2.] [1.1395561e-07]\n940 0.0 [2.] [1.1395561e-07]\n960 0.0 [2.] [1.1395561e-07]\n980 0.0 [2.] [1.1395561e-07]\n1000 0.0 [2.] [1.1395561e-07]\n1020 0.0 [2.] [1.1395561e-07]\n1040 0.0 [2.] [1.1395561e-07]\n1060 0.0 [2.] [1.1395561e-07]\n1080 0.0 [2.] [1.1395561e-07]\n1100 0.0 [2.] [1.1395561e-07]\n1120 0.0 [2.] [1.1395561e-07]\n1140 0.0 [2.] [1.1395561e-07]\n1160 0.0 [2.] [1.1395561e-07]\n1180 0.0 [2.] [1.1395561e-07]\n1200 0.0 [2.] [1.1395561e-07]\n1220 0.0 [2.] [1.1395561e-07]\n1240 0.0 [2.] [1.1395561e-07]\n1260 0.0 [2.] [1.1395561e-07]\n1280 0.0 [2.] [1.1395561e-07]\n1300 0.0 [2.] [1.1395561e-07]\n1320 0.0 [2.] [1.1395561e-07]\n1340 0.0 [2.] [1.1395561e-07]\n1360 0.0 [2.] [1.1395561e-07]\n1380 0.0 [2.] [1.1395561e-07]\n1400 0.0 [2.] [1.1395561e-07]\n1420 0.0 [2.] [1.1395561e-07]\n1440 0.0 [2.] [1.1395561e-07]\n1460 0.0 [2.] [1.1395561e-07]\n1480 0.0 [2.] [1.1395561e-07]\n1500 0.0 [2.] [1.1395561e-07]\n1520 0.0 [2.] [1.1395561e-07]\n1540 0.0 [2.] [1.1395561e-07]\n1560 0.0 [2.] [1.1395561e-07]\n1580 0.0 [2.] [1.1395561e-07]\n1600 0.0 [2.] [1.1395561e-07]\n1620 0.0 [2.] [1.1395561e-07]\n1640 0.0 [2.] [1.1395561e-07]\n1660 0.0 [2.] [1.1395561e-07]\n1680 0.0 [2.] [1.1395561e-07]\n1700 0.0 [2.] [1.1395561e-07]\n1720 0.0 [2.] [1.1395561e-07]\n1740 0.0 [2.] [1.1395561e-07]\n1760 0.0 [2.] [1.1395561e-07]\n1780 0.0 [2.] [1.1395561e-07]\n1800 0.0 [2.] [1.1395561e-07]\n1820 0.0 [2.] [1.1395561e-07]\n1840 0.0 [2.] [1.1395561e-07]\n1860 0.0 [2.] [1.1395561e-07]\n1880 0.0 [2.] [1.1395561e-07]\n1900 0.0 [2.] [1.1395561e-07]\n1920 0.0 [2.] [1.1395561e-07]\n1940 0.0 [2.] [1.1395561e-07]\n1960 0.0 [2.] [1.1395561e-07]\n1980 0.0 [2.] [1.1395561e-07]\n2000 0.0 [2.] [1.1395561e-07]\n----------------------------------------\n[10.]\n[5.]\n[ 5. 10.]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1564492530442_-2022145696",
+      "id": "20190730-221530_118562361",
+      "dateCreated": "2019-07-30 22:15:30.442",
+      "dateStarted": "2019-10-08 19:10:22.063",
+      "dateFinished": "2019-10-08 19:10:22.675",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "minimize cost",
+      "text": "%pyspark\n\nimport matplotlib.pyplot as plt\n\nx \u003d [1, 2, 3]\ny \u003d [1, 2, 3]\n\nw \u003d tf.placeholder(tf.float32)\nhypothesis \u003d x * w\n\ncost \u003d tf.reduce_mean(tf.square(hypothesis - y))\n\nsess \u003d tf.Session()\nsess.run(tf.global_variables_initializer())\n\nw_val \u003d []\ncost_val \u003d []\nfor i in range(-30, 50):\n    feed_w \u003d i * 0.1\n    curr_cost, curr_w \u003d sess.run([cost, w], feed_dict\u003d{w: feed_w})\n    w_val.append(curr_w)\n    cost_val.append(curr_cost)\n\nplt.scatter(w_val, cost_val)\nplt.show()\nsess.close()",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 19:23:28.011",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv style\u003d\u0027width:auto;height:auto\u0027\u003e\u003cimg src\u003ddata:image/png;base64,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 style\u003d\u0027width\u003dauto;height:auto\u0027\u003e\u003cdiv\u003e\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1570528760607_599245427",
+      "id": "20191008-185920_306065094",
+      "dateCreated": "2019-10-08 18:59:20.607",
+      "dateStarted": "2019-10-08 19:23:28.024",
+      "dateFinished": "2019-10-08 19:23:28.214",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "minimize cost",
+      "text": "%pyspark\nx_data \u003d [1, 2, 3]\ny_data \u003d [1, 2, 3]\n\nw \u003d tf.Variable(tf.random_normal([1]), name\u003d\u0027weight\u0027)\nx \u003d tf.placeholder(tf.float32)\ny \u003d tf.placeholder(tf.float32)\n\nhypothesis \u003d x * w\n\ncost \u003d tf.reduce_sum(tf.square(hypothesis - y))\n\nlearning_rate \u003d 0.1\ngradient \u003d tf.reduce_mean((w * x - y) * x)\ndescent \u003d w - learning_rate * gradient\nupdate \u003d w.assign(descent)\n\nsess \u003d tf.Session()\nsess.run(tf.global_variables_initializer())\nfor step in range(21):\n    sess.run(update, feed_dict\u003d{x: x_data, y: y_data})\n    print(step, sess.run(cost, feed_dict\u003d{x: x_data, y:y_data}), sess.run(w))\n\nsess.close()",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 19:26:54.735",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0 1.6455824 [0.6571566]\n1 0.46807677 [0.8171502]\n2 0.13314196 [0.90248007]\n3 0.037871554 [0.94798934]\n4 0.010772311 [0.972261]\n5 0.0030641202 [0.9852059]\n6 0.000871563 [0.99210984]\n7 0.00024791207 [0.9957919]\n8 7.051676e-05 [0.9977557]\n9 2.0059528e-05 [0.998803]\n10 5.704695e-06 [0.99936163]\n11 1.6227987e-06 [0.99965954]\n12 4.61345e-07 [0.99981844]\n13 1.3137402e-07 [0.99990314]\n14 3.7369023e-08 [0.9999483]\n15 1.0596594e-08 [0.99997246]\n16 3.0292036e-09 [0.9999853]\n17 8.6663476e-10 [0.99999213]\n18 2.407461e-10 [0.9999958]\n19 7.021583e-11 [0.99999774]\n20 1.9895197e-11 [0.9999988]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1570529999390_-1889113985",
+      "id": "20191008-191959_1244298186",
+      "dateCreated": "2019-10-08 19:19:59.390",
+      "dateStarted": "2019-10-08 19:26:54.748",
+      "dateFinished": "2019-10-08 19:26:54.844",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "minimize cost",
+      "text": "%pyspark\nx \u003d [1, 2, 3]\ny \u003d [1, 2, 3]\n\nw \u003d tf.Variable(5.0)\n\nhypothesis \u003d x * w\n\ncost \u003d tf.reduce_sum(tf.square(hypothesis - y))\noptimizer \u003d tf.train.GradientDescentOptimizer(learning_rate\u003d0.1)\ntrain \u003d optimizer.minimize(cost)\n\nsess \u003d tf.Session()\nsess.run(tf.global_variables_initializer())\nfor step in range(21):\n    print(step, sess.run(w))\n    sess.run(train)\n\nsess.close()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 19:32:15.316",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0 5.0\n1 -6.2\n2 13.96\n3 -22.328003\n4 42.99041\n5 -74.58273\n6 137.04893\n7 -243.88808\n8 441.79858\n9 -792.4375\n10 1429.1875\n11 -2569.7375\n12 4628.328\n13 -8328.19\n14 14993.542\n15 -26985.578\n16 48576.844\n17 -87435.516\n18 157386.73\n19 -283293.3\n20 509930.75\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1570530452451_-425673724",
+      "id": "20191008-192732_1451555803",
+      "dateCreated": "2019-10-08 19:27:32.451",
+      "dateStarted": "2019-10-08 19:29:28.344",
+      "dateFinished": "2019-10-08 19:29:28.448",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "multivar - old style",
+      "text": "%pyspark\n\n# multivariable은 matrix product를 이용하여 hypothesis를 구현한다!\n\nx1_data \u003d [1, 2, 3, 4, 5]\nx2_data \u003d [1, 2, 3, 4, 5]\nx3_data \u003d [1, 2, 3, 4, 5]\ny_data \u003d [1, 2, 3, 4, 5]\n\n\nx1 \u003d tf.placeholder(tf.float32)\nx2 \u003d tf.placeholder(tf.float32)\nx3 \u003d tf.placeholder(tf.float32)\nY \u003d tf.placeholder(tf.float32)\n\nw1 \u003d tf.Variable(tf.random_normal([1]), name\u003d\u0027weight1\u0027)\nw2 \u003d tf.Variable(tf.random_normal([1]), name\u003d\u0027weight2\u0027)\nw3 \u003d tf.Variable(tf.random_normal([1]), name\u003d\u0027weight3\u0027)\nb \u003d tf.Variable(tf.random_normal([1]), name\u003d\u0027bias\u0027)\n\nhypothesis \u003d x1*w1 + x2*w2 + x3*w3 + b\n\ncost \u003d tf.reduce_mean(tf.square(hypothesis - Y))\noptimizer \u003d tf.train.GradientDescentOptimizer(learning_rate\u003d0.01)\ntrain \u003d optimizer.minimize(cost)\n\nsess \u003d tf.Session()\nsess.run(tf.global_variables_initializer())\nfor step in range(2001):\n    cost_val, hy_val, _ \u003d sess.run([cost, hypothesis, train],\n                        feed_dict\u003d{x1: x1_data, x2: x2_data, x3: x3_data, Y: y_data})\n    if step % 10 \u003d\u003d 0:\n        print(step, \u0027cost:\u0027, cost_val, \u0027\\nprediction:\u0027, hy_val)\n\nsess.close()\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 20:01:30.554",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0 cost: 92.33446 \nprediction: [-2.0479362 -3.8885064 -5.7290764 -7.5696464 -9.410216 ]\n10 cost: 0.00044028126 \nprediction: [1.0356742 2.0221467 3.0086188 3.9950914 4.9815636]\n20 cost: 0.00041005487 \nprediction: [1.034466  2.021445  3.008424  3.9954033 4.9823823]\n30 cost: 0.0003819162 \nprediction: [1.0332624 2.0206962 3.0081298 3.9955635 4.9829974]\n40 cost: 0.00035570803 \nprediction: [1.0321009 2.0199735 3.007846  3.9957185 4.9835916]\n50 cost: 0.0003313003 \nprediction: [1.03098   2.019276  3.007572  3.9958677 4.984164 ]\n60 cost: 0.00030857194 \nprediction: [1.0298983 2.018603  3.0073078 3.9960124 4.984717 ]\n70 cost: 0.00028739643 \nprediction: [1.0288543 2.0179534 3.007052  3.9961514 4.9852505]\n80 cost: 0.00026767715 \nprediction: [1.0278468 2.0173266 3.0068064 3.996286  4.985766 ]\n90 cost: 0.00024931473 \nprediction: [1.0268744 2.0167215 3.0065684 3.9964154 4.986262 ]\n100 cost: 0.00023220261 \nprediction: [1.025936  2.0161376 3.0063393 3.9965408 4.9867425]\n110 cost: 0.00021626506 \nprediction: [1.0250303 2.0155737 3.0061173 3.996661  4.9872055]\n120 cost: 0.0002014327 \nprediction: [1.0241563 2.0150301 3.0059042 3.996778  4.9876513]\n130 cost: 0.00018760921 \nprediction: [1.0233129 2.0145056 3.005698  3.9968908 4.9880834]\n140 cost: 0.00017473425 \nprediction: [1.0224988 2.013999  3.0054991 3.9969995 4.9884996]\n150 cost: 0.00016274813 \nprediction: [1.0217133 2.0135102 3.0053072 3.997104  4.9889007]\n160 cost: 0.00015158101 \nprediction: [1.0209551 2.0130386 3.005122  3.9972055 4.9892883]\n170 cost: 0.00014117836 \nprediction: [1.0202233 2.012583  3.004943  3.9973025 4.989662 ]\n180 cost: 0.00013149098 \nprediction: [1.0195171 2.0121436 3.0047703 3.9973965 4.990023 ]\n190 cost: 0.00012246915 \nprediction: [1.0188357 2.0117197 3.0046039 3.9974875 4.9903717]\n200 cost: 0.00011406402 \nprediction: [1.0181779 2.0113103 3.0044427 3.997575  4.990708 ]\n210 cost: 0.000106239124 \nprediction: [1.0175432 2.0109155 3.0042877 3.99766   4.991032 ]\n220 cost: 9.894847e-05 \nprediction: [1.0169307 2.0105345 3.0041382 3.997742  4.991346 ]\n230 cost: 9.216037e-05 \nprediction: [1.0163394 2.0101664 3.0039937 3.9978204 4.9916472]\n240 cost: 8.583535e-05 \nprediction: [1.0157689 2.0098114 3.0038538 3.9978964 4.991939 ]\n250 cost: 7.994625e-05 \nprediction: [1.0152183 2.0094688 3.0037196 3.99797   4.9922204]\n260 cost: 7.445984e-05 \nprediction: [1.0146868 2.009138  3.0035896 3.9980407 4.992492 ]\n270 cost: 6.9352005e-05 \nprediction: [1.0141741 2.0088193 3.0034645 3.9981096 4.9927545]\n280 cost: 6.459361e-05 \nprediction: [1.0136791 2.0085113 3.0033433 3.9981754 4.993007 ]\n290 cost: 6.0159917e-05 \nprediction: [1.0132016 2.0082142 3.0032268 3.9982393 4.9932523]\n300 cost: 5.6031968e-05 \nprediction: [1.0127405 2.0079272 3.003114  3.9983006 4.9934874]\n310 cost: 5.2186148e-05 \nprediction: [1.0122957 2.0076504 3.003005  3.99836   4.9937153]\n320 cost: 4.860736e-05 \nprediction: [1.0118666 2.0073836 3.0029004 3.9984179 4.9939346]\n330 cost: 4.527141e-05 \nprediction: [1.0114521 2.0071256 3.002799  3.9984727 4.9941463]\n340 cost: 4.216411e-05 \nprediction: [1.011052  2.0068765 3.002701  3.9985254 4.9943504]\n350 cost: 3.92729e-05 \nprediction: [1.0106663 2.0066366 3.0026069 3.9985774 4.9945474]\n360 cost: 3.6577283e-05 \nprediction: [1.0102937 2.0064049 3.002516  3.998627  4.994738 ]\n370 cost: 3.406588e-05 \nprediction: [1.0099343 2.006181  3.0024276 3.9986746 4.994922 ]\n380 cost: 3.173044e-05 \nprediction: [1.0095874 2.0059652 3.0023432 3.9987211 4.9950986]\n390 cost: 2.9554654e-05 \nprediction: [1.0092528 2.0057573 3.0022616 3.9987662 4.99527  ]\n400 cost: 2.7525568e-05 \nprediction: [1.0089296 2.005556  3.0021827 3.998809  4.995435 ]\n410 cost: 2.5636027e-05 \nprediction: [1.0086178 2.005362  3.0021064 3.9988503 4.995595 ]\n420 cost: 2.3877521e-05 \nprediction: [1.0083169 2.0051749 3.0020328 3.9988906 4.9957485]\n430 cost: 2.2238488e-05 \nprediction: [1.0080265 2.0049942 3.0019617 3.9989295 4.9958973]\n440 cost: 2.071308e-05 \nprediction: [1.0077461 2.0048196 3.001893  3.9989665 4.99604  ]\n450 cost: 1.9290906e-05 \nprediction: [1.0074756 2.0046513 3.0018268 3.9990025 4.9961786]\n460 cost: 1.796736e-05 \nprediction: [1.0072147 2.004489  3.001763  3.9990377 4.996312 ]\n470 cost: 1.6734924e-05 \nprediction: [1.0069628 2.0043323 3.0017016 3.9990711 4.996441 ]\n480 cost: 1.5587502e-05 \nprediction: [1.0067197 2.0041811 3.0016425 3.9991038 4.996565 ]\n490 cost: 1.4517905e-05 \nprediction: [1.0064851 2.0040352 3.0015852 3.9991353 4.996685 ]\n500 cost: 1.3521446e-05 \nprediction: [1.0062586 2.0038943 3.00153   3.9991655 4.996801 ]\n510 cost: 1.2593153e-05 \nprediction: [1.0060401 2.0037582 3.0014765 3.9991944 4.996913 ]\n520 cost: 1.1728636e-05 \nprediction: [1.0058291 2.0036268 3.0014248 3.9992223 4.9970207]\n530 cost: 1.0924415e-05 \nprediction: [1.0056256 2.0035002 3.0013747 3.9992497 4.997124 ]\n540 cost: 1.0175192e-05 \nprediction: [1.0054291 2.003378  3.001327  3.9992757 4.9972243]\n550 cost: 9.476881e-06 \nprediction: [1.0052397 2.0032604 3.0012808 3.9993014 4.997322 ]\n560 cost: 8.826626e-06 \nprediction: [1.0050566 2.0031462 3.0012362 3.9993253 4.997415 ]\n570 cost: 8.220562e-06 \nprediction: [1.00488   2.0030363 3.0011923 3.9993486 4.997505 ]\n580 cost: 7.656481e-06 \nprediction: [1.0047097 2.0029304 3.001151  3.9993718 4.997593 ]\n590 cost: 7.1309287e-06 \nprediction: [1.0045452 2.002828  3.0011108 3.9993935 4.997677 ]\n600 cost: 6.641652e-06 \nprediction: [1.0043865 2.0027292 3.0010717 3.9994147 4.997758 ]\n610 cost: 6.186375e-06 \nprediction: [1.0042334 2.002634  3.001035  3.9994354 4.997836 ]\n620 cost: 5.7619463e-06 \nprediction: [1.0040857 2.0025423 3.0009987 3.9994555 4.997912 ]\n630 cost: 5.36697e-06 \nprediction: [1.003943  2.0024536 3.000964  3.9994745 4.9979844]\n640 cost: 4.998296e-06 \nprediction: [1.0038052 2.0023675 3.0009298 3.9994924 4.9980545]\n650 cost: 4.655517e-06 \nprediction: [1.0036724 2.002285  3.0008976 3.99951   4.9981227]\n660 cost: 4.335624e-06 \nprediction: [1.0035441 2.0022051 3.000866  3.9995272 4.9981885]\n670 cost: 4.038457e-06 \nprediction: [1.0034205 2.0021284 3.0008361 3.9995441 4.998252 ]\n680 cost: 3.7609614e-06 \nprediction: [1.0033009 2.0020537 3.0008068 3.9995596 4.998313 ]\n690 cost: 3.5028006e-06 \nprediction: [1.0031856 2.0019822 3.0007784 3.9995751 4.998372 ]\n700 cost: 3.2631456e-06 \nprediction: [1.0030745 2.001913  3.0007517 3.9995902 4.9984283]\n710 cost: 3.0392916e-06 \nprediction: [1.002967  2.001846  3.0007255 3.999604  4.9984827]\n720 cost: 2.830304e-06 \nprediction: [1.0028635 2.0017817 3.0007    3.9996183 4.9985366]\n730 cost: 2.6361665e-06 \nprediction: [1.0027635 2.0017195 3.0006757 3.9996314 4.9985876]\n740 cost: 2.4555266e-06 \nprediction: [1.002667  2.0016594 3.0006518 3.999644  4.9986362]\n750 cost: 2.287021e-06 \nprediction: [1.002574  2.0016017 3.0006292 3.999657  4.9986844]\n760 cost: 2.130016e-06 \nprediction: [1.002484  2.0015454 3.0006068 3.9996686 4.9987297]\n770 cost: 1.9839495e-06 \nprediction: [1.0023973 2.0014918 3.000586  3.9996805 4.9987745]\n780 cost: 1.8476867e-06 \nprediction: [1.0023137 2.0014398 3.0005655 3.999692  4.998818 ]\n790 cost: 1.7210263e-06 \nprediction: [1.0022329 2.0013895 3.000546  3.9997027 4.998859 ]\n800 cost: 1.6028309e-06 \nprediction: [1.0021548 2.0013409 3.0005264 3.9997127 4.9988985]\n810 cost: 1.4927202e-06 \nprediction: [1.0020796 2.0012941 3.0005085 3.999723  4.9989376]\n820 cost: 1.3903377e-06 \nprediction: [1.0020069 2.0012486 3.0004902 3.999732  4.998974 ]\n830 cost: 1.2948552e-06 \nprediction: [1.0019369 2.001205  3.0004733 3.9997416 4.99901  ]\n840 cost: 1.2061895e-06 \nprediction: [1.0018693 2.001163  3.0004568 3.9997506 4.9990444]\n850 cost: 1.1234804e-06 \nprediction: [1.0018041 2.0011227 3.0004413 3.9997597 4.9990783]\n860 cost: 1.0463469e-06 \nprediction: [1.0017409 2.0010831 3.0004256 3.9997675 4.9991097]\n870 cost: 9.745542e-07 \nprediction: [1.0016801 2.0010455 3.0004103 3.999776  4.9991407]\n880 cost: 9.0784545e-07 \nprediction: [1.0016216 2.001009  3.0003965 3.9997838 4.999171 ]\n890 cost: 8.453311e-07 \nprediction: [1.001565  2.0009737 3.0003827 3.9997914 4.9992003]\n900 cost: 7.8720734e-07 \nprediction: [1.0015104 2.0009398 3.0003695 3.999799  4.999229 ]\n910 cost: 7.334437e-07 \nprediction: [1.0014577 2.0009072 3.0003564 3.9998062 4.999255 ]\n920 cost: 6.830445e-07 \nprediction: [1.0014067 2.0008752 3.0003438 3.9998124 4.999281 ]\n930 cost: 6.360074e-07 \nprediction: [1.0013574 2.0008445 3.0003316 3.9998186 4.999306 ]\n940 cost: 5.924265e-07 \nprediction: [1.0013101 2.0008152 3.0003202 3.9998252 4.9993305]\n950 cost: 5.518865e-07 \nprediction: [1.0012645 2.0007868 3.0003095 3.9998317 4.999354 ]\n960 cost: 5.1399786e-07 \nprediction: [1.0012202 2.0007594 3.0002983 3.9998374 4.9993763]\n970 cost: 4.78595e-07 \nprediction: [1.0011775 2.0007327 3.0002875 3.9998426 4.999398 ]\n980 cost: 4.4593676e-07 \nprediction: [1.0011364 2.000707  3.0002775 3.9998481 4.9994183]\n990 cost: 4.1540693e-07 \nprediction: [1.0010968 2.0006824 3.0002682 3.9998536 4.999439 ]\n1000 cost: 3.8665462e-07 \nprediction: [1.0010585 2.0006585 3.0002587 3.9998586 4.9994593]\n1010 cost: 3.6021288e-07 \nprediction: [1.0010216 2.0006359 3.0002499 3.999864  4.9994783]\n1020 cost: 3.3552396e-07 \nprediction: [1.000986  2.0006137 3.000241  3.9998689 4.9994965]\n1030 cost: 3.1237133e-07 \nprediction: [1.0009514 2.000592  3.0002325 3.9998732 4.999514 ]\n1040 cost: 2.910778e-07 \nprediction: [1.0009181 2.0005713 3.0002246 3.9998775 4.9995303]\n1050 cost: 2.7103152e-07 \nprediction: [1.0008861 2.0005512 3.0002165 3.9998813 4.999547 ]\n1060 cost: 2.524446e-07 \nprediction: [1.0008552 2.000532  3.0002089 3.9998856 4.9995627]\n1070 cost: 2.3512789e-07 \nprediction: [1.0008253 2.0005133 3.000202  3.9998896 4.999578 ]\n1080 cost: 2.190354e-07 \nprediction: [1.0007966 2.0004957 3.0001945 3.9998937 4.999593 ]\n1090 cost: 2.0413711e-07 \nprediction: [1.0007688 2.0004785 3.0001884 3.9998977 4.9996066]\n1100 cost: 1.8995676e-07 \nprediction: [1.000742  2.0004618 3.0001814 3.9999013 4.9996214]\n1110 cost: 1.7695398e-07 \nprediction: [1.0007161 2.0004458 3.0001755 3.999905  4.9996347]\n1120 cost: 1.6482085e-07 \nprediction: [1.000691 2.00043  3.000169 3.999908 4.999647]\n1130 cost: 1.5340909e-07 \nprediction: [1.0006669 2.000415  3.000163  3.9999113 4.99966  ]\n1140 cost: 1.4299376e-07 \nprediction: [1.0006436 2.0004005 3.0001574 3.9999146 4.999671 ]\n1150 cost: 1.3322759e-07 \nprediction: [1.0006211 2.0003865 3.0001516 3.999917  4.999682 ]\n1160 cost: 1.2401816e-07 \nprediction: [1.0005994 2.000373  3.0001462 3.99992   4.9996934]\n1170 cost: 1.15531144e-07 \nprediction: [1.0005785 2.00036   3.0001414 3.9999228 4.9997044]\n1180 cost: 1.0756205e-07 \nprediction: [1.0005583 2.0003471 3.000136  3.9999251 4.9997144]\n1190 cost: 1.0017467e-07 \nprediction: [1.0005388 2.0003352 3.0001316 3.9999282 4.999725 ]\n1200 cost: 9.3313886e-08 \nprediction: [1.00052   2.0003235 3.000127  3.9999306 4.9997344]\n1210 cost: 8.690479e-08 \nprediction: [1.0005019 2.0003123 3.0001228 3.9999332 4.999744 ]\n1220 cost: 8.102527e-08 \nprediction: [1.0004845 2.0003016 3.0001187 3.9999359 4.9997525]\n1230 cost: 7.537392e-08 \nprediction: [1.0004674 2.0002909 3.0001144 3.999938  4.9997616]\n1240 cost: 7.018696e-08 \nprediction: [1.000451  2.0002806 3.0001101 3.9999397 4.9997697]\n1250 cost: 6.538541e-08 \nprediction: [1.0004354 2.0002708 3.0001063 3.999942  4.999778 ]\n1260 cost: 6.094442e-08 \nprediction: [1.0004202 2.0002615 3.000103  3.9999444 4.9997854]\n1270 cost: 5.6769544e-08 \nprediction: [1.0004053 2.0002522 3.000099  3.9999459 4.999792 ]\n1280 cost: 5.2851682e-08 \nprediction: [1.0003912 2.0002434 3.0000954 3.9999478 4.9997997]\n1290 cost: 4.921079e-08 \nprediction: [1.0003774 2.0002346 3.0000923 3.9999492 4.9998064]\n1300 cost: 4.5887976e-08 \nprediction: [1.0003645 2.000227  3.0000892 3.9999518 4.9998136]\n1310 cost: 4.2670585e-08 \nprediction: [1.0003518 2.0002189 3.0000858 3.9999533 4.9998207]\n1320 cost: 3.9716987e-08 \nprediction: [1.0003394 2.000211  3.0000827 3.9999545 4.999827 ]\n1330 cost: 3.7036738e-08 \nprediction: [1.0003276 2.0002038 3.0000799 3.9999561 4.9998326]\n1340 cost: 3.4499386e-08 \nprediction: [1.0003161 2.0001967 3.000077  3.9999576 4.9998384]\n1350 cost: 3.2131503e-08 \nprediction: [1.0003052 2.0001898 3.0000744 3.9999592 4.999844 ]\n1360 cost: 2.9931712e-08 \nprediction: [1.0002946 2.0001833 3.000072  3.999961  4.99985  ]\n1370 cost: 2.790953e-08 \nprediction: [1.0002843 2.000177  3.0000696 3.9999623 4.9998546]\n1380 cost: 2.5974341e-08 \nprediction: [1.0002743 2.0001707 3.000067  3.9999633 4.99986  ]\n1390 cost: 2.4200066e-08 \nprediction: [1.0002648 2.0001647 3.0000646 3.9999647 4.9998646]\n1400 cost: 2.2552172e-08 \nprediction: [1.0002556 2.000159  3.0000627 3.9999661 4.9998693]\n1410 cost: 2.0968878e-08 \nprediction: [1.0002465 2.0001533 3.0000603 3.999967  4.999874 ]\n1420 cost: 1.9542426e-08 \nprediction: [1.000238  2.000148  3.0000582 3.9999683 4.9998784]\n1430 cost: 1.8195717e-08 \nprediction: [1.0002297 2.000143  3.0000563 3.9999695 4.999883 ]\n1440 cost: 1.6955905e-08 \nprediction: [1.0002216 2.000138  3.0000546 3.9999707 4.999887 ]\n1450 cost: 1.5777356e-08 \nprediction: [1.0002139 2.0001333 3.0000527 3.9999719 4.9998913]\n1460 cost: 1.4708587e-08 \nprediction: [1.0002065 2.0001285 3.0000505 3.9999728 4.9998946]\n1470 cost: 1.3693264e-08 \nprediction: [1.0001992 2.000124  3.000049  3.9999738 4.9998984]\n1480 cost: 1.2739648e-08 \nprediction: [1.0001923 2.0001197 3.000047  3.9999747 4.9999022]\n1490 cost: 1.1862608e-08 \nprediction: [1.0001855 2.0001154 3.0000455 3.9999754 4.9999056]\n1500 cost: 1.105501e-08 \nprediction: [1.000179  2.0001116 3.0000439 3.9999766 4.999909 ]\n1510 cost: 1.0284896e-08 \nprediction: [1.0001726 2.0001073 3.0000424 3.9999769 4.999912 ]\n1520 cost: 9.599523e-09 \nprediction: [1.0001667 2.0001037 3.0000412 3.999978  4.9999146]\n1530 cost: 8.92251e-09 \nprediction: [1.0001608 2.0001001 3.0000393 3.9999788 4.999918 ]\n1540 cost: 8.32379e-09 \nprediction: [1.0001553 2.0000968 3.0000381 3.99998   4.999921 ]\n1550 cost: 7.74678e-09 \nprediction: [1.0001497 2.0000932 3.0000365 3.99998   4.999923 ]\n1560 cost: 7.203596e-09 \nprediction: [1.0001445 2.00009   3.000035  3.9999807 4.999926 ]\n1570 cost: 6.699463e-09 \nprediction: [1.0001395 2.000087  3.000034  3.9999819 4.9999294]\n1580 cost: 6.256246e-09 \nprediction: [1.0001346 2.000084  3.0000331 3.9999824 4.9999313]\n1590 cost: 5.8346243e-09 \nprediction: [1.0001299 2.0000808 3.0000317 3.9999828 4.9999332]\n1600 cost: 5.44062e-09 \nprediction: [1.0001254 2.0000782 3.0000308 3.9999835 4.9999356]\n1610 cost: 5.0596896e-09 \nprediction: [1.0001209 2.000075  3.0000296 3.9999835 4.9999375]\n1620 cost: 4.7021897e-09 \nprediction: [1.0001168 2.000073  3.0000286 3.999985  4.999941 ]\n1630 cost: 4.40165e-09 \nprediction: [1.0001127 2.00007   3.0000272 3.999985  4.9999413]\n1640 cost: 4.0851575e-09 \nprediction: [1.0001086 2.0000675 3.0000262 3.999985  4.9999437]\n1650 cost: 3.800781e-09 \nprediction: [1.000105  2.0000653 3.0000257 3.9999862 4.9999466]\n1660 cost: 3.536138e-09 \nprediction: [1.0001013 2.000063  3.0000248 3.9999864 4.9999485]\n1670 cost: 3.3008063e-09 \nprediction: [1.0000978 2.0000608 3.000024  3.9999871 4.99995  ]\n1680 cost: 3.0795178e-09 \nprediction: [1.0000943 2.0000587 3.0000231 3.9999871 4.9999514]\n1690 cost: 2.8670484e-09 \nprediction: [1.000091  2.0000565 3.000022  3.9999874 4.999953 ]\n1700 cost: 2.6720302e-09 \nprediction: [1.0000879 2.0000546 3.0000215 3.9999878 4.9999547]\n1710 cost: 2.4829319e-09 \nprediction: [1.0000849 2.0000527 3.0000205 3.9999886 4.9999566]\n1720 cost: 2.320408e-09 \nprediction: [1.0000819 2.000051  3.0000203 3.999989  4.999958 ]\n1730 cost: 2.1583104e-09 \nprediction: [1.0000789 2.0000489 3.0000193 3.999989  4.999959 ]\n1740 cost: 2.017535e-09 \nprediction: [1.0000764 2.0000477 3.0000186 3.99999   4.999961 ]\n1750 cost: 1.8723996e-09 \nprediction: [1.0000737 2.0000458 3.000018  3.99999   4.9999623]\n1760 cost: 1.7463435e-09 \nprediction: [1.000071  2.000044  3.0000172 3.9999902 4.9999633]\n1770 cost: 1.6280097e-09 \nprediction: [1.0000685 2.0000424 3.0000165 3.9999905 4.999964 ]\n1780 cost: 1.5155592e-09 \nprediction: [1.0000663 2.0000412 3.000016  3.999991  4.999966 ]\n1790 cost: 1.4144603e-09 \nprediction: [1.000064  2.0000398 3.0000153 3.9999914 4.999967 ]\n1800 cost: 1.3184831e-09 \nprediction: [1.0000618 2.0000384 3.0000145 3.9999914 4.999968 ]\n1810 cost: 1.23066e-09 \nprediction: [1.0000596 2.000037  3.0000143 3.9999917 4.999969 ]\n1820 cost: 1.1429648e-09 \nprediction: [1.0000576 2.0000358 3.0000136 3.9999921 4.9999704]\n1830 cost: 1.0691593e-09 \nprediction: [1.0000557 2.0000346 3.0000134 3.9999926 4.9999714]\n1840 cost: 9.942027e-10 \nprediction: [1.0000536 2.0000334 3.0000126 3.9999926 4.9999723]\n1850 cost: 9.291085e-10 \nprediction: [1.0000519 2.0000322 3.0000126 3.999993  4.9999733]\n1860 cost: 8.6236296e-10 \nprediction: [1.00005   2.000031  3.000012  3.9999928 4.9999743]\n1870 cost: 8.058493e-10 \nprediction: [1.0000483 2.00003   3.0000117 3.9999933 4.999975 ]\n1880 cost: 7.4761886e-10 \nprediction: [1.0000466 2.0000288 3.000011  3.9999933 4.999976 ]\n1890 cost: 7.016183e-10 \nprediction: [1.0000451 2.000028  3.0000107 3.9999938 4.9999766]\n1900 cost: 6.5117833e-10 \nprediction: [1.0000435 2.0000272 3.0000105 3.9999943 4.999978 ]\n1910 cost: 6.104102e-10 \nprediction: [1.0000421 2.0000262 3.00001   3.9999943 4.9999785]\n1920 cost: 5.655011e-10 \nprediction: [1.0000405 2.0000253 3.0000098 3.9999945 4.9999795]\n1930 cost: 5.314405e-10 \nprediction: [1.0000391 2.0000243 3.0000093 3.9999945 4.9999795]\n1940 cost: 4.918661e-10 \nprediction: [1.0000377 2.0000234 3.000009  3.9999945 4.9999804]\n1950 cost: 4.5842227e-10 \nprediction: [1.0000366 2.000023  3.0000088 3.9999952 4.999982 ]\n1960 cost: 4.293838e-10 \nprediction: [1.0000353 2.000022  3.0000083 3.9999952 4.999982 ]\n1970 cost: 4.028152e-10 \nprediction: [1.0000341 2.0000212 3.0000083 3.9999955 4.9999824]\n1980 cost: 3.7161954e-10 \nprediction: [1.0000329 2.0000205 3.0000076 3.9999957 4.9999833]\n1990 cost: 3.461224e-10 \nprediction: [1.0000318 2.0000198 3.0000079 3.999996  4.9999843]\n2000 cost: 3.181185e-10 \nprediction: [1.0000305 2.0000188 3.0000072 3.9999955 4.9999847]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1570529938514_905771361",
+      "id": "20191008-191858_1504022353",
+      "dateCreated": "2019-10-08 19:18:58.514",
+      "dateStarted": "2019-10-08 20:01:30.569",
+      "dateFinished": "2019-10-08 20:01:31.502",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "multivar - old style",
+      "text": "%pyspark\n\n# multivariable은 matrix product를 이용하여 hypothesis를 구현한다!\n\nx_data \u003d [[1, 2, 3],\n          [1, 2, 3],\n          [1, 2, 3],\n          [1, 2, 3],\n          [1, 2, 3]]\ny_data \u003d [[1], [2], [3], [4], [5]]\n\n\nX \u003d tf.placeholder(tf.float32, shape\u003d[None, 3])\nY \u003d tf.placeholder(tf.float32, shape\u003d[None, 1])\n\nW \u003d tf.Variable(tf.random_normal([3, 1]), name\u003d\u0027weight\u0027)\nb \u003d tf.Variable(tf.random_normal([1]), name\u003d\u0027bias\u0027)\n\nhypothesis \u003d tf.matmul(X, W) + b\n\ncost \u003d tf.reduce_mean(tf.square(hypothesis - Y))\noptimizer \u003d tf.train.GradientDescentOptimizer(learning_rate\u003d0.001)\ntrain \u003d optimizer.minimize(cost)\n\nsess \u003d tf.Session()\nsess.run(tf.global_variables_initializer())\nfor step in range(2001):\n    cost_val, hy_val, _ \u003d sess.run([cost, hypothesis, train],\n                                   feed_dict\u003d{X: x_data, Y: y_data})\n    if step % 10 \u003d\u003d 0:\n        print(step, \u0027cost:\u0027, cost_val, \u0027\\nprediction:\u0027, hy_val)\n\nsess.close()\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-08 20:08:50.516",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0 cost: 2.3084772 \nprediction: [[2.4445927]\n [2.4445927]\n [2.4445927]\n [2.4445927]\n [2.4445927]]\n10 cost: 2.1677482 \nprediction: [[2.5904293]\n [2.5904293]\n [2.5904293]\n [2.5904293]\n [2.5904293]]\n20 cost: 2.0912204 \nprediction: [[2.6979725]\n [2.6979725]\n [2.6979725]\n [2.6979725]\n [2.6979725]]\n30 cost: 2.0496054 \nprediction: [[2.7772775]\n [2.7772775]\n [2.7772775]\n [2.7772775]\n [2.7772775]]\n40 cost: 2.0269752 \nprediction: [[2.835759]\n [2.835759]\n [2.835759]\n [2.835759]\n [2.835759]]\n50 cost: 2.014669 \nprediction: [[2.8788848]\n [2.8788848]\n [2.8788848]\n [2.8788848]\n [2.8788848]]\n60 cost: 2.007977 \nprediction: [[2.9106867]\n [2.9106867]\n [2.9106867]\n [2.9106867]\n [2.9106867]]\n70 cost: 2.0043378 \nprediction: [[2.9341385]\n [2.9341385]\n [2.9341385]\n [2.9341385]\n [2.9341385]]\n80 cost: 2.002359 \nprediction: [[2.9514322]\n [2.9514322]\n [2.9514322]\n [2.9514322]\n [2.9514322]]\n90 cost: 2.0012827 \nprediction: [[2.9641848]\n [2.9641848]\n [2.9641848]\n [2.9641848]\n [2.9641848]]\n100 cost: 2.0006976 \nprediction: [[2.973589]\n [2.973589]\n [2.973589]\n [2.973589]\n [2.973589]]\n110 cost: 2.000379 \nprediction: [[2.9805238]\n [2.9805238]\n [2.9805238]\n [2.9805238]\n [2.9805238]]\n120 cost: 2.0002065 \nprediction: [[2.985638]\n [2.985638]\n [2.985638]\n [2.985638]\n [2.985638]]\n130 cost: 2.000112 \nprediction: [[2.9894092]\n [2.9894092]\n [2.9894092]\n [2.9894092]\n [2.9894092]]\n140 cost: 2.000061 \nprediction: [[2.9921901]\n [2.9921901]\n [2.9921901]\n [2.9921901]\n [2.9921901]]\n150 cost: 2.0000331 \nprediction: [[2.994241]\n [2.994241]\n [2.994241]\n [2.994241]\n [2.994241]]\n160 cost: 2.0000181 \nprediction: [[2.995753]\n [2.995753]\n [2.995753]\n [2.995753]\n [2.995753]]\n170 cost: 2.00001 \nprediction: [[2.9968677]\n [2.9968677]\n [2.9968677]\n [2.9968677]\n [2.9968677]]\n180 cost: 2.0000052 \nprediction: [[2.9976904]\n [2.9976904]\n [2.9976904]\n [2.9976904]\n [2.9976904]]\n190 cost: 2.0000029 \nprediction: [[2.9982965]\n [2.9982965]\n [2.9982965]\n [2.9982965]\n [2.9982965]]\n200 cost: 2.0000014 \nprediction: [[2.9987438]\n [2.9987438]\n [2.9987438]\n [2.9987438]\n [2.9987438]]\n210 cost: 2.000001 \nprediction: [[2.9990733]\n [2.9990733]\n [2.9990733]\n [2.9990733]\n [2.9990733]]\n220 cost: 2.0000005 \nprediction: [[2.9993167]\n [2.9993167]\n [2.9993167]\n [2.9993167]\n [2.9993167]]\n230 cost: 2.0000005 \nprediction: [[2.999496]\n [2.999496]\n [2.999496]\n [2.999496]\n [2.999496]]\n240 cost: 2.0 \nprediction: [[2.9996283]\n [2.9996283]\n [2.9996283]\n [2.9996283]\n [2.9996283]]\n250 cost: 2.0 \nprediction: [[2.9997258]\n [2.9997258]\n [2.9997258]\n [2.9997258]\n [2.9997258]]\n260 cost: 2.0 \nprediction: [[2.9997976]\n [2.9997976]\n [2.9997976]\n [2.9997976]\n [2.9997976]]\n270 cost: 2.0 \nprediction: [[2.9998507]\n [2.9998507]\n [2.9998507]\n [2.9998507]\n [2.9998507]]\n280 cost: 2.0 \nprediction: [[2.99989]\n [2.99989]\n [2.99989]\n [2.99989]\n [2.99989]]\n290 cost: 2.0 \nprediction: [[2.999919]\n [2.999919]\n [2.999919]\n [2.999919]\n [2.999919]]\n300 cost: 2.0 \nprediction: [[2.9999397]\n [2.9999397]\n [2.9999397]\n [2.9999397]\n [2.9999397]]\n310 cost: 2.0 \nprediction: [[2.9999557]\n [2.9999557]\n [2.9999557]\n [2.9999557]\n [2.9999557]]\n320 cost: 2.0 \nprediction: [[2.9999676]\n [2.9999676]\n [2.9999676]\n [2.9999676]\n [2.9999676]]\n330 cost: 2.0 \nprediction: [[2.9999764]\n [2.9999764]\n [2.9999764]\n [2.9999764]\n [2.9999764]]\n340 cost: 2.0 \nprediction: [[2.9999816]\n [2.9999816]\n [2.9999816]\n [2.9999816]\n [2.9999816]]\n350 cost: 2.0 \nprediction: [[2.9999864]\n [2.9999864]\n [2.9999864]\n [2.9999864]\n [2.9999864]]\n360 cost: 2.0 \nprediction: [[2.9999897]\n [2.9999897]\n [2.9999897]\n [2.9999897]\n [2.9999897]]\n370 cost: 2.0 \nprediction: [[2.9999928]\n [2.9999928]\n [2.9999928]\n [2.9999928]\n [2.9999928]]\n380 cost: 2.0 \nprediction: [[2.9999948]\n [2.9999948]\n [2.9999948]\n [2.9999948]\n [2.9999948]]\n390 cost: 2.0 \nprediction: [[2.9999952]\n [2.9999952]\n [2.9999952]\n [2.9999952]\n [2.9999952]]\n400 cost: 2.0 \nprediction: [[2.9999955]\n [2.9999955]\n [2.9999955]\n [2.9999955]\n [2.9999955]]\n410 cost: 2.0 \nprediction: [[2.9999955]\n [2.9999955]\n [2.9999955]\n [2.9999955]\n [2.9999955]]\n420 cost: 2.0 \nprediction: [[2.9999955]\n [2.9999955]\n [2.9999955]\n [2.9999955]\n [2.9999955]]\n430 cost: 2.0 \nprediction: [[2.9999957]\n [2.9999957]\n [2.9999957]\n [2.9999957]\n [2.9999957]]\n440 cost: 2.0 \nprediction: [[2.9999957]\n [2.9999957]\n [2.9999957]\n [2.9999957]\n [2.9999957]]\n450 cost: 2.0 \nprediction: [[2.9999957]\n [2.9999957]\n [2.9999957]\n [2.9999957]\n [2.9999957]]\n460 cost: 2.0 \nprediction: [[2.999996]\n [2.999996]\n [2.999996]\n [2.999996]\n [2.999996]]\n470 cost: 2.0 \nprediction: [[2.999996]\n [2.999996]\n [2.999996]\n [2.999996]\n [2.999996]]\n480 cost: 2.0 \nprediction: [[2.999996]\n [2.999996]\n [2.999996]\n [2.999996]\n [2.999996]]\n490 cost: 2.0 \nprediction: [[2.9999962]\n [2.9999962]\n [2.9999962]\n [2.9999962]\n [2.9999962]]\n500 cost: 2.0 \nprediction: [[2.9999962]\n [2.9999962]\n [2.9999962]\n [2.9999962]\n [2.9999962]]\n510 cost: 2.0 \nprediction: [[2.9999962]\n [2.9999962]\n [2.9999962]\n [2.9999962]\n [2.9999962]]\n520 cost: 2.0 \nprediction: [[2.9999964]\n [2.9999964]\n [2.9999964]\n [2.9999964]\n [2.9999964]]\n530 cost: 2.0 \nprediction: [[2.9999964]\n [2.9999964]\n [2.9999964]\n [2.9999964]\n [2.9999964]]\n540 cost: 2.0 \nprediction: [[2.9999964]\n [2.9999964]\n [2.9999964]\n [2.9999964]\n [2.9999964]]\n550 cost: 2.0 \nprediction: [[2.9999967]\n [2.9999967]\n [2.9999967]\n [2.9999967]\n [2.9999967]]\n560 cost: 2.0 \nprediction: [[2.9999967]\n [2.9999967]\n [2.9999967]\n [2.9999967]\n [2.9999967]]\n570 cost: 2.0 \nprediction: [[2.9999967]\n [2.9999967]\n [2.9999967]\n [2.9999967]\n [2.9999967]]\n580 cost: 2.0 \nprediction: [[2.9999967]\n [2.9999967]\n [2.9999967]\n [2.9999967]\n [2.9999967]]\n590 cost: 2.0 \nprediction: [[2.999997]\n [2.999997]\n [2.999997]\n [2.999997]\n [2.999997]]\n600 cost: 2.0 \nprediction: [[2.999997]\n [2.999997]\n [2.999997]\n [2.999997]\n [2.999997]]\n610 cost: 2.0 \nprediction: [[2.999997]\n [2.999997]\n [2.999997]\n [2.999997]\n [2.999997]]\n620 cost: 2.0 \nprediction: [[2.9999971]\n [2.9999971]\n [2.9999971]\n [2.9999971]\n [2.9999971]]\n630 cost: 2.0 \nprediction: [[2.9999971]\n [2.9999971]\n [2.9999971]\n [2.9999971]\n [2.9999971]]\n640 cost: 2.0 \nprediction: [[2.9999971]\n [2.9999971]\n [2.9999971]\n [2.9999971]\n [2.9999971]]\n650 cost: 2.0 \nprediction: [[2.9999974]\n [2.9999974]\n [2.9999974]\n [2.9999974]\n [2.9999974]]\n660 cost: 2.0 \nprediction: [[2.9999974]\n [2.9999974]\n [2.9999974]\n [2.9999974]\n [2.9999974]]\n670 cost: 2.0 \nprediction: [[2.9999974]\n [2.9999974]\n [2.9999974]\n [2.9999974]\n [2.9999974]]\n680 cost: 2.0 \nprediction: [[2.9999976]\n [2.9999976]\n [2.9999976]\n [2.9999976]\n [2.9999976]]\n690 cost: 2.0 \nprediction: [[2.9999976]\n [2.9999976]\n [2.9999976]\n [2.9999976]\n [2.9999976]]\n700 cost: 2.0 \nprediction: [[2.9999976]\n [2.9999976]\n [2.9999976]\n [2.9999976]\n [2.9999976]]\n710 cost: 2.0 \nprediction: [[2.9999976]\n [2.9999976]\n [2.9999976]\n [2.9999976]\n [2.9999976]]\n720 cost: 2.0 \nprediction: [[2.9999979]\n [2.9999979]\n [2.9999979]\n [2.9999979]\n [2.9999979]]\n730 cost: 2.0 \nprediction: [[2.9999979]\n [2.9999979]\n [2.9999979]\n [2.9999979]\n [2.9999979]]\n740 cost: 2.0 \nprediction: [[2.9999979]\n [2.9999979]\n [2.9999979]\n [2.9999979]\n [2.9999979]]\n750 cost: 2.0 \nprediction: [[2.999998]\n [2.999998]\n [2.999998]\n [2.999998]\n [2.999998]]\n760 cost: 2.0 \nprediction: [[2.999998]\n [2.999998]\n [2.999998]\n [2.999998]\n [2.999998]]\n770 cost: 2.0 \nprediction: [[2.999998]\n [2.999998]\n [2.999998]\n [2.999998]\n [2.999998]]\n780 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n790 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n800 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n810 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n820 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n830 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n840 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n850 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n860 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n870 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n880 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n890 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n900 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n910 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n920 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n930 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n940 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n950 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n960 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n970 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n980 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n990 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1000 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1010 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1020 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1030 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1040 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1050 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1060 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1070 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1080 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1090 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1100 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1110 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1120 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1130 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1140 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1150 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1160 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1170 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1180 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1190 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1200 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1210 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1220 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1230 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1240 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1250 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1260 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1270 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1280 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1290 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1300 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1310 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1320 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1330 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1340 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1350 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1360 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1370 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1380 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1390 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1400 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1410 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1420 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1430 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1440 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1450 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1460 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1470 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1480 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1490 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1500 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1510 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1520 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1530 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1540 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1550 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1560 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1570 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1580 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1590 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1600 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1610 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1620 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1630 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1640 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1650 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1660 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1670 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1680 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1690 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1700 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1710 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1720 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1730 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1740 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1750 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1760 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1770 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1780 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1790 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1800 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1810 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1820 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1830 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1840 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1850 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1860 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1870 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1880 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1890 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1900 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1910 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1920 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1930 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1940 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1950 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1960 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1970 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1980 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n1990 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n2000 cost: 2.0 \nprediction: [[2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]\n [2.9999983]]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1570532441810_-110063824",
+      "id": "20191008-200041_205520063",
+      "dateCreated": "2019-10-08 20:00:41.810",
+      "dateStarted": "2019-10-08 20:08:50.528",
+      "dateFinished": "2019-10-08 20:08:51.337",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "logistic reg",
+      "text": "%pyspark\n\n# multivariable은 matrix product를 이용하여 hypothesis를 구현한다!\n\nx_data \u003d [[1, 2], [2, 3], [3, 1], [4, 3], [5, 3], [6, 2]]\ny_data \u003d [[0], [0], [0], [1], [1], [1]]\n\nX \u003d tf.placeholder(tf.float32, shape\u003d[None, 2])\nY \u003d tf.placeholder(tf.float32, shape\u003d[None, 1])\n\nW \u003d tf.Variable(tf.random_uniform([2, 1]), name\u003d\u0027weight\u0027)\nb \u003d tf.Variable(tf.random_uniform([1]), name\u003d\u0027bias\u0027)\n\nhypothesis \u003d tf.sigmoid(tf.matmul(X, W) + b)\n\ncost \u003d tf.reduce_mean(Y*tf.log(hypothesis) + (1 - Y)*tf.log(1 - hypothesis))\noptimizer \u003d tf.train.GradientDescentOptimizer(learning_rate\u003d0.001)\ntrain \u003d optimizer.minimize(cost)\n\npredicted \u003d tf.cast(hypothesis \u003e 0.5, dtype\u003dtf.float32)\naccuracy \u003d tf.reduce_mean(tf.cast(tf.equal(predicted, Y), dtype\u003dtf.float32))\n\nwith tf.Session() as sess:\n    sess.run(tf.global_variables_initializer())\n    \n    for step in range(10001):\n        cost_val, _ \u003d sess.run([cost, train], feed_dict\u003d{X: x_data, Y: y_data})\n        if step % 200 \u003d\u003d 0:\n            print(step, \u0027cost:\u0027, cost_val)\n    \n    h, c, a \u003d sess.run([hypothesis, predicted, accuracy],\n                       feed_dict\u003d{X: x_data, Y: y_data})\n    print(\u0027hypothesis:\u0027, h, \u0027\\ncorrect(Y):\u0027, c, \u0027\\naccuracy:\u0027, a)\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-10 09:01:53.310",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false,
+        "lineNumbers": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0 cost: -1.0500551\n200 cost: -1.3444804\n400 cost: -1.7308265\n600 cost: -2.156213\n800 cost: -2.5963035\n1000 cost: -3.042099\n1200 cost: -3.490328\n1400 cost: -3.9394248\n1600 cost: -4.388946\n1800 cost: nan\n2000 cost: nan\n2200 cost: nan\n2400 cost: nan\n2600 cost: nan\n2800 cost: nan\n3000 cost: nan\n3200 cost: nan\n3400 cost: nan\n3600 cost: nan\n3800 cost: nan\n4000 cost: nan\n4200 cost: nan\n4400 cost: nan\n4600 cost: nan\n4800 cost: nan\n5000 cost: nan\n5200 cost: nan\n5400 cost: nan\n5600 cost: nan\n5800 cost: nan\n6000 cost: nan\n6200 cost: nan\n6400 cost: nan\n6600 cost: nan\n6800 cost: nan\n7000 cost: nan\n7200 cost: nan\n7400 cost: nan\n7600 cost: nan\n7800 cost: nan\n8000 cost: nan\n8200 cost: nan\n8400 cost: nan\n8600 cost: nan\n8800 cost: nan\n9000 cost: nan\n9200 cost: nan\n9400 cost: nan\n9600 cost: nan\n9800 cost: nan\n10000 cost: nan\nhypothesis: [[nan]\n [nan]\n [nan]\n [nan]\n [nan]\n [nan]] \ncorrect(Y): [[0.]\n [0.]\n [0.]\n [0.]\n [0.]\n [0.]] \naccuracy: 0.5\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1570534724324_-997518558",
+      "id": "20191008-203844_466516843",
+      "dateCreated": "2019-10-08 20:38:44.324",
+      "dateStarted": "2019-10-08 20:56:17.668",
+      "dateFinished": "2019-10-08 20:56:20.170",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "softmax",
+      "text": "%pyspark\n\n\nx_data \u003d [[1,2,1,1], [2,1,3,2], [3,1,3,4], [4,1,5,5],\n          [1,7,5,5], [1,2,5,6], [1,6,6,6], [1,7,7,7]]\ny_data \u003d [[0,0,1], [0,0,1], [0,0,1], [0,1,0],\n          [0,1,0], [0,1,0], [1,0,0], [1,0,0]]\n\nX \u003d tf.placeholder(\u0027float\u0027, [None, 4])\nY \u003d tf.placeholder(\u0027float\u0027, [None, 3])\nnb_classes \u003d 3\n\nW \u003d tf.Variable(tf.random_normal([4, nb_classes]), name\u003d\u0027weight\u0027)\nb \u003d tf.Variable(tf.random_normal([nb_classes]), name\u003d\u0027bias\u0027)\n\n\nhypothesis \u003d tf.nn.softmax(tf.matmul(X, W) + b)\ncost \u003d tf.reduce_mean(-tf.reduce_sum(Y * tf.log(hypothesis), axis\u003d1))\noptimizer \u003d tf.train.GradientDescentOptimizer(learning_rate\u003d0.1).minimize(cost)\n\nwith tf.Session() as sess:\n    sess.run(tf.global_variables_initializer())\n    \n    for step in range(2001):\n        sess.run(optimizer, feed_dict\u003d{X: x_data, Y: y_data})\n        if step % 200 \u003d\u003d 0:\n            print(step, sess.run(cost, feed_dict\u003d{X: x_data, Y: y_data}))\n    \n    a \u003d sess.run(hypothesis, feed_dict\u003d{X: [[1, 11, 7, 9]]})\n    print(a, sess.run(tf.arg_max(a, 1)))\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-10 09:01:50.531",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0 1.2176397\n200 0.5583004\n400 0.45716196\n600 0.381805\n800 0.3108365\n1000 0.24244632\n1200 0.21720225\n1400 0.19805272\n1600 0.1818937\n1800 0.1680851\n2000 0.15615794\nWARNING:tensorflow:From \u003cstdin\u003e:27: arg_max (from tensorflow.python.ops.gen_math_ops) is deprecated and will be removed in a future version.\nInstructions for updating:\nUse `tf.math.argmax` instead\n[[2.5807861e-03 9.9740964e-01 9.6753365e-06]] [1]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1570531408358_1540085657",
+      "id": "20191008-194328_1009198095",
+      "dateCreated": "2019-10-08 19:43:28.358",
+      "dateStarted": "2019-10-09 15:46:02.753",
+      "dateFinished": "2019-10-09 15:46:03.621",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "softmax",
+      "text": "%pyspark\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-10 09:19:19.428",
+      "config": {
+        "colWidth": 6.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1570603592066_-1200221272",
+      "id": "20191009-154632_58587011",
+      "dateCreated": "2019-10-09 15:46:32.066",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2019-10-09 15:09:41.501",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1570601381498_-1512390099",
+      "id": "20191009-150941_402918222",
+      "dateCreated": "2019-10-09 15:09:41.498",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "ml_dl/sung_kim_tf_note",
+  "id": "2EGMH2UXV",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

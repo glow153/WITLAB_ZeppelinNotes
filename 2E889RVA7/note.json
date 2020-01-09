@@ -1,0 +1,46 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\n\n\nclass KmaWeather:\n    \n    def __init__(self):\n        pass\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-03-14 19:44:22.687",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1552560150819_1221190256",
+      "id": "20190314-194230_1082281117",
+      "dateCreated": "2019-03-14 19:42:30.819",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "pyjake/api_공데포_기상청동네예보(3시간단위) - e",
+  "id": "2E889RVA7",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "hbase:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

@@ -1,0 +1,177 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\nset \u003d {1,2,2,3,1,3}\nprint(set)\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-02 18:13:34.718",
+      "config": {
+        "colWidth": 2.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "{1, 2, 3}\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1562058789432_1523178020",
+      "id": "20190702-181309_610496306",
+      "dateCreated": "2019-07-02 18:13:09.432",
+      "dateStarted": "2019-07-02 18:13:30.968",
+      "dateFinished": "2019-07-02 18:13:33.609",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nset.add(4)\nset\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-02 18:13:43.045",
+      "config": {
+        "colWidth": 2.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "{1, 2, 3, 4}\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1562058815107_1931908892",
+      "id": "20190702-181335_2127481711",
+      "dateCreated": "2019-07-02 18:13:35.107",
+      "dateStarted": "2019-07-02 18:13:43.047",
+      "dateFinished": "2019-07-02 18:13:43.055",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nset.update({5,6,7})\nset\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-02 18:13:57.129",
+      "config": {
+        "colWidth": 2.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "{1, 2, 3, 4, 5, 6, 7}\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1562058824840_1508979132",
+      "id": "20190702-181344_439684698",
+      "dateCreated": "2019-07-02 18:13:44.840",
+      "dateStarted": "2019-07-02 18:13:57.132",
+      "dateFinished": "2019-07-02 18:13:57.138",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nset.remove({5,6,7})\nset\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-02 18:14:02.910",
+      "config": {
+        "colWidth": 2.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1562058839685_1287698087",
+      "id": "20190702-181359_3715960",
+      "dateCreated": "2019-07-02 18:13:59.685",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-02 18:13:30.963",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1562058810963_-256972474",
+      "id": "20190702-181330_675598661",
+      "dateCreated": "2019-07-02 18:13:30.963",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/_old/wiseincampus_module1",
+  "id": "2EE1KCCWC",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

@@ -1,0 +1,72 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\nfrom pyspark.sql.functions import udf\nfrom pyspark.sql.types import String\n\nudf_objdt2d \u003d udf\n\nnl \u003d spark.read.parquet(\u0027hdfs:///nl/witlab/cas/simple.parquet\u0027)\n\ndf_days \u003d nl.select(\u0027datetime\u0027, \u0027illum\u0027)\\\n            .withColumn(\u0027date\u0027, udf_dt2d(\u0027datetime\u0027))\\\n            .groupby(\u0027date\u0027).agg({\u0027illum\u0027:\u0027count\u0027})\\\n            .withColumnRenamed(\u0027count(illum)\u0027, \u0027count\u0027)\\\n            .where(\u0027count \u003e 600\u0027)\ndf_days.show()\n\ndf_days.write.mode(\u0027overwrite\u0027).parquet(\u0027hdfs:///dayday/available_days.parquet\u0027)\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-04 18:08:24.732",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Py4JJavaError: An error occurred while calling o166.showString.\n: org.apache.spark.SparkException: Job aborted due to stage failure: Task 10 in stage 891645.0 failed 4 times, most recent failure: Lost task 10.3 in stage 891645.0 (TID 3126626, 210.102.142.13, executor 5): org.apache.spark.api.python.PythonException: Traceback (most recent call last):\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/worker.py\", line 372, in main\n    process()\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/worker.py\", line 367, in process\n    serializer.dump_stream(func(split_index, iterator), outfile)\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/serializers.py\", line 342, in dump_stream\n    self.serializer.dump_stream(self._batched(iterator), stream)\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/serializers.py\", line 141, in dump_stream\n    for obj in iterator:\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/serializers.py\", line 331, in _batched\n    for item in iterator:\n  File \"\u003cstring\u003e\", line 1, in \u003clambda\u003e\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/worker.py\", line 80, in \u003clambda\u003e\n    return lambda *a: f(*a)\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/util.py\", line 99, in wrapper\n    return f(*args, **kwargs)\n  File \"/home/witlab/.local/lib/python3.6/site-packages/pyjake/sparkmodule.py\", line 88, in \u003clambda\u003e\n    udf_dt2d \u003d udf(lambda dt: dt.split(\u0027 \u0027)[0], StringType())\nAttributeError: \u0027datetime.datetime\u0027 object has no attribute \u0027split\u0027\n\n\tat org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:452)\n\tat org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$1.read(PythonUDFRunner.scala:81)\n\tat org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$1.read(PythonUDFRunner.scala:64)\n\tat org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:406)\n\tat org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)\n\tat scala.collection.Iterator$$anon$12.hasNext(Iterator.scala:440)\n\tat scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:409)\n\tat scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:409)\n\tat org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.agg_doAggregateWithKeys_0$(Unknown Source)\n\tat org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)\n\tat org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)\n\tat org.apache.spark.sql.execution.WholeStageCodegenExec$$anonfun$11$$anon$1.hasNext(WholeStageCodegenExec.scala:619)\n\tat scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:409)\n\tat org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:125)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:99)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:55)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:121)\n\tat org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:402)\n\tat org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1360)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:408)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\tat java.lang.Thread.run(Thread.java:748)\n\nDriver stacktrace:\n\tat org.apache.spark.scheduler.DAGScheduler.org$apache$spark$scheduler$DAGScheduler$$failJobAndIndependentStages(DAGScheduler.scala:1887)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1875)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$abortStage$1.apply(DAGScheduler.scala:1874)\n\tat scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59)\n\tat scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:48)\n\tat org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:1874)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:926)\n\tat org.apache.spark.scheduler.DAGScheduler$$anonfun$handleTaskSetFailed$1.apply(DAGScheduler.scala:926)\n\tat scala.Option.foreach(Option.scala:257)\n\tat org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:926)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2108)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2057)\n\tat org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2046)\n\tat org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)\n\tat org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:737)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2061)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2082)\n\tat org.apache.spark.SparkContext.runJob(SparkContext.scala:2101)\n\tat org.apache.spark.sql.execution.SparkPlan.executeTake(SparkPlan.scala:365)\n\tat org.apache.spark.sql.execution.CollectLimitExec.executeCollect(limit.scala:38)\n\tat org.apache.spark.sql.Dataset.org$apache$spark$sql$Dataset$$collectFromPlan(Dataset.scala:3384)\n\tat org.apache.spark.sql.Dataset$$anonfun$head$1.apply(Dataset.scala:2545)\n\tat org.apache.spark.sql.Dataset$$anonfun$head$1.apply(Dataset.scala:2545)\n\tat org.apache.spark.sql.Dataset$$anonfun$53.apply(Dataset.scala:3365)\n\tat org.apache.spark.sql.execution.SQLExecution$$anonfun$withNewExecutionId$1.apply(SQLExecution.scala:78)\n\tat org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:125)\n\tat org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:73)\n\tat org.apache.spark.sql.Dataset.withAction(Dataset.scala:3364)\n\tat org.apache.spark.sql.Dataset.head(Dataset.scala:2545)\n\tat org.apache.spark.sql.Dataset.take(Dataset.scala:2759)\n\tat org.apache.spark.sql.Dataset.getRows(Dataset.scala:255)\n\tat org.apache.spark.sql.Dataset.showString(Dataset.scala:292)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:498)\n\tat py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)\n\tat py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)\n\tat py4j.Gateway.invoke(Gateway.java:282)\n\tat py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\n\tat py4j.commands.CallCommand.execute(CallCommand.java:79)\n\tat py4j.GatewayConnection.run(GatewayConnection.java:238)\n\tat java.lang.Thread.run(Thread.java:748)\nCaused by: org.apache.spark.api.python.PythonException: Traceback (most recent call last):\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/worker.py\", line 372, in main\n    process()\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/worker.py\", line 367, in process\n    serializer.dump_stream(func(split_index, iterator), outfile)\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/serializers.py\", line 342, in dump_stream\n    self.serializer.dump_stream(self._batched(iterator), stream)\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/serializers.py\", line 141, in dump_stream\n    for obj in iterator:\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/serializers.py\", line 331, in _batched\n    for item in iterator:\n  File \"\u003cstring\u003e\", line 1, in \u003clambda\u003e\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/worker.py\", line 80, in \u003clambda\u003e\n    return lambda *a: f(*a)\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/util.py\", line 99, in wrapper\n    return f(*args, **kwargs)\n  File \"/home/witlab/.local/lib/python3.6/site-packages/pyjake/sparkmodule.py\", line 88, in \u003clambda\u003e\n    udf_dt2d \u003d udf(lambda dt: dt.split(\u0027 \u0027)[0], StringType())\nAttributeError: \u0027datetime.datetime\u0027 object has no attribute \u0027split\u0027\n\n\tat org.apache.spark.api.python.BasePythonRunner$ReaderIterator.handlePythonException(PythonRunner.scala:452)\n\tat org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$1.read(PythonUDFRunner.scala:81)\n\tat org.apache.spark.sql.execution.python.PythonUDFRunner$$anon$1.read(PythonUDFRunner.scala:64)\n\tat org.apache.spark.api.python.BasePythonRunner$ReaderIterator.hasNext(PythonRunner.scala:406)\n\tat org.apache.spark.InterruptibleIterator.hasNext(InterruptibleIterator.scala:37)\n\tat scala.collection.Iterator$$anon$12.hasNext(Iterator.scala:440)\n\tat scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:409)\n\tat scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:409)\n\tat org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.agg_doAggregateWithKeys_0$(Unknown Source)\n\tat org.apache.spark.sql.catalyst.expressions.GeneratedClass$GeneratedIteratorForCodegenStage2.processNext(Unknown Source)\n\tat org.apache.spark.sql.execution.BufferedRowIterator.hasNext(BufferedRowIterator.java:43)\n\tat org.apache.spark.sql.execution.WholeStageCodegenExec$$anonfun$11$$anon$1.hasNext(WholeStageCodegenExec.scala:619)\n\tat scala.collection.Iterator$$anon$11.hasNext(Iterator.scala:409)\n\tat org.apache.spark.shuffle.sort.BypassMergeSortShuffleWriter.write(BypassMergeSortShuffleWriter.java:125)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:99)\n\tat org.apache.spark.scheduler.ShuffleMapTask.runTask(ShuffleMapTask.scala:55)\n\tat org.apache.spark.scheduler.Task.run(Task.scala:121)\n\tat org.apache.spark.executor.Executor$TaskRunner$$anonfun$10.apply(Executor.scala:402)\n\tat org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:1360)\n\tat org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:408)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)\n\t... 1 more\n\n(\u003cclass \u0027py4j.protocol.Py4JJavaError\u0027\u003e, Py4JJavaError(\u0027An error occurred while calling o166.showString.\\n\u0027, JavaObject id\u003do167), \u003ctraceback object at 0x7f6420203648\u003e)"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1567587797094_-1860336590",
+      "id": "20190904-180317_878678476",
+      "dateCreated": "2019-09-04 18:03:17.094",
+      "dateStarted": "2019-09-04 18:07:14.641",
+      "dateFinished": "2019-09-04 18:07:16.161",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-04 18:06:12.522",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1567587972521_1805169295",
+      "id": "20190904-180612_2065940052",
+      "dateCreated": "2019-09-04 18:06:12.521",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Jake\u0027s Reference Notes/Available Days",
+  "id": "2EP6HR635",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

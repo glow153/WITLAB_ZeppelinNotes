@@ -1,0 +1,44 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-11 10:02:32.616",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1562806622384_1671269404",
+      "id": "20190711-095702_1186803205",
+      "dateCreated": "2019-07-11 09:57:02.384",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "master\u0027s_thesis_1/test05_weekly",
+  "id": "2EER8QSD4",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

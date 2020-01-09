@@ -1,0 +1,730 @@
+{
+  "paragraphs": [
+    {
+      "title": "definitions",
+      "text": "val sunriseset \u003d sc.textFile(\"hdfs:///sun/sun\")\n                    .map(s \u003d\u003e s.split(\",\"))\n                    .map(s \u003d\u003e (s(0), s(1), s(3)) )\n                    .filter(_._1 \u003e \"2017-04-02\")\n                    .collect\n\ndef get_srstime(day: String) \u003d {\n    try {\n        val e \u003d sunriseset.filter(_._1 \u003d\u003d day)(0)\n        Map(\"rise\" -\u003e e._2, \"set\" -\u003e e._3)\n    } catch {\n        case e: ArrayIndexOutOfBoundsException \u003d\u003e {\n            println(\"there is no data in srs!\")\n        }\n        Map(\"rise\" -\u003e \"00:00\", \"set\" -\u003e \"23:59\")\n    }\n}\n\ndef medfilter(dataseq: Array[Double], wndsize: Int, ratio: Double): Array[Double] \u003d {\n    val mid \u003d (wndsize / 2).toInt\n    val seqlen \u003d dataseq.length\n    var arrResult \u003d Array[Double]()\n    \n    for(i \u003c- 0 until seqlen) {\n        // take sample window\n        val left \u003d \n            if (i \u003c mid) 0\n            else i - mid\n        val right \u003d\n            if (i \u003e seqlen - mid) seqlen - 1\n            else i + mid\n            \n        val subarr \u003d dataseq.slice(left, right+1)\n        \n        //sort sample\n        scala.util.Sorting.quickSort(subarr)\n        \n        //get mid value\n        arrResult \u003d arrResult :+ subarr((subarr.length * ratio).toInt)\n    }\n    arrResult\n}\n\ndef meanfilter(dataseq: Array[Double], wndsize: Int): Array[Double] \u003d {\n    val mid \u003d (wndsize / 2).toInt\n    val seqlen \u003d dataseq.length\n    var arrResult \u003d Array[Double]()\n    \n    for(i \u003c- 0 until seqlen) {\n        // take sample window\n        val left \u003d \n            if (i \u003c mid) 0\n            else i - mid\n        val right \u003d\n            if (i \u003e seqlen - mid) seqlen - 1\n            else i + mid\n            \n        val subarr \u003d dataseq.slice(left, right+1)\n        val mean \u003d subarr.sum / subarr.size\n        \n        //get mid value\n        arrResult \u003d arrResult :+ mean\n    }\n    arrResult\n}\n\ndef gaussfilter(dataseq: Array[Double]): Array[Double] \u003d {\n    val mid \u003d 4\n    val filter_weight \u003d Array(1.0/16.0, 1.0/16.0, 1.0/8.0, 1.0/8.0, 1.0/4.0,\n                            1.0/8.0, 1.0/8.0, 1.0/16.0, 1.0/16.0)\n    val seqlen \u003d dataseq.length\n    var arrResult \u003d Array[Double]()\n    \n    for(i \u003c- 0 until seqlen) {\n        // take sample window\n        var resultVal \u003d 0.0\n        \n        val left \u003d \n            if (i \u003c mid) 0\n            else i - mid\n        val right \u003d\n            if (i \u003e seqlen - mid) seqlen - 1\n            else i + mid\n            \n        val subarr \u003d dataseq.slice(left, right+1)\n        \n        // println(\"\u003e\u003e subarr:\" + subarr.mkString(\",\"))\n        \n        if(subarr.length !\u003d 9) {\n            resultVal \u003d dataseq(i)\n        } else {\n            for(j \u003c- 0 until subarr.length)\n                resultVal +\u003d subarr(j) * filter_weight(j)\n        }\n        \n        // println(\"\u003e\u003e resultval:\" + resultVal)\n        \n        //get result value\n        arrResult :+\u003d resultVal\n    }\n    arrResult\n}\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-03 11:31:36.706",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 86.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "org.apache.hadoop.mapred.InvalidInputException: Input path does not exist: hdfs:/sun/sun\n  at org.apache.hadoop.mapred.FileInputFormat.singleThreadedListStatus(FileInputFormat.java:287)\n  at org.apache.hadoop.mapred.FileInputFormat.listStatus(FileInputFormat.java:229)\n  at org.apache.hadoop.mapred.FileInputFormat.getSplits(FileInputFormat.java:315)\n  at org.apache.spark.rdd.HadoopRDD.getPartitions(HadoopRDD.scala:204)\n  at org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:253)\n  at org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:251)\n  at scala.Option.getOrElse(Option.scala:121)\n  at org.apache.spark.rdd.RDD.partitions(RDD.scala:251)\n  at org.apache.spark.rdd.MapPartitionsRDD.getPartitions(MapPartitionsRDD.scala:49)\n  at org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:253)\n  at org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:251)\n  at scala.Option.getOrElse(Option.scala:121)\n  at org.apache.spark.rdd.RDD.partitions(RDD.scala:251)\n  at org.apache.spark.rdd.MapPartitionsRDD.getPartitions(MapPartitionsRDD.scala:49)\n  at org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:253)\n  at org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:251)\n  at scala.Option.getOrElse(Option.scala:121)\n  at org.apache.spark.rdd.RDD.partitions(RDD.scala:251)\n  at org.apache.spark.rdd.MapPartitionsRDD.getPartitions(MapPartitionsRDD.scala:49)\n  at org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:253)\n  at org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:251)\n  at scala.Option.getOrElse(Option.scala:121)\n  at org.apache.spark.rdd.RDD.partitions(RDD.scala:251)\n  at org.apache.spark.rdd.MapPartitionsRDD.getPartitions(MapPartitionsRDD.scala:49)\n  at org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:253)\n  at org.apache.spark.rdd.RDD$$anonfun$partitions$2.apply(RDD.scala:251)\n  at scala.Option.getOrElse(Option.scala:121)\n  at org.apache.spark.rdd.RDD.partitions(RDD.scala:251)\n  at org.apache.spark.SparkContext.runJob(SparkContext.scala:2126)\n  at org.apache.spark.rdd.RDD$$anonfun$collect$1.apply(RDD.scala:945)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)\n  at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)\n  at org.apache.spark.rdd.RDD.withScope(RDD.scala:363)\n  at org.apache.spark.rdd.RDD.collect(RDD.scala:944)\n  ... 47 elided\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567811_544560192",
+      "id": "20180802-200149_1632664404",
+      "dateCreated": "2018-10-23 16:42:47.811",
+      "dateStarted": "2019-09-03 11:31:36.745",
+      "dateFinished": "2019-09-03 11:31:40.224",
+      "status": "ERROR",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "data sample - cct - 171028",
+      "text": "val cas_nt \u003d sc.textFile(\"hdfs:///cas_nt/cas_nt\")\n                .map(s \u003d\u003e s.split(\",\"))\nval cct \u003d cas_nt.map(s \u003d\u003e (s(0), s(34))) //datetime, cct\n                .map(s \u003d\u003e (s._1.split(\" \")(0),\n                            s._1.split(\" \")(1),\n                            s._2))\n                .filter(s \u003d\u003e s._1 \u003d\u003d \"2017-10-28\")\n                .filter(s \u003d\u003e s._2.substring(0,5) \u003e\u003d get_srstime(s._1)(\"rise\"))\n                .filter(s \u003d\u003e s._2.substring(0,5) \u003c\u003d get_srstime(s._1)(\"set\"))\n                // .collect\n                \nvar df_cct \u003d cct.toDF(\"date\", \"time\", \"cct\")\ndf_cct.printSchema\n\n// get column cct as array\nvar arr_cct \u003d df_cct.select(\"cct\")\n                    .collect\n                    .map(_.getString(0).toDouble)\n\nval arr_datetime \u003d df_cct.select(\"date\", \"time\")\n                         .collect\n                         .map(s \u003d\u003e s.getString(0) + \" \" + s.getString(1))",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.811",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 226.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567811_1380136483",
+      "id": "20180802-210337_1288896022",
+      "dateCreated": "2018-10-23 16:42:47.811",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "scatter data randomly",
+      "text": "val rand \u003d scala.util.Random\nval errorCount \u003d 100\nvar arr_cct_e \u003d arr_cct.clone\n\nfor(i \u003c- 1 until errorCount) {\n    val randIdx \u003d rand.nextInt(arr_cct.length)\n    val randVal \u003d rand.nextInt(10000)\n    arr_cct_e(randIdx) \u003d randVal\n}",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.811",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567811_-708064378",
+      "id": "20180802-210523_1089198868",
+      "dateCreated": "2018-10-23 16:42:47.811",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "data filtering test - median",
+      "text": "// filter\nval arr_cct_f1 \u003d medfilter(arr_cct_e, 9, 0.5)\nval arr_cct_f2 \u003d medfilter(arr_cct_e, 9, 0.1)\nval arr_cct_f3 \u003d medfilter(arr_cct_e, 21, 0.5)\nval arr_cct_f4 \u003d medfilter(arr_cct_e, 21, 0.1)\nvar arrdf1 \u003d Array[Tuple6[String, Double, Double, Double, Double, Double]]()\n\nfor(i \u003c- 0 until arr_cct_e.length) {\n    arrdf1 \u003d arrdf1 :+ (arr_datetime(i), arr_cct(i).toDouble, arr_cct_e(i).toDouble,\n                        arr_cct_f1(i).toDouble, arr_cct_f2(i).toDouble,\n                        arr_cct_f3(i).toDouble, arr_cct_f4(i).toDouble)\n}\n\n// add filtered data as a column to source dataframe\n\nval df_cctf_med \u003d sc.parallelize(arrdf1)\n                    .toDF(\"datetime\", \"cct\", \"cct_e\", \"cctf_med_9_m\", \"cctf_med_9_l\",\n                          \"cctf_med_21_m\", \"cctf_med_21_l\")\ndf_cctf_med.createOrReplaceTempView(\"cctf_med\")\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.812",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 138.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567812_1910690363",
+      "id": "20180710-140945_1506071482",
+      "dateCreated": "2018-10-23 16:42:47.812",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "data filtering test - mean",
+      "text": "// filter\nval arr_cct_f5 \u003d meanfilter(arr_cct_e, 9)\nval arr_cct_f6 \u003d meanfilter(arr_cct_e, 21)\nvar arrdf2 \u003d Array[Tuple4[String, Double, Double, Double]]()\n\nfor(i \u003c- 0 until arr_cct_e.length) {\n    arrdf2 \u003d arrdf2 :+ (arr_datetime(i), arr_cct_e(i).toDouble,\n                        arr_cct_f5(i).toDouble, arr_cct_f6(i).toDouble)\n}\n\n// add filtered data as a column to source dataframe\n\nval df_cctf_mean \u003d sc.parallelize(arrdf2)\n                    .toDF(\"datetime\", \"cct_e\", \"cctf_mean_9\", \"cctf_mean_21\")\ndf_cctf_mean.createOrReplaceTempView(\"cctf_mean\")\n\nval df_cctf_medmean \u003d df_cctf_med.join(df_cctf_mean.drop(\"cct_e\"), \"datetime\")\ndf_cctf_medmean.createOrReplaceTempView(\"cctf_medmean\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.812",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 188.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567812_1490139784",
+      "id": "20180802-201342_471855356",
+      "dateCreated": "2018-10-23 16:42:47.812",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "data filtering test - gaussian",
+      "text": "// filter\nval arr_cct_f7 \u003d gaussfilter(arr_cct_e)\nvar arrdf3 \u003d Array[Tuple3[String, Double, Double]]()\n\nfor(i \u003c- 0 until arr_cct_e.length) {\n    arrdf3 \u003d arrdf3 :+ (arr_datetime(i),\n                        arr_cct_e(i).toDouble,\n                        arr_cct_f7(i).toDouble)\n}\n\n// add filtered data as a column to source dataframe\n\nval df_cctf_gauss \u003d sc.parallelize(arrdf3)\n                    .toDF(\"datetime\", \"cct_e\", \"cctf_gauss\")\ndf_cctf_gauss.createOrReplaceTempView(\"cctf_gauss\")\n\nval df_cctf_medmeangauss \u003d df_cctf_medmean.join(df_cctf_gauss.drop(\"cct_e\"), \"datetime\")\ndf_cctf_medmeangauss.createOrReplaceTempView(\"cctf_medmeangauss\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.812",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": true,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 188.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567812_-163040831",
+      "id": "20180803-002233_519033210",
+      "dateCreated": "2018-10-23 16:42:47.812",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "calc data filtering error rate",
+      "text": "val arr_cct_med \u003d medfilter(arr_cct_e, 9, 0.5)\nval arr_cct_mean \u003d meanfilter(arr_cct_e, 9)\nval arr_cct_gauss \u003d gaussfilter(arr_cct_e)\nvar arrdf \u003d Array[Tuple6[String, Double, Double, Double, Double, Double]]()\n\nfor(i \u003c- 0 until arr_cct_e.length) {\n    arrdf \u003d arrdf :+ (arr_datetime(i), arr_cct(i).toDouble,\n                        arr_cct_e(i).toDouble, arr_cct_med(i).toDouble,\n                        arr_cct_mean(i).toDouble, arr_cct_gauss(i).toDouble)\n}\n\n// add filtered data as a column to source dataframe\n\nval df_cctf_med \u003d sc.parallelize(arrdf)\n                    .toDF(\"datetime\", \"cct\", \"cct_e\",\n                            \"cctf_med\", \"cctf_mean\",\"cctf_gauss\")\ndf_cctf_med.createOrReplaceTempView(\"cctf\")\n\nvar sum \u003d 0.0\nvar sumError \u003d 0.0\nvar sumMed \u003d 0.0\nvar sumMean \u003d 0.0\nvar sumGauss \u003d 0.0\n\nfor(i \u003c- 0 until arr_cct.length){\n    sumError +\u003d Math.abs((arr_cct(i) - arr_cct_e(i)) / arr_cct(i))\n    sumMed +\u003d Math.abs((arr_cct(i) - arr_cct_med(i)) / arr_cct(i))\n    sumMean +\u003d Math.abs((arr_cct(i) - arr_cct_mean(i)) / arr_cct(i))\n    sumGauss +\u003d Math.abs((arr_cct(i) - arr_cct_gauss(i)) / arr_cct(i))\n}\n// for(i \u003c- 0 until arr_cct.length){\n//     sum +\u003d arr_cct(i)\n//     sumError +\u003d Math.abs(arr_cct_e(i))\n//     sumMed +\u003d Math.abs(arr_cct_med(i))\n//     sumMean +\u003d Math.abs(arr_cct_mean(i))\n//     sumGauss +\u003d Math.abs(arr_cct_gauss(i))\n// }\n\nsumError /\u003d arr_cct.length\nsumMed /\u003d arr_cct.length\nsumMean /\u003d arr_cct.length\nsumGauss /\u003d arr_cct.length\n\n// println(arr_cct.length)\n// println(arr_cct_f1.length)\n// println(arr_cct_f5.length)\n// println(arr_cct_f7.length)\n\nprintln(s\"Similarity of noise data : ${(sumError) * 100}%\")\nprintln(s\"Similarity of median filter : ${(sumMed) * 100}%\")\nprintln(s\"Similarity of mean filter : ${(sumMean) * 100}%\")\nprintln(s\"Similarity of gaussian filter : ${(sumGauss) * 100}%\")\n\n// println(s\"Similarity of noise data : ${(sumError / sum) * 100}%\")\n// println(s\"Similarity of median filter : ${(sumMed / sum) * 100}%\")\n// println(s\"Similarity of mean filter : ${(sumMean / sum) * 100}%\")\n// println(s\"Similarity of gaussian filter : ${(sumGauss / sum) * 100}%\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.812",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": false,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 196.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567812_1991901107",
+      "id": "20180711-092446_1759135692",
+      "dateCreated": "2018-10-23 16:42:47.812",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from cctf\nwhere DATE(datetime) \u003d \u00272017-10-28\u0027\norder by datetime",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.812",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 745.0,
+              "optionOpen": false,
+              "setting": {
+                "lineChart": {
+                  "forceY": true,
+                  "lineWithFocus": true,
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "datetime": "string",
+                      "cct": "string",
+                      "cctf_med_9_m": "string",
+                      "cctf_med_9_l": "string",
+                      "cctf_med_21_m": "string",
+                      "cctf_med_21_l": "string",
+                      "cctf_mean_9": "string",
+                      "cctf_mean_21": "string",
+                      "cctf_gauss": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "datetime",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cct",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cctf_med",
+                  "index": 3.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cctf_mean",
+                  "index": 4.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cctf_gauss",
+                  "index": 5.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cct_e",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567812_-1854917042",
+      "id": "20180710-095808_1753665845",
+      "dateCreated": "2018-10-23 16:42:47.812",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "",
+      "text": "// val desc \u003d sc.textFile(\"hdfs:///cas_nt/desc\").map(s \u003d\u003e s).collect\n// desc.foreach(s \u003d\u003e println(s))\n\nval desc \u003d sc.textFile(\"hdfs:///cas_nt/desc\").foreach(s \u003d\u003e println(s))",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.813",
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567812_-1807189877",
+      "id": "20180710-181426_230121403",
+      "dateCreated": "2018-10-23 16:42:47.812",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "data sample - illum",
+      "text": "val cas_nt \u003d sc.textFile(\"hdfs:///cas_nt/cas_nt\")\n                .map(s \u003d\u003e s.split(\",\"))\nval cct \u003d cas_nt.map(s \u003d\u003e (s(0), s(14))) //datetime, illum\n                .map(s \u003d\u003e (s._1.split(\" \")(0), s._1.split(\" \")(1), s._2))\n                .filter(s \u003d\u003e s._1 \u003e\u003d \"2017-04-12\")\n                .filter(s \u003d\u003e s._2.substring(0,5) \u003e\u003d get_srstime(s._1)(\"rise\"))\n                .filter(s \u003d\u003e s._2.substring(0,5) \u003c\u003d get_srstime(s._1)(\"set\"))\n                // .collect\n                \nvar df_illum \u003d cct.toDF(\"date\", \"time\", \"illum\")\n// df_illum.printSchema\n\n// get column cct as array\nvar arr_illum \u003d df_illum.select(\"illum\")\n                    .collect\n                    .map(_.getString(0).toDouble)\n\nval arr_datetime \u003d df_illum.select(\"date\", \"time\")\n                            .collect\n                            .map(s \u003d\u003e s.getString(0) + \" \" + s.getString(1))",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.813",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567813_432161797",
+      "id": "20180710-181349_1032062946",
+      "dateCreated": "2018-10-23 16:42:47.813",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "data filtering test",
+      "text": "// filter\nval arr_illum_f1 \u003d medfilter(arr_illum, 30, 0.5)\nval arr_illum_f2 \u003d meanfilter(arr_illum, 9)\nval arr_illum_f3 \u003d gaussfilter(arr_illum)\nvar arrdf \u003d Array[Tuple5[String, Double, Double, Double, Double]]()\n\nfor(i \u003c- 0 until arr_illum.length){\n    arrdf \u003d arrdf :+ (arr_datetime(i), arr_illum(i).toDouble,\n                        arr_illum_f1(i).toDouble, arr_illum_f2(i).toDouble,\n                        arr_illum_f3(i).toDouble)\n}\n\n// add filtered data as a column to source dataframe\n\nval df_illum_f \u003d sc.parallelize(arrdf)\n            .toDF(\"datetime\", \"illum\", \"illumf_med\", \"illumf_mean\", \"illumf_gauss\")\ndf_illum_f.createOrReplaceTempView(\"illumf\")\n\nval sum_src \u003d arr_illum.sum\nval sum_med \u003d arr_illum_f1.sum\nval sum_mean \u003d arr_illum_f2.sum\nval sum_gauss \u003d arr_illum_f3.sum\n\nprintln",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.813",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567813_-1122489418",
+      "id": "20180710-181834_1907508955",
+      "dateCreated": "2018-10-23 16:42:47.813",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from illumf\nwhere datetime \u003e\u003d \u00272018-02-26 00:00:00\u0027\nand datetime \u003c\u003d \u00272018-02-26 23:59:59\u0027\norder by datetime",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.813",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 685.0,
+              "optionOpen": true,
+              "setting": {
+                "lineChart": {
+                  "forceY": true,
+                  "lineWithFocus": true,
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "isDateFormat": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "datetime",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "illum",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "illumf_med",
+                  "index": 2.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "illumf_mean",
+                  "index": 3.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "illumf_gauss",
+                  "index": 4.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567813_1113501725",
+      "id": "20180710-165639_1697981786",
+      "dateCreated": "2018-10-23 16:42:47.813",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from illumf\nwhere datetime \u003e\u003d \u00272017-09-28 00:00:00\u0027\nand datetime \u003c\u003d \u00272017-09-28 23:59:59\u0027\norder by datetime",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.813",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 685.0,
+              "optionOpen": true,
+              "setting": {
+                "lineChart": {
+                  "forceY": true,
+                  "lineWithFocus": true,
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "isDateFormat": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "datetime",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "illum",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "illumf_med",
+                  "index": 2.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "illumf_mean",
+                  "index": 3.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "illumf_gauss",
+                  "index": 4.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567813_488097163",
+      "id": "20180810-091940_204535737",
+      "dateCreated": "2018-10-23 16:42:47.813",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.813",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567813_-187352502",
+      "id": "20180710-182623_1923163408",
+      "dateCreated": "2018-10-23 16:42:47.813",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val conf \u003d new SparkConf()\nconf.setMaster(\"local[*]\")\nconf.setAppName(\"StreamingSample\")\nconf.set(\"spark.local.ip\", \"127.0.0.1\")\nconf.set(\"spark.driver.host\", \"127.0.0.1\")\n\nval ssc \u003d new StreamingContext(sc, Seconds(3))\nval rdd1 \u003d sc.parallelize(List(\"Spark Streaming Sample ssc\"))\nval rdd2 \u003d sc.parallelize(List(\"Spark Quque Spark API\"))\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 16:42:47.814",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540280567813_-523911618",
+      "id": "20180718-153015_1307899580",
+      "dateCreated": "2018-10-23 16:42:47.813",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "filtering/filterTest",
+  "id": "2DT1H51H4",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

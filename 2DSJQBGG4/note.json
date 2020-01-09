@@ -1,0 +1,587 @@
+{
+  "paragraphs": [
+    {
+      "title": "def., select one day",
+      "text": "val sunriseset \u003d sc.textFile(\"hdfs:///sun/sun\")\n                    .map(s \u003d\u003e s.split(\",\"))\n                    .map(s \u003d\u003e (s(0), s(1), s(3)) )\n                    .filter(_._1 \u003e \"2017-04-02\")\n                    .collect\n\ndef getsrs(day: String) \u003d {\n    try {\n        val e \u003d sunriseset.filter(_._1 \u003d\u003d day)(0)\n        Map(\"rise\" -\u003e e._2, \"set\" -\u003e e._3)\n    } catch {\n        case e: ArrayIndexOutOfBoundsException \u003d\u003e {\n            println(\"there is no data in srs!\")\n        }\n        Map(\"rise\" -\u003e \"00:00\", \"set\" -\u003e \"23:59\")\n    }\n}\n\nval cas_nt \u003d sc.textFile(\"hdfs:///cas_nt/cas_nt\")\n                .map(s \u003d\u003e s.split(\",\"))\nval cct_all \u003d cas_nt.map(s \u003d\u003e (s(0), s(34))) //datetime, cct\n                    .map(s \u003d\u003e (s._1.split(\" \")(0),\n                                s._1.split(\" \")(1),\n                                s._2))\n                    .filter(s \u003d\u003e s._2.substring(0,5) \u003e\u003d getsrs(s._1)(\"rise\"))\n                    .filter(s \u003d\u003e s._2.substring(0,5) \u003c\u003d getsrs(s._1)(\"set\"))\n                \nvar df_cct_all \u003d cct_all.toDF(\"date\", \"time\", \"cct\")\ndf_cct_all.createOrReplaceTempView(\"cct_all\")\n\nval selected_date \u003d \"2017-05-15\"\n\nval cct \u003d cct_all.filter(s \u003d\u003e s._1 \u003d\u003d selected_date)\n\nvar df_cct \u003d cct.toDF(\"date\", \"time\", \"cct\")\n                .sort($\"date\", $\"time\")  // MUST SOOOOOOOORT!!!!!!!!!!!!!!!!!\ndf_cct.createOrReplaceTempView(\"cct\")\n\n// get column cct as array\nvar arr_cct \u003d df_cct.select(\"cct\")\n                    .collect\n                    .map(_.getString(0).toDouble)\n                    \nval arr_datetime \u003d df_cct.select(\"date\", \"time\")\n                         .collect\n                         .map(s \u003d\u003e s.getString(0) + \" \" + s.getString(1))",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.075",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 111.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971075_1156082610",
+      "id": "20180816-155555_1756090159",
+      "dateCreated": "2018-10-23 17:06:11.075",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "edge detection",
+      "text": "def edgeDetection(arr: Array[Double]) \u003d {\n    // var sectionList \u003d Array[Tuple2[Int, Int]]()\n    // var idxSectionStart \u003d 0\n    // var idxSectionEnd \u003d 0\n    \n    val mask \u003d Array(0, 0, -1, -1, 4, -1, -1, 0, 0)\n    var edgeList \u003d Array(0.0, 0.0, 0.0, 0.0) //init with padding\n    \n    for(i \u003c- 4 to (arr.length - 5)) {\n        var res \u003d 0.0\n        for(j \u003c- 0 until 9)\n            res +\u003d arr(i-4+j)*mask(j)\n        edgeList :+\u003d res\n    }\n    for(i \u003c- 0 until 4) //add padding\n        edgeList :+\u003d 0.0\n    edgeList\n}\n\nval conv \u003d edgeDetection(arr_cct)\nprintln(conv.mkString(\", \"))\n\nprintln(s\"${arr_datetime.length}, ${conv.length}\")\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.076",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 374.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971076_-973174066",
+      "id": "20180821-114100_445909589",
+      "dateCreated": "2018-10-23 17:06:11.076",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "make df",
+      "text": "var list \u003d List[Tuple3[String, Double, Double]]()\nfor(i \u003c- 0 until arr_datetime.length)\n    list +:\u003d (arr_datetime(i), arr_cct(i), conv(i))\n    \nval df \u003d list.toDF(\"datetime\", \"cct\", \"conv\")\ndf.createOrReplaceTempView(\"dailyCCT_conv\")",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.076",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971076_-675604472",
+      "id": "20180821-114859_1959482605",
+      "dateCreated": "2018-10-23 17:06:11.076",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from dailyCCT_conv\norder by datetime",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.076",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 8.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 524.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "datetime": "string",
+                      "cct": "string",
+                      "conv": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "lineWithFocus": true,
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "datetime",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cct",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "conv",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971076_-2115356244",
+      "id": "20180816-153841_1092709782",
+      "dateCreated": "2018-10-23 17:06:11.076",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "noise selecting",
+      "text": "def noiseSelecting(arr: Array[Double]) \u003d {\n    var noiseList \u003d Array[Int]()\n    val criteria \u003d 217\n    \n    for(i \u003c- 0 until arr.length) {\n        if (arr(i) \u003c\u003d -criteria || arr(i) \u003e\u003d criteria ) {\n            noiseList :+\u003d i\n        }\n    }\n    noiseList\n}\n\nval noiselist \u003d noiseSelecting(conv)\n\nnoiselist.foreach(s \u003d\u003e println(arr_datetime(s)))\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.076",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 382.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971076_-2131148593",
+      "id": "20180817-024021_1961406947",
+      "dateCreated": "2018-10-23 17:06:11.076",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "section selecting",
+      "text": "def sectionSelecting(arr: Array[Double]) \u003d {\n    var sectionList \u003d Array[Tuple2[Int, Int]]()\n    var idxSectionStart \u003d 0\n    var idxSectionEnd \u003d 0\n    \n    for(i \u003c- 60 to (arr.length - 60)) {\n        val diff \u003d 120\n        println(s\"i : ${i}\")\n        if (arr(i) + diff \u003c arr(i + 1) || arr(i) + diff \u003c arr(i + 2)) {  // 구간 시작\n            if (idxSectionStart \u003d\u003d 0)\n                idxSectionStart \u003d i\n        }\n        if (arr(i) \u003e arr(i + 1) + diff || arr(i) \u003e arr(i + 2) + diff) {  // 구간 끝\n            idxSectionEnd \u003d i\n        }\n        println(s\"idxSectionStart : ${idxSectionStart}\")\n        println(s\"idxSectionEnd : ${idxSectionEnd}\")\n        \n        if (idxSectionEnd - idxSectionStart \u003e\u003d 2) {\n            if (sectionList.length \u003e 0)\n                if (sectionList.last._1 \u003d\u003d idxSectionStart)\n                    sectionList \u003d sectionList.filter(_ !\u003d sectionList.last) //del last element\n\n            if (idxSectionStart \u003d\u003d 0) {\n                val lastSection \u003d sectionList.last\n                sectionList \u003d sectionList.filter(_ !\u003d sectionList.last) //del last element\n                val correctSection \u003d (lastSection._1, idxSectionEnd)\n                println(s\"sectionList append : ${correctSection}\")\n                sectionList \u003d sectionList :+ correctSection\n            } else {\n                println(s\"sectionList append : ${(idxSectionStart, idxSectionEnd)}\")\n                sectionList \u003d sectionList :+ (idxSectionStart, idxSectionEnd)\n            }\n            \n            idxSectionStart \u003d 0\n            idxSectionEnd \u003d 0\n        }\n    }\n    sectionList\n}\n\nval sslist \u003d sectionSelecting(arr_cct)\n\nsslist.foreach(s \u003d\u003e println(arr_datetime(s._1) + \", \" + arr_datetime(s._2)))\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.077",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "title": false,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971076_-574181674",
+      "id": "20180821-120745_3676202",
+      "dateCreated": "2018-10-23 17:06:11.076",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from cct_all\nwhere date \u003d \u00272017-07-13\u0027\norder by date, time",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.077",
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 8.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 524.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "date": "string",
+                      "time": "string",
+                      "cct": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "lineWithFocus": true,
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "date",
+                  "index": 0.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "time",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cct",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971077_-320291367",
+      "id": "20180821-120118_2114171928",
+      "dateCreated": "2018-10-23 17:06:11.077",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "selected filtering",
+      "text": "def medfilter_ex(dataArr: Array[Double], noiseIdxList: Array[Int], wndsize: Int): Array[Double] \u003d {\n    var arrResult \u003d Array[Double]()\n    var s \u003d 0\n    val seqlen \u003d dataArr.length\n    val delta \u003d (wndsize / 2).toInt\n    \n    for(i \u003c- 0 until dataArr.length) {\n        if (noiseIdxList.contains(i)) {\n            // take sample window\n            val left \u003d \n                if (i \u003c delta) 0\n                else i - delta\n            val right \u003d\n                if (i \u003e dataArr.length - delta) dataArr.length - 1\n                else i + delta\n            \n            val subarr \u003d dataArr.slice(left, right+1)\n            //sort sample\n            scala.util.Sorting.quickSort(subarr)\n\n            //get mid value\n            arrResult :+\u003d subarr(delta)\n                \n        } else {\n            arrResult :+\u003d dataArr(i)\n        }\n    }\n    arrResult\n}\n\nval arr_cct_med \u003d medfilter_ex(arr_cct, noiselist, 9)\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.077",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971077_-893011241",
+      "id": "20180817-032528_1418407261",
+      "dateCreated": "2018-10-23 17:06:11.077",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "filtered data",
+      "text": "var arr_new \u003d Array[Tuple3[String, Double, Double]]()\n\nfor(i \u003c- 0 until arr_datetime.length) {\n    arr_new :+\u003d (arr_datetime(i), arr_cct(i).toDouble, arr_cct_med(i).toDouble)\n}\n\nval df \u003d sc.parallelize(arr_new)\n            .toDF(\"datetime\", \"cct\", \"cct_med_sel\")\ndf.createOrReplaceTempView(\"selected_filter\")\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.077",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971077_814816902",
+      "id": "20180817-034734_1163572237",
+      "dateCreated": "2018-10-23 17:06:11.077",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val arr_cct_med \u003d medfilter(arr_cct, 9, 0.5)\nval arr_cct_mean \u003d meanfilter(arr_cct, 9)\nval arr_cct_gauss \u003d gaussfilter(arr_cct)\nvar arrdf \u003d Array[Tuple5[String, Double, Double, Double, Double]]()\n\nfor(i \u003c- 0 until arr_cct.length) {\n    arrdf \u003d arrdf :+ (arr_datetime(i), arr_cct(i).toDouble, arr_cct_med(i).toDouble,\n                        arr_cct_mean(i).toDouble, arr_cct_gauss(i).toDouble)\n}\n\n// add filtered data as a column to source dataframe\nval df_cctf_med \u003d sc.parallelize(arrdf)\n                    .toDF(\"datetime\", \"cct\", \"cctf_med\", \"cctf_mean\",\"cctf_gauss\")\ndf_cctf_med.createOrReplaceTempView(\"cctf\")\n\nvar sum \u003d 0.0\nvar sumMed \u003d 0.0\nvar sumMean \u003d 0.0\nvar sumGauss \u003d 0.0\n\nfor(i \u003c- 0 until arr_cct.length){\n    sumMed +\u003d Math.abs((arr_cct(i) - arr_cct_med(i)) / arr_cct(i))\n    sumMean +\u003d Math.abs((arr_cct(i) - arr_cct_mean(i)) / arr_cct(i))\n    sumGauss +\u003d Math.abs((arr_cct(i) - arr_cct_gauss(i)) / arr_cct(i))\n}\n\nsumMed /\u003d arr_cct.length\nsumMean /\u003d arr_cct.length\nsumGauss /\u003d arr_cct.length\n\nprintln(s\"Similarity of median filter : ${(sumMed) * 100}%\")\nprintln(s\"Similarity of mean filter : ${(sumMean) * 100}%\")\nprintln(s\"Similarity of gaussian filter : ${(sumGauss) * 100}%\")\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.078",
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971077_1057245180",
+      "id": "20180816-155415_1019763538",
+      "dateCreated": "2018-10-23 17:06:11.077",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from selected_filter\norder by datetime",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.078",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 8.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": true,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "datetime": "string",
+                      "cct": "string",
+                      "cctf_med": "string",
+                      "cctf_mean": "string",
+                      "cctf_gauss": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "datetime",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cct",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cct_med_sel",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971078_-1881635765",
+      "id": "20180816-155534_1680938459",
+      "dateCreated": "2018-10-23 17:06:11.078",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:06:11.078",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281971078_117851424",
+      "id": "20180816-160111_2052738000",
+      "dateCreated": "2018-10-23 17:06:11.078",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "filtering/noise_selecting_test",
+  "id": "2DSJQBGG4",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

@@ -1,0 +1,159 @@
+{
+  "paragraphs": [
+    {
+      "text": "import org.apache.spark.ml.Pipeline\nimport org.apache.spark.ml.evaluation.RegressionEvaluator\nimport org.apache.spark.ml.feature.{StringIndexer, VectorAssembler}\nimport org.apache.spark.ml.regression.LinearRegression\n\nval df_src \u003d spark.read.option(\"header\", \"false\")\n                   .option(\"sep\", \"\\t\")\n                   .option(\"inferSchema\", true)\n                   .csv(\"hdfs:///seoul-student-body-dim-data.txt\")\n\nval df2 \u003d df_src.where(df_src(\"_c0\") \u003d!\u003d \"기간\")\n// df2.show()\n\n//udf: 0-9가 아닌 문자 모두 없앰\nspark.udf.register(\"toDouble\", (v: String) \u003d\u003e {\n    v.replaceAll(\"[^0-9.]\", \"\").toDouble\n})\n\ndf2.cache()\n\n//초등학교 남 키, 몸무게\nval df3 \u003d df2.select(\u0027_c0.as(\"year\"),\n                     callUDF(\"toDouble\", \u0027_c2).as(\"height\"),\n                     callUDF(\"toDouble\", \u0027_c4).as(\"weight\"))\n             .withColumn(\"grade\", lit(\"elementary\"))\n             .withColumn(\"gender\", lit(\"man\"))\n\nval df4 \u003d df2.select(\u0027_c0.as(\"year\"),\n                     callUDF(\"toDouble\", \u0027_c3).as(\"height\"),\n                     callUDF(\"toDouble\", \u0027_c5).as(\"weight\"))\n             .withColumn(\"grade\", lit(\"elementary\"))\n             .withColumn(\"gender\", lit(\"woman\"))\n             \nval df5 \u003d df2.select(\u0027_c0.as(\"year\"),\n                     callUDF(\"toDouble\", \u0027_c6).as(\"height\"),\n                     callUDF(\"toDouble\", \u0027_c8).as(\"weight\"))\n             .withColumn(\"grade\", lit(\"middle\"))\n             .withColumn(\"gender\", lit(\"man\"))\n\nval df6 \u003d df2.select(\u0027_c0.as(\"year\"),\n                     callUDF(\"toDouble\", \u0027_c7).as(\"height\"),\n                     callUDF(\"toDouble\", \u0027_c9).as(\"weight\"))\n             .withColumn(\"grade\", lit(\"middle\"))\n             .withColumn(\"gender\", lit(\"woman\"))\n\nval df7 \u003d df2.select(\u0027_c0.as(\"year\"),\n                     callUDF(\"toDouble\", \u0027_c10).as(\"height\"),\n                     callUDF(\"toDouble\", \u0027_c12).as(\"weight\"))\n             .withColumn(\"grade\", lit(\"high\"))\n             .withColumn(\"gender\", lit(\"man\"))\n\nval df8 \u003d df2.select(\u0027_c0.as(\"year\"),\n                     callUDF(\"toDouble\", \u0027_c11).as(\"height\"),\n                     callUDF(\"toDouble\", \u0027_c13).as(\"weight\"))\n             .withColumn(\"grade\", lit(\"high\"))\n             .withColumn(\"gender\", lit(\"woman\"))\n\nval df9 \u003d df3.union(df4).union(df5).union(df6).union(df7).union(df8)\n\ndf9.show(5, false)\ndf9.printSchema\n",
+      "user": "jake",
+      "dateUpdated": "2019-04-11 20:39:23.028",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "import org.apache.spark.ml.Pipeline\nimport org.apache.spark.ml.evaluation.RegressionEvaluator\nimport org.apache.spark.ml.feature.{StringIndexer, VectorAssembler}\nimport org.apache.spark.ml.regression.LinearRegression\norg.apache.spark.sql.AnalysisException: Path does not exist: hdfs://localhost:9000/seoul-student-body-dim-data.txt;\n  at org.apache.spark.sql.execution.datasources.DataSource$.org$apache$spark$sql$execution$datasources$DataSource$$checkAndGlobPathIfNecessary(DataSource.scala:626)\n  at org.apache.spark.sql.execution.datasources.DataSource$$anonfun$14.apply(DataSource.scala:350)\n  at org.apache.spark.sql.execution.datasources.DataSource$$anonfun$14.apply(DataSource.scala:350)\n  at scala.collection.TraversableLike$$anonfun$flatMap$1.apply(TraversableLike.scala:241)\n  at scala.collection.TraversableLike$$anonfun$flatMap$1.apply(TraversableLike.scala:241)\n  at scala.collection.immutable.List.foreach(List.scala:381)\n  at scala.collection.TraversableLike$class.flatMap(TraversableLike.scala:241)\n  at scala.collection.immutable.List.flatMap(List.scala:344)\n  at org.apache.spark.sql.execution.datasources.DataSource.resolveRelation(DataSource.scala:349)\n  at org.apache.spark.sql.DataFrameReader.load(DataFrameReader.scala:178)\n  at org.apache.spark.sql.DataFrameReader.csv(DataFrameReader.scala:533)\n  at org.apache.spark.sql.DataFrameReader.csv(DataFrameReader.scala:412)\n  ... 48 elided\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1554982763027_1112211144",
+      "id": "20180829-170907_512465396",
+      "dateCreated": "2019-04-11 20:39:23.027",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val gradeIndexer \u003d new StringIndexer()\n                        .setInputCol(\"grade\")\n                        .setOutputCol(\"gradecode\")\n\nval genderIndexer \u003d new StringIndexer()\n                        .setInputCol(\"gender\")\n                        .setOutputCol(\"gendercode\")\n\nval df10 \u003d gradeIndexer.fit(df9).transform(df9)\nval df11 \u003d genderIndexer.fit(df10).transform(df10)\n\n// df11.show()\n\nval assembler \u003d new VectorAssembler()\n                    .setInputCols(Array(\"height\", \"gradecode\", \"gendercode\"))\n                    .setOutputCol(\"features\")\nval df12 \u003d assembler.transform(df11)\n\nval Array(training, test) \u003d df12.randomSplit(Array(0.7, 0.3))\n\nval lr \u003d new LinearRegression()\n             .setMaxIter(5)\n             .setRegParam(0.3)\n             .setLabelCol(\"weight\")\n             .setFeaturesCol(\"features\")\n             \nval model \u003d lr.fit(training)\n\nprintln(\"R2 : \" + model.summary.r2)",
+      "user": "jake",
+      "dateUpdated": "2019-04-11 20:39:23.030",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "gradeIndexer: org.apache.spark.ml.feature.StringIndexer \u003d strIdx_d1bb7d114ab7\ngenderIndexer: org.apache.spark.ml.feature.StringIndexer \u003d strIdx_f873de1cae43\ndf10: org.apache.spark.sql.DataFrame \u003d [year: string, height: double ... 4 more fields]\ndf11: org.apache.spark.sql.DataFrame \u003d [year: string, height: double ... 5 more fields]\nassembler: org.apache.spark.ml.feature.VectorAssembler \u003d vecAssembler_2c5ab9470c40\ndf12: org.apache.spark.sql.DataFrame \u003d [year: string, height: double ... 6 more fields]\ntraining: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [year: string, height: double ... 6 more fields]\ntest: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [year: string, height: double ... 6 more fields]\nlr: org.apache.spark.ml.regression.LinearRegression \u003d linReg_fb2222503ac8\nmodel: org.apache.spark.ml.regression.LinearRegressionModel \u003d linReg_fb2222503ac8\nR2 : 0.9836644711228142\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1554982763029_139720177",
+      "id": "20180829-170927_2054631011",
+      "dateCreated": "2019-04-11 20:39:23.029",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "val df13 \u003d model.setPredictionCol(\"predict_weight\").transform(test)\ndf13.cache()\n\ndf13.select(\"weight\", \"predict_weight\").show(5)\n\nval evaluator \u003d new RegressionEvaluator()\nevaluator.setLabelCol(\"weight\")\n         .setPredictionCol(\"predict_weight\")\n\nval rmse \u003d evaluator.evaluate(df13)\nval mse \u003d evaluator.setMetricName(\"mse\").evaluate(df13)\nval r2 \u003d evaluator.setMetricName(\"r2\").evaluate(df13)\nval mae \u003d evaluator.setMetricName(\"mae\").evaluate(df13)\n\nprintln(s\"rmse:${rmse}, mse:${mse}, r2:${r2}, mae:${mae}\")\n\n\n\n//Pipeline\nval pipeline \u003d new Pipeline()\n                    .setStages(Array(gradeIndexer, genderIndexer, assembler, lr))\nval Array(training2, test2) \u003d df9.randomSplit(Array(0.7, 0.3))\nval pipelineModel \u003d pipeline.fit(training2)\n\npipelineModel.transform(test2)\n             .select(\"weight\", \"prediction\").show()",
+      "user": "jake",
+      "dateUpdated": "2019-04-11 20:39:23.031",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "df13: org.apache.spark.sql.DataFrame \u003d [year: string, height: double ... 7 more fields]\nres5: df13.type \u003d [year: string, height: double ... 7 more fields]\n+------+------------------+\n|weight|    predict_weight|\n+------+------------------+\n|  46.1| 46.27189182882739|\n|  46.9| 46.94008687458651|\n|  47.1| 47.41736905012874|\n|  41.7| 44.27202624488959|\n|  45.1|46.276611382166976|\n+------+------------------+\nonly showing top 5 rows\n\nevaluator: org.apache.spark.ml.evaluation.RegressionEvaluator \u003d regEval_b984007aa24d\nres7: evaluator.type \u003d regEval_b984007aa24d\nrmse: Double \u003d 1.6548573332319951\nmse: Double \u003d 2.7385527933517104\nr2: Double \u003d 0.9630250800548259\nmae: Double \u003d 1.3508314624904465\nrmse:1.6548573332319951, mse:2.7385527933517104, r2:0.9630250800548259, mae:1.3508314624904465\npipeline: org.apache.spark.ml.Pipeline \u003d pipeline_a1f618e12db1\ntraining2: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [year: string, height: double ... 3 more fields]\ntest2: org.apache.spark.sql.Dataset[org.apache.spark.sql.Row] \u003d [year: string, height: double ... 3 more fields]\npipelineModel: org.apache.spark.ml.PipelineModel \u003d pipeline_a1f618e12db1\n+------+------------------+\n|weight|        prediction|\n+------+------------------+\n|  46.1| 46.59711434435762|\n|  46.4|  46.4617133916271|\n|  46.8| 46.73251529708811|\n|  45.1|44.581254314156496|\n|  44.3| 43.90424955050396|\n|  62.3| 62.02189934281154|\n|  62.2|62.360401724637796|\n|  65.0| 62.90200553555984|\n|  64.5| 62.90200553555984|\n|  51.7| 52.22048453060631|\n|  51.9|  53.1005907233546|\n|  52.7| 52.69438786516308|\n|  54.2|53.235991676085106|\n|  54.0| 52.89748929425885|\n|  68.5| 68.23941955559104|\n|  67.9| 68.37482050832153|\n|  70.1| 68.51022146105203|\n|  55.9|  56.2715894996977|\n|  55.7|56.813193310619724|\n|  56.4| 56.67779235788922|\n+------+------------------+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1554982763031_1216253782",
+      "id": "20180829-170936_370700164",
+      "dateCreated": "2019-04-11 20:39:23.031",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "jake",
+      "dateUpdated": "2019-04-11 20:39:23.034",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1554982763033_-1915053014",
+      "id": "20180829-173712_64577768",
+      "dateCreated": "2019-04-11 20:39:23.033",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/regression/multival-LinearRegression",
+  "id": "2E9JSW432",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

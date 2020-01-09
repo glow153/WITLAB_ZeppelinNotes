@@ -1,0 +1,44 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2019-08-29 17:14:30.217",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1567066417688_776202443",
+      "id": "20190829-171337_945905686",
+      "dateCreated": "2019-08-29 17:13:37.688",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/Master\u0027s Thesis/dnn_01",
+  "id": "2ENFVABBZ",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

@@ -1,0 +1,68 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\n\nfrom pyspark.sql.functions import udf\nfrom pyspark.sql.types import (IntegerType, StringType, DoubleType, FloatType)\n\n\nclean_day_list \u003d [\u00272017-04-13\u0027, \u00272017-04-19\u0027, \u00272017-04-24\u0027, \u00272017-05-01\u0027, \u00272017-05-17\u0027, \u00272017-06-02\u0027, \u00272017-06-15\u0027, \u00272017-08-26\u0027, \u00272017-09-01\u0027, \u00272017-09-13\u0027, \u00272017-09-14\u0027, \u00272017-09-21\u0027, \u00272017-09-28\u0027, \u00272017-10-21\u0027, \u00272017-10-30\u0027, \u00272017-10-31\u0027, \u00272017-11-11\u0027,  \u00272017-11-16\u0027, \u00272017-12-13\u0027, \u00272017-12-27\u0027, \u00272018-01-06\u0027, \u00272018-02-17\u0027, \u00272018-03-31\u0027, \u00272018-04-18\u0027, \u00272018-04-19\u0027, \u00272018-04-28\u0027, \u00272018-05-04\u0027, \u00272018-05-24\u0027, \u00272018-05-26\u0027, \u00272018-06-01\u0027, \u00272018-06-06\u0027, \u00272018-06-16\u0027, \u00272018-06-24\u0027, \u00272018-07-19\u0027, \u00272018-07-21\u0027, \u00272018-09-08\u0027, \u00272018-09-29\u0027, \u00272018-10-03\u0027, \u00272018-10-31\u0027, \u00272018-11-02\u0027, \u00272018-11-03\u0027, \u00272018-11-30\u0027, \u00272018-12-12\u0027, \u00272018-12-14\u0027, \u00272018-12-23\u0027, \u00272018-12-27\u0027, \u00272018-12-28\u0027, \u00272019-01-03\u0027, \u00272019-01-20\u0027, \u00272019-01-26\u0027, \u00272019-01-29\u0027, \u00272019-02-21\u0027, \u00272019-03-01\u0027, \u00272019-03-08\u0027]\n# .filter(\u0027date \u003d \"2017-04-13\" or date \u003d \"2017-04-19\" or date \u003d \"2017-04-24\" or date \u003d \"2017-05-01\" or date \u003d \"2017-05-17\" or date \u003d \"2017-06-02\" or date \u003d \"2017-06-15\" or date \u003d \"2017-08-26\" or date \u003d \"2017-09-01\" or date \u003d \"2017-09-13\" or date \u003d \"2017-09-14\" or date \u003d \"2017-09-21\" or date \u003d \"2017-09-28\" or date \u003d \"2017-10-21\" or date \u003d \"2017-10-30\" or date \u003d \"2017-10-31\" or date \u003d \"2017-11-11\" or date \u003d \"2017-11-16\" or date \u003d \"2017-12-13\" or date \u003d \"2017-12-27\" or date \u003d \"2018-01-06\" or date \u003d \"2018-02-17\" or date \u003d \"2018-03-31\" or date \u003d \"2018-04-18\" or date \u003d \"2018-04-19\" or date \u003d \"2018-04-28\" or date \u003d \"2018-05-04\" or date \u003d \"2018-05-24\" or date \u003d \"2018-05-26\" or date \u003d \"2018-06-01\" or date \u003d \"2018-06-06\" or date \u003d \"2018-06-16\" or date \u003d \"2018-06-24\" or date \u003d \"2018-07-19\" or date \u003d \"2018-07-21\" or date \u003d \"2018-09-08\" or date \u003d \"2018-09-29\" or date \u003d \"2018-10-03\" or date \u003d \"2018-10-31\" or date \u003d \"2018-11-02\" or date \u003d \"2018-11-03\" or date \u003d \"2018-11-20\" or date \u003d \"2018-11-30\" or date \u003d \"2018-12-12\" or date \u003d \"2018-12-14\" or date \u003d \"2018-12-23\" or date \u003d \"2018-12-27\" or date \u003d \"2018-12-28\" or date \u003d \"2019-01-03\" or date \u003d \"2019-01-20\" or date \u003d \"2019-01-26\" or date \u003d \"2019-01-29\" or date \u003d \"2019-02-21\" or date \u003d \"2019-03-01\" or date \u003d \"2019-03-08\"\u0027)\\\n\n\ndef weather(month):\n    if 3 \u003c\u003d month \u003c\u003d 5:\n        return 0\n    elif 6 \u003c\u003d month \u003c\u003d 8:\n        return 1\n    elif 9 \u003c\u003d month \u003c\u003d 11:\n        return 2\n    elif month \u003c\u003d 12 or 1 \u003c\u003d month \u003c\u003d 2:\n        return 4\n    else:\n        return -1\n\ndef floatize(dec):\n    try:\n        return float(dec)\n    except ValueError:\n        return None\n        \ndef classifyPm10(pm):\n    if pm \u003c\u003d 30:\n        return 1\n    elif 30 \u003c pm \u003c\u003d 80:\n        return 2\n    elif 80 \u003c pm \u003c\u003d 150:\n        return 3\n    else:\n        return 4\n        \ndef classifyPm25(pm):\n    if pm \u003c\u003d 15:\n        return 1\n    elif 15 \u003c pm \u003c\u003d 35:\n        return 2\n    elif 35 \u003c pm \u003c\u003d 75:\n        return 3\n    else:\n        return 4\n\n\nudf_year \u003d udf(lambda date: int(date.split(\u0027-\u0027)[0]), IntegerType())\nudf_month \u003d udf(lambda date: int(date.split(\u0027-\u0027)[1]), IntegerType())\nudf_day \u003d udf(lambda date: int(date.split(\u0027-\u0027)[2]), IntegerType())\nudf_hour \u003d udf(lambda time: int(time.split(\u0027:\u0027)[0]), IntegerType())\nudf_minute \u003d udf(lambda time: int(time.split(\u0027:\u0027)[1]), IntegerType())\n\nudf_dt2dh \u003d udf(lambda d, t: d + \u0027 \u0027 + t.split(\u0027:\u0027)[0])\nudf_dnt2dt \u003d udf(lambda d, t: d + \u0027 \u0027 + t)\nudf_dh2d \u003d udf(lambda dh: dh.split(\u0027 \u0027)[0])\nudf_dh2h \u003d udf(lambda dh: int(dh.split(\u0027 \u0027)[1]), IntegerType())\nudf_ymd2ym \u003d udf(lambda ymd: ymd[:-3])\nudf_date2month \u003d udf(lambda d: d.split(\u0027-\u0027)[1])\nudf_floatize \u003d udf(lambda s: float(s), FloatType())\nudf_joule \u003d udf(lambda f: f*60, DoubleType())\n\nudf_cleanday \u003d udf(lambda date: 1 if date in clean_day_list else 0, IntegerType())\nudf_weather \u003d udf(weather, IntegerType())\n\nudf_classifyPm10 \u003d udf(classifyPm10, IntegerType())\nudf_classifyPm25 \u003d udf(classifyPm25, IntegerType())\nudf_floatize \u003d udf(floatize, DoubleType())\n",
+      "user": "jake",
+      "dateUpdated": "2019-03-14 21:42:56.234",
+      "config": {
+        "colWidth": 6.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1552381323861_1033307571",
+      "id": "20190312-180203_272492811",
+      "dateCreated": "2019-03-12 18:02:03.861",
+      "dateStarted": "2019-03-14 21:12:56.059",
+      "dateFinished": "2019-03-14 21:12:56.111",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2019-03-14 09:22:55.092",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1552522975091_-1003936129",
+      "id": "20190314-092255_1763542548",
+      "dateCreated": "2019-03-14 09:22:55.091",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "pyjake/pyspark_udfs",
+  "id": "2E73XZ4R8",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "hbase:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

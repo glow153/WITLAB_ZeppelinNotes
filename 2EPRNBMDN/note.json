@@ -1,0 +1,187 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n# SVM\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-23 16:16:07.561",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/markdown",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eSVM\u003c/h1\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1569222959154_-1408572172",
+      "id": "20190923-095054_1164372074",
+      "dateCreated": "2019-09-23 16:15:59.155",
+      "dateStarted": "2019-09-23 16:16:07.569",
+      "dateFinished": "2019-09-23 16:16:07.790",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport numpy as np\nimport random\nimport pandas as pd\nfrom pyjake.sparkmodule import udf_month, udf_weather\nfrom pyspark.sql import Row\nfrom pyspark.sql.types import DoubleType\nfrom pyspark.sql.functions import udf\nfrom sklearn.preprocessing import MinMaxScaler\n\n\nudf_scaler \u003d udf(lambda i: i/10000, DoubleType())\n\n# 1-1. 데이터셋 생성하기\nsz \u003d spark.read.parquet(\u0027hdfs:///sun/kasi_sun_angle.parquet\u0027)\nnl \u003d spark.read.parquet(\u0027hdfs:///nl/witlab/cas/simple_srs.parquet\u0027)\\\n                .where(\u0027date \u003e \"2017-04-11\"\u0027)\naday \u003d spark.read.parquet(\u0027hdfs:///dayday/available_days.parquet\u0027)\ncl \u003d spark.read.parquet(\u0027hdfs:///dayday/clean_days.parquet\u0027)\n\nspdf \u003d nl.join(sz, [\u0027date\u0027, \u0027time\u0027])\\\n         .where(\u0027illum \u003e 0 and uvi \u003e 0 and uvi \u003c 14\u0027)\\\n         .withColumn(\u0027illum_s\u0027, udf_scaler(\u0027illum\u0027))\n\n# 랜덤시드 고정시키기\n# np.random.seed(5)\n\n# # shuffle\n# pdf \u003d spdf.select(\u0027date\u0027, \u0027time\u0027, \u0027illum\u0027, \u0027illum_s\u0027,\n#                   \u0027uvi\u0027, \u0027solar_zenith\u0027).toPandas()\n# pdf_sample \u003d pdf.reindex(np.random.permutation(pdf.index))\n\n# # scaler\n# scaler \u003d MinMaxScaler(feature_range\u003d(0, 14))\n# pdf_sample[\u0027illum_s\u0027] \u003d scaler.fit_transform(pdf_sample[[\u0027illum\u0027]])\n# print(pdf_sample)\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-23 16:16:19.787",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1569222959207_2134446505",
+      "id": "20190904-174540_1831689393",
+      "dateCreated": "2019-09-23 16:15:59.207",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport numpy as np\nimport pandas as pd\n\nspdf_train_b, spdf_test \u003d spdf.randomSplit([0.7, 0.3], 3)\nspdf_train, spdf_val \u003d spdf_train_b.randomSplit([0.7, 0.3], 3)\n\nx_train_b \u003d np.array(spdf_train_b.select(\u0027illum_s\u0027, \u0027solar_zenith\u0027).toPandas())\ny_train_b \u003d np.array(spdf_train_b.select(\u0027uvi\u0027).toPandas())\n\nx_train \u003d np.array(spdf_train.select(\u0027illum_s\u0027, \u0027solar_zenith\u0027).toPandas())\ny_train \u003d np.array(spdf_train.select(\u0027uvi\u0027).toPandas())\n\nx_val \u003d np.array(spdf_val.select(\u0027illum_s\u0027, \u0027solar_zenith\u0027).toPandas())\ny_val \u003d np.array(spdf_val.select(\u0027uvi\u0027).toPandas())\n\nx_test \u003d np.array(spdf_test.select(\u0027illum_s\u0027, \u0027solar_zenith\u0027).toPandas())\ny_test \u003d np.array(spdf_test.select(\u0027uvi\u0027).toPandas())\n\nprint(\u0027x train (bef) len:\u0027, len(x_train_b))\nprint(\u0027y train (bef) len:\u0027, len(y_train_b))\nprint(\u0027x train len:\u0027, len(x_train))\nprint(\u0027y train len:\u0027, len(y_train))\nprint(\u0027x val len:\u0027, len(x_val))\nprint(\u0027y val len:\u0027, len(y_val))\nprint(\u0027x test len:\u0027, len(x_test))\nprint(\u0027y test len:\u0027, len(y_test))\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-23 16:16:21.534",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "x train (bef) len: 196172\ny train (bef) len: 196172\nx train len: 137494\ny train len: 137494\nx val len: 58678\ny val len: 58678\nx test len: 84069\ny test len: 84069\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1569222959230_14295238",
+      "id": "20190904-174540_1363538613",
+      "dateCreated": "2019-09-23 16:15:59.231",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark.mllib.regression import LabeledPoint\nfrom pyspark.mllib.tree import RandomForest, RandomForestModel\nfrom pyspark.mllib.util import MLUtils\n\n# Load and parse the data file into an RDD of LabeledPoint.\ntrainingData \u003d spdf_train.select(\u0027illum_s\u0027, \u0027solar_zenith\u0027, \u0027uvi\u0027)\\\n                         .rdd.map(lambda r: LabeledPoint(r[\u0027uvi\u0027], [r[\u0027illum_s\u0027], r[\u0027solar_zenith\u0027]]))\ntestData \u003d spdf_test.select(\u0027illum_s\u0027, \u0027solar_zenith\u0027, \u0027uvi\u0027)\\\n                    .rdd.map(lambda r: LabeledPoint(r[\u0027uvi\u0027], [r[\u0027illum_s\u0027], r[\u0027solar_zenith\u0027]]))\n\nmodel \u003d RandomForest.trainRegressor(trainingData, categoricalFeaturesInfo\u003d{},\n                                    numTrees\u003d128, featureSubsetStrategy\u003d\"auto\",\n                                    impurity\u003d\u0027variance\u0027, maxDepth\u003d30, maxBins\u003d64)\n\n# Evaluate model on test instances and compute test error\npredictions \u003d model.predict(testData.map(lambda x: x.features))\nlabelsAndPredictions \u003d testData.map(lambda lp: lp.label).zip(predictions)\n\nprint(predictions.collect()[:5])\n\ntestMAE \u003d labelsAndPredictions.map(lambda lp: np.abs(lp[0] - lp[1])).sum() / float(testData.count())\ntestMSE \u003d labelsAndPredictions.map(lambda lp: (lp[0] - lp[1]) * (lp[0] - lp[1])).sum() / float(testData.count())\nprint(\u0027test\u003e mse:\u0027, testMSE, \u0027, mae:\u0027, testMAE)\nprint(\u0027Learned regression forest model:\u0027)\nprint(model.toDebugString())\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-23 16:20:04.109",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1569222959254_686628192",
+      "id": "20190904-174245_651274917",
+      "dateCreated": "2019-09-23 16:15:59.254",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-23 16:15:59.302",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1569222959284_584724889",
+      "id": "20190923-153404_1142543128",
+      "dateCreated": "2019-09-23 16:15:59.284",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/Master\u0027s Thesis/ml_02",
+  "id": "2EPRNBMDN",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

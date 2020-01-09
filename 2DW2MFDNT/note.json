@@ -1,0 +1,514 @@
+{
+  "paragraphs": [
+    {
+      "title": "def functions",
+      "text": "%pyspark\nfrom pyspark.sql.types import Row\n\ndef getLimitRange(dataArr):\n    # find idx of minimum value of left and right side\n    mid \u003d int(len(dataArr)/2)\n    leftmin \u003d min(dataArr[:mid])\n    rightmin \u003d min(dataArr[mid:])\n    leftidx \u003d 0\n    rightidx \u003d 0\n    \n    for i in range(mid):\n        if dataArr[i] \u003d\u003d leftmin:\n            leftidx \u003d i\n            break\n    \n    for i in range(mid, len(dataArr)):\n        if dataArr[i] \u003d\u003d rightmin:\n            rightidx \u003d i\n            break\n    \n    return leftidx, rightidx\n    \ndef makeNoise(srcDataArr):\n    import random\n    dataArr \u003d list(srcDataArr)\n    leftlimidx, rightlimidx \u003d getLimitRange(dataArr)\n    noiseCount \u003d random.randrange(50, 150) # between 50 and 99\n    \n    for i in range(noiseCount):\n        # select data idx randomly\n        randIdx \u003d random.randrange(leftlimidx, rightlimidx)\n        # add noise on src value randomly\n        dataArr[randIdx] +\u003d (random.randrange(1000) + random.random())\n    \n    return dataArr\n\ndef noiseSelecting(dataArr):\n    noiseList \u003d []\n    section \u003d []\n    criteria \u003d 100\n    isNoise \u003d False\n    \n    leftidx, rightidx \u003d getLimitRange(dataArr)\n    \n    # detect noise\n    for i in range(leftidx, rightidx - 5):\n        # detect start point of noise section\n        if dataArr[i+1] - dataArr[i] \u003e criteria or \\\n            dataArr[i+2] - dataArr[i] \u003e criteria:\n            isNoise \u003d True\n        \n        # detect end point of noise section\n        elif dataArr[i] - dataArr[i+1] \u003e criteria:\n            isNoise \u003d False\n        \n        # check noise data index\n        if isNoise:\n            section.append(i)\n        elif not isNoise and len(section) \u003e 0:\n            section.append(i)\n            noiseList.append([min(section), max(section)+1])\n            section \u003d []\n\n    return noiseList\n\ndef interpolation(srcDataArr, noiseList):\n    dataArr \u003d list(srcDataArr)\n    # noise value deletion\n    for sect in noiseList:\n        x0 \u003d sect[0]\n        x1 \u003d sect[1]\n        y0 \u003d dataArr[x0]\n        y1 \u003d dataArr[x1]\n        \n        # linear interpolation\n        # spline interpolation would be better    \n        for x in range(sect[0]+1, sect[1]):\n            dataArr[x] \u003d dataArr[x0] + ((y1-y0)/(x1-x0))*(x-x0)\n\n    return dataArr    \n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:38.838",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281938838_109568445",
+      "id": "20180822-113715_1693732185",
+      "dateCreated": "2018-10-23 17:05:38.838",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n# 구간 찾기 조건\n# 1. 구간 양 끝점의 차이는 criteria 이하\n# 2. 구간 양 끝점의 기울기의 차이는 criteria2 이하\n# 2차미분값이 큰 값을 지니는 사이가 노이즈!\n\ndef noiseSelecting_ex(srcDataArr):\n    dataArr \u003d list(srcDataArr)\n    # numerical differentiate\n    criteria \u003d 80\n    firstDiff \u003d []\n    secondDiff \u003d []\n    noiseSectionList \u003d []\n    \n    leftidx, rightidx \u003d getLimitRange(dataArr)\n    \n    for i in range(len(dataArr) - 1):\n        firstDiff.append(dataArr[i+1] - dataArr[i])\n    firstDiff.append(0)\n    for i in range(len(dataArr) - 1):\n        secondDiff.append(firstDiff[i+1] - firstDiff[i])\n    secondDiff.append(0)\n    \n    print(len(dataArr), len(firstDiff), len(secondDiff))\n    \n    noise_section_start \u003d False\n    noiseSection \u003d []\n    for i in range(leftidx, rightidx):\n        if noise_section_start:\n            noiseSectionList.append(i)\n        else:\n            \n        if secondDiff[i] \u003e criteria:\n            noise_section_start \u003d not noise_section_start\n    \n    return noiselist\n\nnoiseSelecting_ex(cct_r)",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:38.839",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281938838_1591760550",
+      "id": "20180914-003840_1319935210",
+      "dateCreated": "2018-10-23 17:05:38.838",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "one day cct swr filter (old Ver)",
+      "text": "%pyspark\n\nselected_date \u003d \"2017-05-15\"\n\n# get dataset from hdfs\nnt \u003d spark.read.parquet(\u0027hdfs:///ds/nt_srs.parquet\u0027)\nnt \u003d nt.drop(\u0027illum\u0027)\n\n# make array of target data\ndf_cctswr \u003d nt.select(\u0027date\u0027, \u0027time\u0027, \u0027cct\u0027, \u0027swr\u0027)\\\n              .filter(\u0027date \u003d \"%s\"\u0027 % selected_date)\\\n              .sort(\u0027date\u0027, \u0027time\u0027)  # MUST SOOOOOOOORT!!!!!!!!!!!!!!!!!\n\ncol_datetime \u003d df_cctswr.select(\u0027date\u0027, \u0027time\u0027)\\\n                        .rdd\\\n                        .map(lambda s: s[0] + \u0027 \u0027 + s[1])\\\n                        .collect()\ncol_cct \u003d df_cctswr.select(\u0027cct\u0027)\\\n                   .collect()\ncol_swr \u003d df_cctswr.select(\u0027swr\u0027)\\\n                   .collect()\n\n# floatize\ncol_cct \u003d list(map(lambda s: float(s[0]), col_cct))\ncol_swr \u003d list(map(lambda s: float(s[0]), col_swr))\n\n# print(col_datetime)\n\n# filter cct\nedgeList \u003d edgeDetection(col_cct)\nnoiseList \u003d noiseSelecting(edgeList)\ncol_cct_swr_filtered \u003d medfilter_ex2(col_cct, col_swr, noiseList, 9)\n\n# important!! toDF() in pyspark is different from scala!!!\nnewDataset \u003d []\nfor i in range(len(col_datetime)):\n    newDataset.append(\\\n        Row(datetime\u003dcol_datetime[i],\\\n            cct\u003dcol_cct[i],\\\n            cct_f\u003dcol_cct_swr_filtered[i][0],\\\n            swr\u003dcol_swr[i],\\\n            swr_f\u003dcol_cct_swr_filtered[i][1]))\n\ndf_newDataset \u003d sc.parallelize(newDataset).toDF()\ndf_newDataset.createOrReplaceTempView(\u0027cct_swr_filtered\u0027)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:38.839",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281938839_-1360764683",
+      "id": "20180822-152713_518118781",
+      "dateCreated": "2018-10-23 17:05:38.839",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:38.839",
+      "config": {
+        "tableHide": true,
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281938839_2041881768",
+      "id": "20180906-072921_950048889",
+      "dateCreated": "2018-10-23 17:05:38.839",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "one day cct filter (test ver)",
+      "text": "%pyspark\n\nselected_date \u003d \"2017-09-01\"\n\n# get dataset from hdfs\nnt \u003d spark.read.parquet(\u0027hdfs:///ds/nt_srs.parquet\u0027)\nnt \u003d nt.drop(\u0027illum\u0027)\n\n# make array of target data\ndf_cctswr \u003d nt.select(\u0027date\u0027, \u0027time\u0027, \u0027cct\u0027, \u0027swr\u0027)\\\n              .filter(\u0027date \u003d \"%s\"\u0027 % selected_date)\\\n              .sort(\u0027date\u0027, \u0027time\u0027)  # MUST SOOOOOOOORT!!!!!!!!!!!!!!!!!\n\ncol_datetime \u003d df_cctswr.select(\u0027date\u0027, \u0027time\u0027)\\\n                        .rdd\\\n                        .map(lambda s: s[0] + \u0027 \u0027 + s[1])\\\n                        .collect()\ncol_cct \u003d df_cctswr.select(\u0027cct\u0027)\\\n                   .collect()\ncol_swr \u003d df_cctswr.select(\u0027swr\u0027)\\\n                   .collect()\n\n# floatize\ncol_cct \u003d list(map(lambda s: float(s[0]), col_cct))\ncol_swr \u003d list(map(lambda s: float(s[0]), col_swr))\n\n# filter cct\ncct_n \u003d makeNoise(col_cct)\nnoiseSectionList \u003d noiseSelecting(cct_n)\n# print(noiseSectionList)\ncct_f \u003d interpolation(cct_n, noiseSectionList)\n\n# important!! toDF() in pyspark is different from scala!!!\nnewDataset \u003d []\nfor i in range(len(col_datetime)):\n    newDataset.append(\\\n        Row(datetime\u003dcol_datetime[i],\\\n            cct\u003dcol_cct[i],\\\n            cct_n\u003dcct_n[i],\\\n            cct_f\u003dcct_f[i]))\n\ndf_newDataset \u003d sc.parallelize(newDataset).toDF()\ndf_newDataset.createOrReplaceTempView(\u0027cct_filtered\u0027)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:38.839",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": false,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281938839_-1547490861",
+      "id": "20180822-120037_535646696",
+      "dateCreated": "2018-10-23 17:05:38.839",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "calc error rate",
+      "text": "%pyspark\n\nsum_cct \u003d sum(col_cct)\nerrcnt_n \u003d 0\nerrcnt_f \u003d 0\n\ncriteria \u003d 300  # 기준치\n\n# compare diff by criteria (원 데이터와 기준치 이상의 차이를 나타내면 노이즈로 간주)\nfor i in range(len(col_cct)):\n    if abs(col_cct[i] - cct_n[i]) \u003e criteria:\n        errcnt_n +\u003d 1\n        \n    if abs(col_cct[i] - cct_f[i]) \u003e criteria:\n        errcnt_f +\u003d 1\n\n# match rate \u003d (노이즈 개수) / (전체 개수) [%]\nprint(\u0027noise count of non-filtered :\u0027, errcnt_n)\nprint(\u0027noise count of filtered :\u0027, errcnt_f)\nprint(\u0027match rate of non-filtered :\u0027, (1 - errcnt_n / len(col_cct)) * 100, \u0027%\u0027)\nprint(\u0027match rate of filtered :\u0027, (1 - errcnt_f / len(col_cct)) * 100, \u0027%\u0027)",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:38.840",
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281938839_-1214133755",
+      "id": "20180906-065956_2013148163",
+      "dateCreated": "2018-10-23 17:05:38.839",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from cct_filtered\norder by datetime",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:38.840",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 531.0,
+              "optionOpen": true,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "cct": "string",
+                      "datetime": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "datetime",
+                  "index": 3.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cct",
+                  "index": 0.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cct_n",
+                  "index": 2.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cct_f",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281938840_1093273837",
+      "id": "20180822-131648_1851776594",
+      "dateCreated": "2018-10-23 17:05:38.840",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "practical application",
+      "text": "%pyspark\nrealdate \u003d \u00272018-04-29\u0027\n\n# 170713\n# 180303\n# 180416\n# 180427\n# 180429\n# 180510\n\n# 180524\n# 180531\n\n\n# make array of target data\ndf_cctswr_r \u003d nt.select(\u0027date\u0027, \u0027time\u0027, \u0027cct\u0027, \u0027swr\u0027)\\\n                .filter(\u0027date \u003d \"%s\"\u0027 % realdate)\\\n                .sort(\u0027date\u0027, \u0027time\u0027)  # MUST SOOOOOOOORT!!!!!!!!!!!!!!!!!\ndf_cctswr_r.createOrReplaceTempView(\u0027df_cctswr_r\u0027)\n\ncol_datetime_r \u003d df_cctswr_r.select(\u0027date\u0027, \u0027time\u0027)\\\n                            .rdd\\\n                            .map(lambda s: s[0] + \u0027 \u0027 + s[1])\\\n                            .collect()\ncct_r \u003d df_cctswr_r.select(\u0027cct\u0027)\\\n                   .collect()\nswr_r \u003d df_cctswr_r.select(\u0027swr\u0027)\\\n                   .collect()\n\n# floatize\ncct_r \u003d list(map(lambda s: float(s[0]), cct_r))\nswr_r \u003d list(map(lambda s: float(s[0]), swr_r))\n\n# filter cct\nnoiseSectionList \u003d noiseSelecting(cct_r)\ncct_rf \u003d interpolation(cct_r, noiseSectionList)\n\nprint(len(col_datetime_r), len(cct_r), len(cct_rf))\n\n# important!! toDF() in pyspark is different from scala!!!\nnewDF \u003d []\nfor i in range(len(col_datetime_r)):\n    newDF.append(\\\n        Row(datetime\u003dcol_datetime_r[i],\\\n            cct\u003dcct_r[i],\\\n            cct_rf\u003dcct_rf[i]))\n\ndf_newDF \u003d sc.parallelize(newDF).toDF()\ndf_newDF.createOrReplaceTempView(\u0027cct_filtered_r\u0027)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:38.840",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": false,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 777.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "cct": "string",
+                      "datetime": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "datetime",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cct",
+                  "index": 0.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cct_f",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "swr",
+                  "index": 3.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "swr_f",
+                  "index": 4.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281938840_-1961790694",
+      "id": "20180823-004850_1937300588",
+      "dateCreated": "2018-10-23 17:05:38.840",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from cct_filtered_r\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:38.840",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 8.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 541.0,
+              "optionOpen": true,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "cct": "string",
+                      "cct_rf": "string",
+                      "datetime": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "datetime",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cct",
+                  "index": 0.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cct_rf",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281938840_-10068645",
+      "id": "20180822-133528_921731243",
+      "dateCreated": "2018-10-23 17:05:38.840",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:38.840",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281938840_355627346",
+      "id": "20180913-191029_1233458181",
+      "dateCreated": "2018-10-23 17:05:38.840",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "filtering/nl_filter",
+  "id": "2DW2MFDNT",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

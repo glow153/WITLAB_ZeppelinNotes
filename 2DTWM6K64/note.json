@@ -1,0 +1,164 @@
+{
+  "paragraphs": [
+    {
+      "title": "def class",
+      "text": "%md\r\n\u003cpre\u003e\u003ccode\u003e\r\nfrom bs4 import BeautifulSoup\r\nfrom selenium import webdriver\r\nimport datetime\r\n\r\n\r\nclass ScrapSunRiseSet:\r\n    baseUrl \u003d \u0027https://astro.kasi.re.kr/life/pageView/9\u0027\r\n    url \u003d \u0027\u0027\r\n    options \u003d None\r\n    driver \u003d None\r\n    debug \u003d False\r\n\r\n    def __init__(self, debug):\r\n        self.debug \u003d debug\r\n        if self.debug:\r\n            print(\u0027dbg\u003e init driver...\u0027)\r\n        chrome_driver_path \u003d \u0027/home/witlab/.jsh/chromedriver\u0027\r\n        self.options \u003d webdriver.ChromeOptions()\r\n        self.options.add_argument(\u0027headless\u0027)\r\n        # self.options.add_argument(\u0027disable-gpu\u0027)\r\n        self.driver \u003d webdriver.Chrome(chrome_driver_path, options\u003dself.options)\r\n        if self.debug:\r\n            print(\u0027dbg\u003e complete!\u0027)\r\n\r\n    def scrap(self, date, address):\r\n        self.url \u003d self.baseUrl + \u0027?date\u003d\u0027 + date + \u0027\u0026address\u003d\u0027 + address\r\n        if self.debug:\r\n            print(\u0027dbg\u003e request url :\u0027, self.url)\r\n        self.driver.get(self.url)\r\n        soup \u003d BeautifulSoup(self.driver.page_source, \u0027html.parser\u0027)\r\n\r\n        sunrise \u003d soup.find_all(\u0027span\u0027, {\u0027class\u0027: \u0027sunrise\u0027})[0].string\r\n        culmination \u003d soup.find_all(\u0027span\u0027, {\u0027class\u0027: \u0027culmination\u0027})[0].string\r\n        sunset \u003d soup.find_all(\u0027span\u0027, {\u0027class\u0027: \u0027sunset\u0027})[0].string\r\n\r\n        sr \u003d sunrise[0:2] + \u0027:\u0027 + sunrise[4:-1]\r\n        cul \u003d culmination[0:2] + \u0027:\u0027 + culmination[4:-1]\r\n        ss \u003d sunset[0:2] + \u0027:\u0027 + sunset[4:-1]\r\n\r\n        if self.debug:\r\n            print(\u0027dbg\u003e\u0027, date, sr, cul, ss)\r\n\r\n        return [date, sr, cul, ss]\r\n        \r\n    def make_dataset_csv(self, local_outfilepath: str,\r\n                         start_date: str, end_date: str, address: str):\r\n        import csv\r\n        \r\n        # set vals for scrap\r\n        oneday \u003d datetime.timedelta(days\u003d1)\r\n        sdt \u003d datetime.datetime.strptime(start_date, \u0027%Y-%m-%d\u0027)\r\n        edt \u003d datetime.datetime.strptime(end_date, \u0027%Y-%m-%d\u0027)\r\n        \r\n        # set module\r\n        outfile \u003d open(local_outfilepath, \u0027w\u0027, encoding\u003d\u0027utf-8\u0027, newline\u003d\u0027\u0027)\r\n        csv_writer \u003d csv.writer(outfile)\r\n\r\n        while sdt \u003c\u003d edt:\r\n            sunrslist \u003d ssrs.scrap(sdt.strftime(\u0027%Y-%m-%d\u0027), address)\r\n            csv_writer.writerow(sunrslist)\r\n            ptstr \u003d \u0027\u0027\r\n            for s in sunrslist:\r\n                ptstr +\u003d str(s) + \u0027,\u0027\r\n            print(ptstr[:-1])\r\n            sdt \u003d sdt + oneday\r\n\r\n        outfile.close()\r\n\r\n    def csv2parquet(self, local_infilepath: str,hdfs_outpath: str):\r\n        from pyspark.sql import Row\r\n        srs \u003d sc.textFile(local_infilepath)\\\r\n                .map(lambda s: s.split(\",\"))\\\r\n                .map(lambda s: Row(datetime\u003ds[0],\r\n                                   rise\u003ds[1], culmination\u003ds[2], set\u003ds[3]))\\\r\n                .toDF()\r\n        srs.write.mode(\u0027overwrite\u0027).parquet(hdfs_outpath)\r\n        \r\n\r\n    def close(self):\r\n        if self.debug:\r\n            print(\u0027dbg\u003e close!\u0027)\r\n        self.driver.close()\r\n\u003c/code\u003e\u003c/pre\u003e",
+      "user": "jake",
+      "dateUpdated": "2019-03-12 19:43:16.929",
+      "config": {
+        "colWidth": 5.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "title": true,
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003cpre\u003e\u003ccode\u003e\r\nfrom bs4 import BeautifulSoup\r\nfrom selenium import webdriver\r\nimport datetime\r\n\r\n\r\nclass ScrapSunRiseSet:\r\n    baseUrl \u003d \u0027https://astro.kasi.re.kr/life/pageView/9\u0027\r\n    url \u003d \u0027\u0027\r\n    options \u003d None\r\n    driver \u003d None\r\n    debug \u003d False\r\n\r\n    def __init__(self, debug):\r\n        self.debug \u003d debug\r\n        if self.debug:\r\n            print(\u0027dbg\u003e init driver...\u0027)\r\n        chrome_driver_path \u003d \u0027/home/witlab/.jsh/chromedriver\u0027\r\n        self.options \u003d webdriver.ChromeOptions()\r\n        self.options.add_argument(\u0027headless\u0027)\r\n        # self.options.add_argument(\u0027disable-gpu\u0027)\r\n        self.driver \u003d webdriver.Chrome(chrome_driver_path, options\u003dself.options)\r\n        if self.debug:\r\n            print(\u0027dbg\u003e complete!\u0027)\r\n\r\n    def scrap(self, date, address):\r\n        self.url \u003d self.baseUrl + \u0027?date\u003d\u0027 + date + \u0027\u0026address\u003d\u0027 + address\r\n        if self.debug:\r\n            print(\u0027dbg\u003e request url :\u0027, self.url)\r\n        self.driver.get(self.url)\r\n        soup \u003d BeautifulSoup(self.driver.page_source, \u0027html.parser\u0027)\r\n\r\n        sunrise \u003d soup.find_all(\u0027span\u0027, {\u0027class\u0027: \u0027sunrise\u0027})[0].string\r\n        culmination \u003d soup.find_all(\u0027span\u0027, {\u0027class\u0027: \u0027culmination\u0027})[0].string\r\n        sunset \u003d soup.find_all(\u0027span\u0027, {\u0027class\u0027: \u0027sunset\u0027})[0].string\r\n\r\n        sr \u003d sunrise[0:2] + \u0027:\u0027 + sunrise[4:-1]\r\n        cul \u003d culmination[0:2] + \u0027:\u0027 + culmination[4:-1]\r\n        ss \u003d sunset[0:2] + \u0027:\u0027 + sunset[4:-1]\r\n\r\n        if self.debug:\r\n            print(\u0027dbg\u003e\u0027, date, sr, cul, ss)\r\n\r\n        return [date, sr, cul, ss]\r\n        \r\n    def make_dataset_csv(self, local_outfilepath: str,\r\n                         start_date: str, end_date: str, address: str):\r\n        import csv\r\n        \r\n        # set vals for scrap\r\n        oneday \u003d datetime.timedelta(days\u003d1)\r\n        sdt \u003d datetime.datetime.strptime(start_date, \u0027%Y-%m-%d\u0027)\r\n        edt \u003d datetime.datetime.strptime(end_date, \u0027%Y-%m-%d\u0027)\r\n        \r\n        # set module\r\n        outfile \u003d open(local_outfilepath, \u0027w\u0027, encoding\u003d\u0027utf-8\u0027, newline\u003d\u0027\u0027)\r\n        csv_writer \u003d csv.writer(outfile)\r\n\r\n        while sdt \u003c\u003d edt:\r\n            sunrslist \u003d ssrs.scrap(sdt.strftime(\u0027%Y-%m-%d\u0027), address)\r\n            csv_writer.writerow(sunrslist)\r\n            ptstr \u003d \u0027\u0027\r\n            for s in sunrslist:\r\n                ptstr +\u003d str(s) + \u0027,\u0027\r\n            print(ptstr[:-1])\r\n            sdt \u003d sdt + oneday\r\n\r\n        outfile.close()\r\n\r\n    def csv2parquet(self, local_infilepath: str,hdfs_outpath: str):\r\n        from pyspark.sql import Row\r\n        srs \u003d sc.textFile(local_infilepath)\\\r\n                .map(lambda s: s.split(\",\"))\\\r\n                .map(lambda s: Row(datetime\u003ds[0],\r\n                                   rise\u003ds[1], culmination\u003ds[2], set\u003ds[3]))\\\r\n                .toDF()\r\n        srs.write.mode(\u0027overwrite\u0027).parquet(hdfs_outpath)\r\n        \r\n\r\n    def close(self):\r\n        if self.debug:\r\n            print(\u0027dbg\u003e close!\u0027)\r\n        self.driver.close()\r\n\u003c/code\u003e\u003c/pre\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1541234340433_1311758757",
+      "id": "20181103-173900_1578420261",
+      "dateCreated": "2018-11-03 17:39:00.433",
+      "dateStarted": "2019-03-12 19:43:16.930",
+      "dateFinished": "2019-03-12 19:43:16.933",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "run test",
+      "text": "%pyspark\n\nfrom pyjake.pysunriseset import ScrapSunRiseSet\n\ndate \u003d \u00272018-03-20\u0027\naddress \u003d \u0027충남+천안시+서북구+천안대로+1223-24\u0027\nssrs \u003d ScrapSunRiseSet(False)\nprint(ssrs.scrap(date, address))\nssrs.close()\n\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-03-12 19:29:39.289",
+      "config": {
+        "colWidth": 3.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "[\u00272018-03-20\u0027, \u002706:35\u0027, \u002712:39\u0027, \u002718:42\u0027]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1541234584960_-409346665",
+      "id": "20181103-174304_2090223414",
+      "dateCreated": "2018-11-03 17:43:04.961",
+      "dateStarted": "2019-03-12 19:23:49.917",
+      "dateFinished": "2019-03-12 19:24:42.377",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "make dataset test",
+      "text": "%pyspark\n\nfrom pyjake.pysunriseset import ScrapSunRiseSet\n\n# scrapper init\nssrs \u003d ScrapSunRiseSet(True)\n\n# set vars for scrap\ncsv_path \u003d \u0027/home/witlab/sunriseset_output_1.csv\u0027\nstart_date \u003d \u00272017-04-11\u0027\nend_date \u003d \u00272019-12-31\u0027\naddress \u003d \u0027충남+천안시+서북구+천안대로+1223-24\u0027\n\nssrs.make_dataset_csv(csv_path, start_date, end_date, address)\nssrs.csv2parquet(csv_path, \u0027hdfs:///sun/srs.parquet\u0027)\nssrs.close()\n\nspark.read.parquet(\u0027hdfs:///sun/srs.parquet\u0027).show()\n",
+      "user": "jake",
+      "dateUpdated": "2019-03-12 23:32:42.927",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "ERROR",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "dbg\u003e init driver...\ndbg\u003e complete!\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-01\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-01 07:44 12:34 17:25\n2019-01-01,07:44,12:34,17:25\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-02\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-02 07:44 12:35 17:25\n2019-01-02,07:44,12:35,17:25\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-03\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-03 07:44 12:35 17:26\n2019-01-03,07:44,12:35,17:26\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-04\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-04 07:44 12:36 17:27\n2019-01-04,07:44,12:36,17:27\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-05\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-05 07:44 12:36 17:28\n2019-01-05,07:44,12:36,17:28\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-06\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-06 07:44 12:36 17:29\n2019-01-06,07:44,12:36,17:29\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-07\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-07 07:44 12:37 17:29\n2019-01-07,07:44,12:37,17:29\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-08\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-08 07:44 12:37 17:30\n2019-01-08,07:44,12:37,17:30\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-09\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-09 07:44 12:38 17:31\n2019-01-09,07:44,12:38,17:31\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-10\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-10 07:44 12:38 17:32\n2019-01-10,07:44,12:38,17:32\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-11\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-11 07:44 12:39 17:33\n2019-01-11,07:44,12:39,17:33\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-12\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-12 07:44 12:39 17:34\n2019-01-12,07:44,12:39,17:34\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-13\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-13 07:44 12:39 17:35\n2019-01-13,07:44,12:39,17:35\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-14\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-14 07:43 12:40 17:36\n2019-01-14,07:43,12:40,17:36\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-15\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-15 07:43 12:40 17:37\n2019-01-15,07:43,12:40,17:37\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-16\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-16 07:43 12:40 17:38\n2019-01-16,07:43,12:40,17:38\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-17\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-17 07:42 12:41 17:39\n2019-01-17,07:42,12:41,17:39\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-18\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-18 07:42 12:41 17:40\n2019-01-18,07:42,12:41,17:40\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-19\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-19 07:42 12:41 17:41\n2019-01-19,07:42,12:41,17:41\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-20\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-20 07:41 12:42 17:42\n2019-01-20,07:41,12:42,17:42\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-21\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-21 07:41 12:42 17:43\n2019-01-21,07:41,12:42,17:43\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-22\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-22 07:40 12:42 17:44\n2019-01-22,07:40,12:42,17:44\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-23\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-23 07:40 12:43 17:45\n2019-01-23,07:40,12:43,17:45\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-24\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-24 07:39 12:43 17:46\n2019-01-24,07:39,12:43,17:46\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-25\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-25 07:39 12:43 17:47\n2019-01-25,07:39,12:43,17:47\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-26\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-26 07:38 12:43 17:49\n2019-01-26,07:38,12:43,17:49\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-27\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-27 07:37 12:43 17:50\n2019-01-27,07:37,12:43,17:50\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-28\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-28 07:37 12:44 17:51\n2019-01-28,07:37,12:44,17:51\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-29\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-29 07:36 12:44 17:52\n2019-01-29,07:36,12:44,17:52\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-30\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-30 07:35 12:44 17:53\n2019-01-30,07:35,12:44,17:53\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-01-31\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-01-31 07:34 12:44 17:54\n2019-01-31,07:34,12:44,17:54\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-02-01\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\ndbg\u003e 2019-02-01 07:34 12:44 17:55\n2019-02-01,07:34,12:44,17:55\ndbg\u003e request url : https://astro.kasi.re.kr/life/pageView/9?date\u003d2019-02-02\u0026address\u003d충남+천안시+서북구+천안대로+1223-24\n"
+          },
+          {
+            "type": "TEXT",
+            "data": "Fail to execute line 12: ssrs.make_dataset_csv(csv_path, start_date, end_date, address)\nTraceback (most recent call last):\n  File \"/usr/lib/python3/dist-packages/urllib3/connectionpool.py\", line 377, in _make_request\n    httplib_response \u003d conn.getresponse(buffering\u003dTrue)\nTypeError: getresponse() got an unexpected keyword argument \u0027buffering\u0027\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/tmp/zeppelin_pyspark-3649353479286725664.py\", line 375, in \u003cmodule\u003e\n    exec(code, _zcUserQueryNameSpace)\n  File \"\u003cstdin\u003e\", line 12, in \u003cmodule\u003e\n  File \"/home/witlab/.local/lib/python3.5/site-packages/pyjake/pysunriseset.py\", line 58, in make_dataset_csv\n    sunrslist \u003d self.scrap(sdt.strftime(\u0027%Y-%m-%d\u0027), address)\n  File \"/home/witlab/.local/lib/python3.5/site-packages/pyjake/pysunriseset.py\", line 28, in scrap\n    self.driver.get(self.url)\n  File \"/home/witlab/.local/lib/python3.5/site-packages/selenium/webdriver/remote/webdriver.py\", line 333, in get\n    self.execute(Command.GET, {\u0027url\u0027: url})\n  File \"/home/witlab/.local/lib/python3.5/site-packages/selenium/webdriver/remote/webdriver.py\", line 319, in execute\n    response \u003d self.command_executor.execute(driver_command, params)\n  File \"/home/witlab/.local/lib/python3.5/site-packages/selenium/webdriver/remote/remote_connection.py\", line 374, in execute\n    return self._request(command_info[0], url, body\u003ddata)\n  File \"/home/witlab/.local/lib/python3.5/site-packages/selenium/webdriver/remote/remote_connection.py\", line 397, in _request\n    resp \u003d self._conn.request(method, url, body\u003dbody, headers\u003dheaders)\n  File \"/usr/lib/python3/dist-packages/urllib3/request.py\", line 73, in request\n    **urlopen_kw)\n  File \"/usr/lib/python3/dist-packages/urllib3/request.py\", line 151, in request_encode_body\n    return self.urlopen(method, url, **extra_kw)\n  File \"/usr/lib/python3/dist-packages/urllib3/poolmanager.py\", line 162, in urlopen\n    response \u003d conn.urlopen(method, u.request_uri, **kw)\n  File \"/usr/lib/python3/dist-packages/urllib3/connectionpool.py\", line 560, in urlopen\n    body\u003dbody, headers\u003dheaders)\n  File \"/usr/lib/python3/dist-packages/urllib3/connectionpool.py\", line 379, in _make_request\n    httplib_response \u003d conn.getresponse()\n  File \"/usr/lib/python3.5/http/client.py\", line 1197, in getresponse\n    response.begin()\n  File \"/usr/lib/python3.5/http/client.py\", line 297, in begin\n    version, status, reason \u003d self._read_status()\n  File \"/usr/lib/python3.5/http/client.py\", line 258, in _read_status\n    line \u003d str(self.fp.readline(_MAXLINE + 1), \"iso-8859-1\")\n  File \"/usr/lib/python3.5/socket.py\", line 575, in readinto\n    return self._sock.recv_into(b)\n  File \"/home/witlab/apps/spark/python/lib/pyspark.zip/pyspark/context.py\", line 237, in signal_handler\n    raise KeyboardInterrupt()\nKeyboardInterrupt\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1544664013195_703038641",
+      "id": "20181213-102013_1839585139",
+      "dateCreated": "2018-12-13 10:20:13.195",
+      "dateStarted": "2019-03-12 23:09:18.421",
+      "dateFinished": "2019-03-12 23:32:25.017",
+      "status": "ABORT",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2018-11-03 17:48:39.783",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1541234919779_1177838966",
+      "id": "20181103-174839_1694179118",
+      "dateCreated": "2018-11-03 17:48:39.779",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "pyjake/api_천문연_일출일몰",
+  "id": "2DTWM6K64",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "hbase:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

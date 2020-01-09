@@ -1,0 +1,195 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\nimport numpy as np\nimport random\nimport pandas as pd\nfrom pyjake.sparkmodule import udf_month, udf_weather\nfrom pyspark.sql import Row\nfrom pyspark.sql.types import DoubleType\nfrom pyspark.sql.functions import udf\nfrom sklearn.preprocessing import MinMaxScaler\n\nudf_scaler \u003d udf(lambda i: i/10000, DoubleType())\n\n# 1-1. 데이터셋 생성하기\nsz \u003d spark.read.parquet(\u0027hdfs:///sun/kasi_sun_angle_f.parquet\u0027)\nnt \u003d spark.read.parquet(\u0027hdfs:///nl/witlab/cas/nt_srs.parquet\u0027)\\\n                .where(\u0027date \u003e \"2017-04-11\"\u0027)\nuv \u003d spark.read.parquet(\u0027hdfs:///nl/witlab/cas/uv_srs.parquet\u0027)\n\nspdf \u003d nt.join(uv, [\u0027date\u0027, \u0027time\u0027])\\\n         .join(sz, [\u0027date\u0027, \u0027time\u0027])\\\n         .where(\u0027illum \u003e 0 and uvi \u003e 0 and uvi \u003c 14\u0027)\\\n         .withColumn(\u0027illum_s\u0027, udf_scaler(\u0027illum\u0027))\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-19 11:39:43.792",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://witlab-nldc:4042/jobs/job?id\u003d59",
+            "http://witlab-nldc:4042/jobs/job?id\u003d59",
+            "http://witlab-nldc:4042/jobs/job?id\u003d59",
+            "http://witlab-nldc:4042/jobs/job?id\u003d60",
+            "http://witlab-nldc:4042/jobs/job?id\u003d60",
+            "http://witlab-nldc:4042/jobs/job?id\u003d60",
+            "http://witlab-nldc:4042/jobs/job?id\u003d61",
+            "http://witlab-nldc:4042/jobs/job?id\u003d61",
+            "http://witlab-nldc:4042/jobs/job?id\u003d61"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1568860535885_13727695",
+      "id": "20190919-113535_2072330302",
+      "dateCreated": "2019-09-19 11:35:35.885",
+      "dateStarted": "2019-09-19 11:39:43.807",
+      "dateFinished": "2019-09-19 11:39:49.738",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport pandas as pd\n\nfrom statsmodels.stats.outliers_influence import variance_inflation_factor\n\npdf_sample \u003d spdf.toPandas()[[\u0027illum_s\u0027, \u0027solar_zenith\u0027, \u0027uvi\u0027]]\n\nvif \u003d pd.DataFrame()\nvif[\"VIF Factor\"] \u003d [variance_inflation_factor(\n    pdf_sample.values, i) for i in range(pdf_sample.shape[1])]\nvif[\"features\"] \u003d pdf_sample.columns\nvif\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-19 16:13:01.450",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "   VIF Factor      features\n0    8.264745       illum_s\n1    2.106620  solar_zenith\n2    5.880926           uvi\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://witlab-nldc:4042/jobs/job?id\u003d76",
+            "http://witlab-nldc:4042/jobs/job?id\u003d76",
+            "http://witlab-nldc:4042/jobs/job?id\u003d76",
+            "http://witlab-nldc:4042/jobs/job?id\u003d76"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1568860746206_843955434",
+      "id": "20190919-113906_1007598911",
+      "dateCreated": "2019-09-19 11:39:06.206",
+      "dateStarted": "2019-09-19 16:13:01.778",
+      "dateFinished": "2019-09-19 16:14:28.349",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport statsmodels.formula.api as smf\nimport statsmodels.api as sm\n\npdf_test \u003d spdf.toPandas()\n\nmulti_linear \u003d smf.ols(formula\u003d\u0027uvi ~ illum_s + solar_zenith\u0027, data\u003dpdf_test).fit()\nprint(multi_linear.summary())\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-19 11:42:02.505",
+      "config": {
+        "colWidth": 4.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "                            OLS Regression Results                            \n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nDep. Variable:                    uvi   R-squared:                       0.811\nModel:                            OLS   Adj. R-squared:                  0.811\nMethod:                 Least Squares   F-statistic:                 6.032e+05\nDate:                Thu, 19 Sep 2019   Prob (F-statistic):               0.00\nTime:                        11:43:42   Log-Likelihood:            -3.9405e+05\nNo. Observations:              280429   AIC:                         7.881e+05\nDf Residuals:                  280426   BIC:                         7.881e+05\nDf Model:                           2                                         \nCovariance Type:            nonrobust                                         \n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n                   coef    std err          t      P\u003e|t|      [0.025      0.975]\n--------------------------------------------------------------------------------\nIntercept        4.6362      0.010    464.860      0.000       4.617       4.656\nillum_s          0.2274      0.001    358.226      0.000       0.226       0.229\nsolar_zenith    -0.0658      0.000   -541.224      0.000      -0.066      -0.066\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\nOmnibus:                    29535.260   Durbin-Watson:                   1.345\nProb(Omnibus):                  0.000   Jarque-Bera (JB):            48760.526\nSkew:                           0.753   Prob(JB):                         0.00\nKurtosis:                       4.381   Cond. No.                         325.\n\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\n\nWarnings:\n[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://witlab-nldc:4042/jobs/job?id\u003d65",
+            "http://witlab-nldc:4042/jobs/job?id\u003d65",
+            "http://witlab-nldc:4042/jobs/job?id\u003d65"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1568860552328_-1378004774",
+      "id": "20190919-113552_2119651284",
+      "dateCreated": "2019-09-19 11:35:52.328",
+      "dateStarted": "2019-09-19 11:42:02.524",
+      "dateFinished": "2019-09-19 11:43:42.885",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-19 11:41:06.945",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1568860866943_1760373852",
+      "id": "20190919-114106_1463848422",
+      "dateCreated": "2019-09-19 11:41:06.943",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Jake\u0027s Reference Notes/Stat_LinReg",
+  "id": "2EQDFMWS9",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

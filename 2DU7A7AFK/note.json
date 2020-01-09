@@ -1,0 +1,109 @@
+{
+  "paragraphs": [
+    {
+      "title": "UDFs",
+      "text": "%pyspark\nfrom pyspark.sql.functions import udf\nfrom pyspark.sql.types import FloatType\nfrom pyspark.sql.types import IntegerType\n\nudf_dt2dh \u003d udf(lambda d, t: d + \u0027 \u0027 + t.split(\u0027:\u0027)[0])\nudf_dh2d \u003d udf(lambda dh: dh.split(\u0027 \u0027)[0])\nudf_dh2h \u003d udf(lambda dh: int(dh.split(\u0027 \u0027)[1]), IntegerType())\nudf_ymd2ym \u003d udf(lambda ymd: ymd[:-3])\nudf_floatize \u003d udf(lambda s: float(s), FloatType())\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-03-14 15:37:22.007",
+      "config": {
+        "colWidth": 3.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1541649313345_-1950167456",
+      "id": "20181108-125513_1596799710",
+      "dateCreated": "2018-11-08 12:55:13.345",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "DF) date, time -\u003e datehour 로 변경",
+      "text": "%pyspark\n\ndef makeHourlyDF(df):\n    return df.withColumn(\u0027datehour\u0027,\n                         udf_dt2dh(df.date, df.time))\\\n             .drop(\u0027date\u0027, \u0027time\u0027)\n\n",
+      "user": "jake",
+      "dateUpdated": "2018-11-08 12:56:46.276",
+      "config": {
+        "colWidth": 3.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1541649106076_763313999",
+      "id": "20181108-125146_581917682",
+      "dateCreated": "2018-11-08 12:51:46.076",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "PM 등급 분류",
+      "text": "%pyspark\n\ndef classifyPm10(pm):\n    if pm \u003c\u003d 30:\n        return 1\n    elif 30 \u003c pm \u003c\u003d 80:\n        return 2\n    elif 80 \u003c pm \u003c\u003d 150:\n        return 3\n    else:\n        return 4\n        \ndef classifyPm25(pm):\n    if pm \u003c\u003d 15:\n        return 1\n    elif 15 \u003c pm \u003c\u003d 35:\n        return 2\n    elif 35 \u003c pm \u003c\u003d 75:\n        return 3\n    else:\n        return 4\n        \nudf_classifyPm10 \u003d udf(classifyPm10, IntegerType())\nudf_classifyPm25 \u003d udf(classifyPm25, IntegerType())\n",
+      "user": "jake",
+      "dateUpdated": "2018-11-08 12:55:39.773",
+      "config": {
+        "colWidth": 3.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1541649244123_-1821830178",
+      "id": "20181108-125404_1913823610",
+      "dateCreated": "2018-11-08 12:54:04.123",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/Jake\u0027s_defined_functions",
+  "id": "2DU7A7AFK",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "hbase:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

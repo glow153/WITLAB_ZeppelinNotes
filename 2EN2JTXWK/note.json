@@ -1,0 +1,113 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\nfrom pyspark.sql.functions import isnan, when, count, col\n\ndf \u003d spark.read.parquet(\u0027hdfs:///nl/witlab/cas/simple.parquet\u0027)\nspdf \u003d df.drop(\u0027datetime\u0027, \u0027file_abs_path\u0027, \u0027file_name\u0027)\n\ndf.printSchema()\nspdf.printSchema()\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-19 15:52:43.792",
+      "config": {
+        "colWidth": 6.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "root\n |-- datetime: timestamp (nullable \u003d true)\n |-- file_abs_path: string (nullable \u003d true)\n |-- file_name: string (nullable \u003d true)\n |-- integration_time: long (nullable \u003d true)\n |-- ccd_temp: double (nullable \u003d true)\n |-- dc_ccd_temp: double (nullable \u003d true)\n |-- last_dark_current: double (nullable \u003d true)\n |-- signal_level_cnt: long (nullable \u003d true)\n |-- signal_level_percent: long (nullable \u003d true)\n |-- bird_all: double (nullable \u003d true)\n |-- illum: double (nullable \u003d true)\n |-- cas_uva: double (nullable \u003d true)\n |-- cas_uvb: double (nullable \u003d true)\n |-- cas_uvc: double (nullable \u003d true)\n |-- bird_vis: double (nullable \u003d true)\n |-- tri_x: double (nullable \u003d true)\n |-- tri_y: double (nullable \u003d true)\n |-- tri_z: double (nullable \u003d true)\n |-- foot_lambert: double (nullable \u003d true)\n |-- color_co_x: double (nullable \u003d true)\n |-- color_co_y: double (nullable \u003d true)\n |-- color_co_z: double (nullable \u003d true)\n |-- color_co_u: double (nullable \u003d true)\n |-- color_co_v1960: double (nullable \u003d true)\n |-- color_co_v1976: double (nullable \u003d true)\n |-- peak_wl: double (nullable \u003d true)\n |-- cent_wl: double (nullable \u003d true)\n |-- domi_wl: double (nullable \u003d true)\n |-- purity: double (nullable \u003d true)\n |-- width50: double (nullable \u003d true)\n |-- cct: double (nullable \u003d true)\n |-- cct_jis: double (nullable \u003d true)\n |-- planck_dist: double (nullable \u003d true)\n |-- sdcm: double (nullable \u003d true)\n |-- red_effect: double (nullable \u003d true)\n |-- vis_effect: double (nullable \u003d true)\n |-- cri: double (nullable \u003d true)\n |-- cri01: double (nullable \u003d true)\n |-- cri02: double (nullable \u003d true)\n |-- cri03: double (nullable \u003d true)\n |-- cri04: double (nullable \u003d true)\n |-- cri05: double (nullable \u003d true)\n |-- cri06: double (nullable \u003d true)\n |-- cri07: double (nullable \u003d true)\n |-- cri08: double (nullable \u003d true)\n |-- cri09: double (nullable \u003d true)\n |-- cri10: double (nullable \u003d true)\n |-- cri11: double (nullable \u003d true)\n |-- cri12: double (nullable \u003d true)\n |-- cri13: double (nullable \u003d true)\n |-- cri14: double (nullable \u003d true)\n |-- cri15: double (nullable \u003d true)\n |-- cri16: double (nullable \u003d true)\n |-- cdi: double (nullable \u003d true)\n |-- tm30_fi_idx: double (nullable \u003d true)\n |-- tm30_fi_idx_01: double (nullable \u003d true)\n |-- tm30_fi_idx_02: double (nullable \u003d true)\n |-- tm30_fi_idx_03: double (nullable \u003d true)\n |-- tm30_fi_idx_04: double (nullable \u003d true)\n |-- tm30_fi_idx_05: double (nullable \u003d true)\n |-- tm30_fi_idx_06: double (nullable \u003d true)\n |-- tm30_fi_idx_07: double (nullable \u003d true)\n |-- tm30_fi_idx_08: double (nullable \u003d true)\n |-- tm30_fi_idx_09: double (nullable \u003d true)\n |-- tm30_fi_idx_10: double (nullable \u003d true)\n |-- tm30_fi_idx_11: double (nullable \u003d true)\n |-- tm30_fi_idx_12: double (nullable \u003d true)\n |-- tm30_fi_idx_13: double (nullable \u003d true)\n |-- tm30_fi_idx_14: double (nullable \u003d true)\n |-- tm30_fi_idx_15: double (nullable \u003d true)\n |-- tm30_fi_idx_16: double (nullable \u003d true)\n |-- tmp30_gam_idx: double (nullable \u003d true)\n |-- tmp30_grph_ch01: double (nullable \u003d true)\n |-- tmp30_grph_ch02: double (nullable \u003d true)\n |-- tmp30_grph_ch03: double (nullable \u003d true)\n |-- tmp30_grph_ch04: double (nullable \u003d true)\n |-- tmp30_grph_ch05: double (nullable \u003d true)\n |-- tmp30_grph_ch06: double (nullable \u003d true)\n |-- tmp30_grph_ch07: double (nullable \u003d true)\n |-- tmp30_grph_ch08: double (nullable \u003d true)\n |-- tmp30_grph_ch09: double (nullable \u003d true)\n |-- tmp30_grph_ch10: double (nullable \u003d true)\n |-- tmp30_grph_ch11: double (nullable \u003d true)\n |-- tmp30_grph_ch12: double (nullable \u003d true)\n |-- tmp30_grph_ch13: double (nullable \u003d true)\n |-- tmp30_grph_ch14: double (nullable \u003d true)\n |-- tmp30_grph_ch15: double (nullable \u003d true)\n |-- tmp30_grph_ch16: double (nullable \u003d true)\n |-- tmp30_grph_hu01: double (nullable \u003d true)\n |-- tmp30_grph_hu02: double (nullable \u003d true)\n |-- tmp30_grph_hu03: double (nullable \u003d true)\n |-- tmp30_grph_hu04: double (nullable \u003d true)\n |-- tmp30_grph_hu05: double (nullable \u003d true)\n |-- tmp30_grph_hu06: double (nullable \u003d true)\n |-- tmp30_grph_hu07: double (nullable \u003d true)\n |-- tmp30_grph_hu08: double (nullable \u003d true)\n |-- tmp30_grph_hu09: double (nullable \u003d true)\n |-- tmp30_grph_hu10: double (nullable \u003d true)\n |-- tmp30_grph_hu11: double (nullable \u003d true)\n |-- tmp30_grph_hu12: double (nullable \u003d true)\n |-- tmp30_grph_hu13: double (nullable \u003d true)\n |-- tmp30_grph_hu14: double (nullable \u003d true)\n |-- tmp30_grph_hu15: double (nullable \u003d true)\n |-- tmp30_grph_hu16: double (nullable \u003d true)\n |-- swr: double (nullable \u003d true)\n |-- mwr: double (nullable \u003d true)\n |-- lwr: double (nullable \u003d true)\n |-- narr: double (nullable \u003d true)\n |-- tuv: double (nullable \u003d true)\n |-- uva: double (nullable \u003d true)\n |-- uvb: double (nullable \u003d true)\n |-- euv: double (nullable \u003d true)\n |-- euva: double (nullable \u003d true)\n |-- euvb: double (nullable \u003d true)\n |-- uvi: double (nullable \u003d true)\n |-- duv: double (nullable \u003d true)\n |-- euva_ratio: double (nullable \u003d true)\n |-- euvb_ratio: double (nullable \u003d true)\n |-- auv: double (nullable \u003d true)\n\nroot\n |-- integration_time: long (nullable \u003d true)\n |-- ccd_temp: double (nullable \u003d true)\n |-- dc_ccd_temp: double (nullable \u003d true)\n |-- last_dark_current: double (nullable \u003d true)\n |-- signal_level_cnt: long (nullable \u003d true)\n |-- signal_level_percent: long (nullable \u003d true)\n |-- bird_all: double (nullable \u003d true)\n |-- illum: double (nullable \u003d true)\n |-- cas_uva: double (nullable \u003d true)\n |-- cas_uvb: double (nullable \u003d true)\n |-- cas_uvc: double (nullable \u003d true)\n |-- bird_vis: double (nullable \u003d true)\n |-- tri_x: double (nullable \u003d true)\n |-- tri_y: double (nullable \u003d true)\n |-- tri_z: double (nullable \u003d true)\n |-- foot_lambert: double (nullable \u003d true)\n |-- color_co_x: double (nullable \u003d true)\n |-- color_co_y: double (nullable \u003d true)\n |-- color_co_z: double (nullable \u003d true)\n |-- color_co_u: double (nullable \u003d true)\n |-- color_co_v1960: double (nullable \u003d true)\n |-- color_co_v1976: double (nullable \u003d true)\n |-- peak_wl: double (nullable \u003d true)\n |-- cent_wl: double (nullable \u003d true)\n |-- domi_wl: double (nullable \u003d true)\n |-- purity: double (nullable \u003d true)\n |-- width50: double (nullable \u003d true)\n |-- cct: double (nullable \u003d true)\n |-- cct_jis: double (nullable \u003d true)\n |-- planck_dist: double (nullable \u003d true)\n |-- sdcm: double (nullable \u003d true)\n |-- red_effect: double (nullable \u003d true)\n |-- vis_effect: double (nullable \u003d true)\n |-- cri: double (nullable \u003d true)\n |-- cri01: double (nullable \u003d true)\n |-- cri02: double (nullable \u003d true)\n |-- cri03: double (nullable \u003d true)\n |-- cri04: double (nullable \u003d true)\n |-- cri05: double (nullable \u003d true)\n |-- cri06: double (nullable \u003d true)\n |-- cri07: double (nullable \u003d true)\n |-- cri08: double (nullable \u003d true)\n |-- cri09: double (nullable \u003d true)\n |-- cri10: double (nullable \u003d true)\n |-- cri11: double (nullable \u003d true)\n |-- cri12: double (nullable \u003d true)\n |-- cri13: double (nullable \u003d true)\n |-- cri14: double (nullable \u003d true)\n |-- cri15: double (nullable \u003d true)\n |-- cri16: double (nullable \u003d true)\n |-- cdi: double (nullable \u003d true)\n |-- tm30_fi_idx: double (nullable \u003d true)\n |-- tm30_fi_idx_01: double (nullable \u003d true)\n |-- tm30_fi_idx_02: double (nullable \u003d true)\n |-- tm30_fi_idx_03: double (nullable \u003d true)\n |-- tm30_fi_idx_04: double (nullable \u003d true)\n |-- tm30_fi_idx_05: double (nullable \u003d true)\n |-- tm30_fi_idx_06: double (nullable \u003d true)\n |-- tm30_fi_idx_07: double (nullable \u003d true)\n |-- tm30_fi_idx_08: double (nullable \u003d true)\n |-- tm30_fi_idx_09: double (nullable \u003d true)\n |-- tm30_fi_idx_10: double (nullable \u003d true)\n |-- tm30_fi_idx_11: double (nullable \u003d true)\n |-- tm30_fi_idx_12: double (nullable \u003d true)\n |-- tm30_fi_idx_13: double (nullable \u003d true)\n |-- tm30_fi_idx_14: double (nullable \u003d true)\n |-- tm30_fi_idx_15: double (nullable \u003d true)\n |-- tm30_fi_idx_16: double (nullable \u003d true)\n |-- tmp30_gam_idx: double (nullable \u003d true)\n |-- tmp30_grph_ch01: double (nullable \u003d true)\n |-- tmp30_grph_ch02: double (nullable \u003d true)\n |-- tmp30_grph_ch03: double (nullable \u003d true)\n |-- tmp30_grph_ch04: double (nullable \u003d true)\n |-- tmp30_grph_ch05: double (nullable \u003d true)\n |-- tmp30_grph_ch06: double (nullable \u003d true)\n |-- tmp30_grph_ch07: double (nullable \u003d true)\n |-- tmp30_grph_ch08: double (nullable \u003d true)\n |-- tmp30_grph_ch09: double (nullable \u003d true)\n |-- tmp30_grph_ch10: double (nullable \u003d true)\n |-- tmp30_grph_ch11: double (nullable \u003d true)\n |-- tmp30_grph_ch12: double (nullable \u003d true)\n |-- tmp30_grph_ch13: double (nullable \u003d true)\n |-- tmp30_grph_ch14: double (nullable \u003d true)\n |-- tmp30_grph_ch15: double (nullable \u003d true)\n |-- tmp30_grph_ch16: double (nullable \u003d true)\n |-- tmp30_grph_hu01: double (nullable \u003d true)\n |-- tmp30_grph_hu02: double (nullable \u003d true)\n |-- tmp30_grph_hu03: double (nullable \u003d true)\n |-- tmp30_grph_hu04: double (nullable \u003d true)\n |-- tmp30_grph_hu05: double (nullable \u003d true)\n |-- tmp30_grph_hu06: double (nullable \u003d true)\n |-- tmp30_grph_hu07: double (nullable \u003d true)\n |-- tmp30_grph_hu08: double (nullable \u003d true)\n |-- tmp30_grph_hu09: double (nullable \u003d true)\n |-- tmp30_grph_hu10: double (nullable \u003d true)\n |-- tmp30_grph_hu11: double (nullable \u003d true)\n |-- tmp30_grph_hu12: double (nullable \u003d true)\n |-- tmp30_grph_hu13: double (nullable \u003d true)\n |-- tmp30_grph_hu14: double (nullable \u003d true)\n |-- tmp30_grph_hu15: double (nullable \u003d true)\n |-- tmp30_grph_hu16: double (nullable \u003d true)\n |-- swr: double (nullable \u003d true)\n |-- mwr: double (nullable \u003d true)\n |-- lwr: double (nullable \u003d true)\n |-- narr: double (nullable \u003d true)\n |-- tuv: double (nullable \u003d true)\n |-- uva: double (nullable \u003d true)\n |-- uvb: double (nullable \u003d true)\n |-- euv: double (nullable \u003d true)\n |-- euva: double (nullable \u003d true)\n |-- euvb: double (nullable \u003d true)\n |-- uvi: double (nullable \u003d true)\n |-- duv: double (nullable \u003d true)\n |-- euva_ratio: double (nullable \u003d true)\n |-- euvb_ratio: double (nullable \u003d true)\n |-- auv: double (nullable \u003d true)\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1568875755292_511671186",
+      "id": "20190919-154915_1835727777",
+      "dateCreated": "2019-09-19 15:49:15.293",
+      "dateStarted": "2019-09-19 15:52:43.814",
+      "dateFinished": "2019-09-19 15:52:44.033",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "count and show nan",
+      "text": "%pyspark\nspdf.select([count(when(isnan(c), c)).alias(c) for c in spdf.columns]).show()",
+      "user": "jake",
+      "dateUpdated": "2019-09-19 15:53:04.017",
+      "config": {
+        "colWidth": 6.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+----------------+--------+-----------+-----------------+----------------+--------------------+--------+-----+-------+-------+-------+--------+-----+-----+-----+------------+----------+----------+----------+----------+--------------+--------------+-------+-------+-------+------+-------+---+-------+-----------+----+----------+----------+---+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+---+-----------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+-------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---+---+---+----+---+---+---+---+----+----+---+---+----------+----------+---+\n|integration_time|ccd_temp|dc_ccd_temp|last_dark_current|signal_level_cnt|signal_level_percent|bird_all|illum|cas_uva|cas_uvb|cas_uvc|bird_vis|tri_x|tri_y|tri_z|foot_lambert|color_co_x|color_co_y|color_co_z|color_co_u|color_co_v1960|color_co_v1976|peak_wl|cent_wl|domi_wl|purity|width50|cct|cct_jis|planck_dist|sdcm|red_effect|vis_effect|cri|cri01|cri02|cri03|cri04|cri05|cri06|cri07|cri08|cri09|cri10|cri11|cri12|cri13|cri14|cri15|cri16|cdi|tm30_fi_idx|tm30_fi_idx_01|tm30_fi_idx_02|tm30_fi_idx_03|tm30_fi_idx_04|tm30_fi_idx_05|tm30_fi_idx_06|tm30_fi_idx_07|tm30_fi_idx_08|tm30_fi_idx_09|tm30_fi_idx_10|tm30_fi_idx_11|tm30_fi_idx_12|tm30_fi_idx_13|tm30_fi_idx_14|tm30_fi_idx_15|tm30_fi_idx_16|tmp30_gam_idx|tmp30_grph_ch01|tmp30_grph_ch02|tmp30_grph_ch03|tmp30_grph_ch04|tmp30_grph_ch05|tmp30_grph_ch06|tmp30_grph_ch07|tmp30_grph_ch08|tmp30_grph_ch09|tmp30_grph_ch10|tmp30_grph_ch11|tmp30_grph_ch12|tmp30_grph_ch13|tmp30_grph_ch14|tmp30_grph_ch15|tmp30_grph_ch16|tmp30_grph_hu01|tmp30_grph_hu02|tmp30_grph_hu03|tmp30_grph_hu04|tmp30_grph_hu05|tmp30_grph_hu06|tmp30_grph_hu07|tmp30_grph_hu08|tmp30_grph_hu09|tmp30_grph_hu10|tmp30_grph_hu11|tmp30_grph_hu12|tmp30_grph_hu13|tmp30_grph_hu14|tmp30_grph_hu15|tmp30_grph_hu16|swr|mwr|lwr|narr|tuv|uva|uvb|euv|euva|euvb|uvi|duv|euva_ratio|euvb_ratio|auv|\n+----------------+--------+-----------+-----------------+----------------+--------------------+--------+-----+-------+-------+-------+--------+-----+-----+-----+------------+----------+----------+----------+----------+--------------+--------------+-------+-------+-------+------+-------+---+-------+-----------+----+----------+----------+---+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+---+-----------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+-------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---+---+---+----+---+---+---+---+----+----+---+---+----------+----------+---+\n|               0|       0|          0|                0|               0|                   0|       0|    0|      0|      0|      0|       0|    0|    0|    0|           0|         0|         0|         0|         0|             0|             0|      0|      0|      0|     0|      0|  0|  19087|          0|  24|         0|         0|486|   27|    6|   42|    3|    5|  142|  161|  431| 4686|   31|   94| 4183|   14|   35|  134|  434|  0|      12104|          9302|          2761|          3158|          1900|          1886|          1694|          1451|          1619|          2216|          4384|          5426|          6037|          4897|          5133|          6014|          7239|        12286|           9302|           2761|           3158|           1900|           1886|           1694|           1451|           1619|           2216|           4384|           5426|           6037|           4897|           5133|           6014|           7239|           9302|           2761|           3158|           1900|           1886|           1694|           1451|           1619|           2216|           4384|           5426|           6037|           4897|           5133|           6014|           7239|  0|  0|  0|   0|  0|  0|  0|  0|   0|   0|  0|  0|         0|         0|  0|\n+----------------+--------+-----------+-----------------+----------------+--------------------+--------+-----+-------+-------+-------+--------+-----+-----+-----+------------+----------+----------+----------+----------+--------------+--------------+-------+-------+-------+------+-------+---+-------+-----------+----+----------+----------+---+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+---+-----------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+-------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---------------+---+---+---+----+---+---+---+---+----+----+---+---+----------+----------+---+\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1568875779477_-1187053409",
+      "id": "20190919-154939_523951841",
+      "dateCreated": "2019-09-19 15:49:39.478",
+      "dateStarted": "2019-09-19 15:53:04.037",
+      "dateFinished": "2019-09-19 15:55:38.315",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-19 15:51:53.338",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1568875913335_-329643528",
+      "id": "20190919-155153_1140104796",
+      "dateCreated": "2019-09-19 15:51:53.335",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Jake\u0027s Reference Notes/Count NaN in Spark Dataframe",
+  "id": "2EN2JTXWK",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

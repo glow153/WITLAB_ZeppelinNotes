@@ -1,0 +1,31 @@
+{
+  "paragraphs": [
+    {
+      "user": "jake",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1564044359724_39781120",
+      "id": "20190725-174559_833397695",
+      "dateCreated": "2019-07-25 17:45:59.724",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/master\u0027s_thesis_2/딥러닝무덤/일반+상대시간",
+  "id": "2EK51MTG1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

@@ -1,0 +1,125 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\nimport tensorflow as tf\n\nhello_constant \u003d tf.constant(\u0027Hello, Tensorflow!\u0027)\n\n# session instance 생성\nwith tf.Session() as sess:\n    # tensor를 evaluate하고 결과를 return.\n    output \u003d sess.run(hello_constant)\n    print(output)\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-24 17:42:11.144",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "b\u0027Hello, Tensorflow!\u0027\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1563957553092_922328953",
+      "id": "20190724-173913_1472127029",
+      "dateCreated": "2019-07-24 17:39:13.092",
+      "dateStarted": "2019-07-24 17:40:39.245",
+      "dateFinished": "2019-07-24 17:40:39.261",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n\nsoftmax_data \u003d [0.7, 0.2, 0.1]\none_hot_data \u003d [1.0, 0.0, 0.0]\n\nsoftmax \u003d tf.placeholder(tf.float32)\none_hot \u003d tf.placeholder(tf.float32)\n\n# Define cross entropy using feed\ncross_entropy \u003d -tf.reduce_sum(tf.multiply(one_hot, tf.log(softmax)))\n\n# Print cross entropy from session\nwith tf.Session() as sess:\n    output \u003d sess.run(cross_entropy, feed_dict\u003d{softmax:softmax_data, one_hot:one_hot_data})\n    print(output)",
+      "user": "jake",
+      "dateUpdated": "2019-07-24 17:57:30.901",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0.35667497\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1563957610177_-531791105",
+      "id": "20190724-174010_1595329169",
+      "dateCreated": "2019-07-24 17:40:10.177",
+      "dateStarted": "2019-07-24 17:57:17.086",
+      "dateFinished": "2019-07-24 17:57:17.405",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "implementation of perceptron",
+      "text": "%pyspark\n\nimport numpy as np\n# Setting the random seed, feel free to change it and see different solutions.\nnp.random.seed(42)\n\ndef stepFunction(t):\n    if t \u003e\u003d 0:\n        return 1\n    return 0\n\ndef prediction(X, W, b):\n    return stepFunction((np.matmul(X,W)+b)[0])\n\ndef perceptronStep(X, y, W, b, learn_rate \u003d 0.01):\n\n    for i in range(np.shape(X)[0]):\n\n        if prediction(X[i], W, b) and not y[i] : # (case 1)\n\n            W[0] -\u003d X[i][0] * learn_rate\n            W[1] -\u003d X[i][1] * learn_rate\n            b -\u003d learn_rate\n\n        elif not prediction(X[i], W, b) and y[i] : # (case 2)\n\n            W[0] +\u003d X[i][0] * learn_rate\n            W[1] +\u003d X[i][1] * learn_rate\n            b +\u003d learn_rate\n\n    return W, b\n\n# This function runs the perceptron algorithm repeatedly on the dataset,\n# and returns a few of the boundary lines obtained in the iterations,\n# for plotting purposes.\n# Feel free to play with the learning rate and the num_epochs,\n# and see your results plotted below.\ndef trainPerceptronAlgorithm(X, y, learn_rate \u003d 0.1, num_epochs \u003d 25):\n    x_min, x_max \u003d min(X.T[0]), max(X.T[0])\n    y_min, y_max \u003d min(X.T[1]), max(X.T[1])\n    W \u003d np.array(np.random.rand(2,1))\n    b \u003d np.random.rand(1)[0] + x_max\n    # These are the solution lines that get plotted below.\n    boundary_lines \u003d []\n    for i in range(num_epochs):\n        # In each epoch, we apply the perceptron step.\n        W, b \u003d perceptronStep(X, y, W, b, learn_rate)\n        boundary_lines.append((-W[0]/W[1], -b/W[1]))\n    return boundary_lines\n\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-07-24 18:03:16.297",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1563958637068_1795523644",
+      "id": "20190724-175717_1019651500",
+      "dateCreated": "2019-07-24 17:57:17.068",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "ml_dl/tf_3min",
+  "id": "2EHDEWCPY",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

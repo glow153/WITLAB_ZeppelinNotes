@@ -1,0 +1,434 @@
+{
+  "paragraphs": [
+    {
+      "title": "def functions",
+      "text": "%pyspark\nfrom pyspark.sql.types import Row\n\ndef edgeDetection(arr):\n    mask \u003d [0, 0, -1, -1, 4, -1, -1, 0, 0]  # laplacian mask of second derivative\n    edgeList \u003d [0.0, 0.0, 0.0, 0.0]\n    \n    for i in range(4, (len(arr) - 4)):\n        res \u003d 0\n        for j in range(9):\n            res +\u003d arr[i-4+j] * mask[j]\n        edgeList.append(res)\n    \n    for i in range(4): # add padding\n        edgeList.append(0)\n    return edgeList\n    \ndef noiseSelecting(edgeList):\n    noiseList \u003d []\n    criteria \u003d 217\n    \n    for i in range(len(edgeList)):\n        if (edgeList[i] \u003c\u003d -criteria or edgeList[i] \u003e\u003d criteria):\n            noiseList.append(i)\n\n    return noiseList\n\ndef medfilter_ex(dataArr, noiseIdxList, wndsize):\n    arrResult \u003d []\n    seqlen \u003d len(dataArr)\n    delta \u003d int(wndsize / 2)\n    \n    for i in range(len(dataArr)):\n        if (i in noiseIdxList):\n            # take sample window\n            left \u003d 0 if i\u003cdelta else i-delta\n            right \u003d dataArr.length - 1 if i\u003elen(dataArr)-delta  else i+delta\n            subarr \u003d dataArr[left:right+1]\n            \n            # sort sample\n            subarr.sort()\n\n            # get mid value\n            arrResult.append(subarr[delta])\n                \n        else:\n            arrResult.append(dataArr[i])\n        \n    return arrResult\n\ndef cct2swr(cct):  # linear regression formula of cct-swr\n    return 0.0052 * cct - 5.7695\n\ndef medfilter_ex2(arr_cct, arr_swr, noiseIdxList, wndsize):\n    arrResult \u003d []\n    \n    seqlen \u003d len(arr_cct)\n    delta \u003d int(wndsize / 2)\n    \n    for i in range(len(arr_cct)):\n        if (i in noiseIdxList):\n            # take sample window\n            left \u003d 0 if i\u003cdelta else i-delta\n            right \u003d arr_cct.length - 1 if i\u003elen(arr_cct)-delta  else i+delta\n            subarr \u003d arr_cct[left:right+1]\n            \n            # sort sample\n            subarr.sort()\n\n            # get value as mid of subarr\n            arrResult.append([subarr[delta], cct2swr(subarr[delta])])\n                \n        else:\n            arrResult.append([arr_cct[i], arr_swr[i]])\n        \n    return arrResult\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:53.455",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281953454_-1411155958",
+      "id": "20180822-113715_1693732185",
+      "dateCreated": "2018-10-23 17:05:53.454",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Main Note - one day cct filter (Run this!)",
+      "text": "%pyspark\n\nselected_date \u003d \"2017-05-15\"\n\n# get dataset from hdfs\nnt \u003d spark.read.parquet(\u0027hdfs:///ds/nt_srs.parquet\u0027)\nnt \u003d nt.drop(\u0027illum\u0027)\n\n# make array of target data\ndf_cctswr \u003d nt.select(\u0027date\u0027, \u0027time\u0027, \u0027cct\u0027, \u0027swr\u0027)\\\n              .filter(\u0027date \u003d \"%s\"\u0027 % selected_date)\n\ncol_datetime \u003d df_cctswr.select(\u0027date\u0027, \u0027time\u0027)\\\n                        .rdd\\\n                        .map(lambda s: s[0] + \u0027 \u0027 + s[1])\\\n                        .collect()\ncol_cct \u003d df_cctswr.select(\u0027cct\u0027)\\\n                   .collect()\\\ncol_swr \u003d df_cctswr.select(\u0027swr\u0027)\\\n                   .collect()\\\n\ncol_cct \u003d list(map(lambda s: float(s[0]), col_cct))\ncol_swr \u003d list(map(lambda s: float(s[0]), col_swr))\n\n#test\n# print(col_datetime)\n#####\n\n# filter cct\nedgeList \u003d edgeDetection(col_cct)\nnoiseList \u003d noiseSelecting(edgeList)\ncol_cct_filtered \u003d medfilter_ex(col_cct, noiseList, 9)\n\n# important!! toDF() in pyspark is different from scala!!!\nnewDataset \u003d []\nfor i in range(len(col_datetime)):\n    newDataset.append(\\\n        Row(datetime\u003dcol_datetime[i],\\\n            cct\u003dcol_cct[i],\\\n            cct_f\u003dcol_cct_filtered[i]))\n\ndf_newDataset \u003d sc.parallelize(newDataset).toDF()\ndf_newDataset.createOrReplaceTempView(\u0027cct_filtered\u0027)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:53.455",
+      "config": {
+        "lineNumbers": true,
+        "tableHide": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281953455_-1367476527",
+      "id": "20180822-120037_535646696",
+      "dateCreated": "2018-10-23 17:05:53.455",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Main Note - one day cct swr filter (Run this!)",
+      "text": "%pyspark\n\nselected_date \u003d \"2017-05-15\"\n\n# get dataset from hdfs\nnt \u003d spark.read.parquet(\u0027hdfs:///ds/nt_srs.parquet\u0027)\nnt \u003d nt.drop(\u0027illum\u0027)\n\n# make array of target data\ndf_cctswr \u003d nt.select(\u0027date\u0027, \u0027time\u0027, \u0027cct\u0027, \u0027swr\u0027)\\\n              .filter(\u0027date \u003d \"%s\"\u0027 % selected_date)\\\n              .sort(\u0027date\u0027, \u0027time\u0027)  # MUST SOOOOOOOORT!!!!!!!!!!!!!!!!!\n\ncol_datetime \u003d df_cctswr.select(\u0027date\u0027, \u0027time\u0027)\\\n                        .rdd\\\n                        .map(lambda s: s[0] + \u0027 \u0027 + s[1])\\\n                        .collect()\ncol_cct \u003d df_cctswr.select(\u0027cct\u0027)\\\n                   .collect()\ncol_swr \u003d df_cctswr.select(\u0027swr\u0027)\\\n                   .collect()\n\n# floatize\ncol_cct \u003d list(map(lambda s: float(s[0]), col_cct))\ncol_swr \u003d list(map(lambda s: float(s[0]), col_swr))\n\n# print(col_datetime)\n\n# filter cct\nedgeList \u003d edgeDetection(col_cct)\nnoiseList \u003d noiseSelecting(edgeList)\ncol_cct_swr_filtered \u003d medfilter_ex2(col_cct, col_swr, noiseList, 9)\n\n# important!! toDF() in pyspark is different from scala!!!\nnewDataset \u003d []\nfor i in range(len(col_datetime)):\n    newDataset.append(\\\n        Row(datetime\u003dcol_datetime[i],\\\n            cct\u003dcol_cct[i],\\\n            cct_f\u003dcol_cct_swr_filtered[i][0],\\\n            swr\u003dcol_swr[i],\\\n            swr_f\u003dcol_cct_swr_filtered[i][1]))\n\ndf_newDataset \u003d sc.parallelize(newDataset).toDF()\ndf_newDataset.createOrReplaceTempView(\u0027cct_swr_filtered\u0027)\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:53.455",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 4.0,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "title": true,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281953455_-1851778634",
+      "id": "20180822-152713_518118781",
+      "dateCreated": "2018-10-23 17:05:53.455",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from cct_swr_filtered\norder by datetime",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:53.455",
+      "config": {
+        "tableHide": false,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "editorHide": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 531.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "cct": "string",
+                      "datetime": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "datetime",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cct",
+                  "index": 0.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cct_f",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "swr",
+                  "index": 3.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "swr_f",
+                  "index": 4.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281953455_1344882333",
+      "id": "20180822-131648_1851776594",
+      "dateCreated": "2018-10-23 17:05:53.455",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from cct_swr_filtered\norder by datetime",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:53.455",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 531.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "cct": "string",
+                      "datetime": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "datetime",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cct",
+                  "index": 0.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cct_f",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "swr",
+                  "index": 3.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "swr_f",
+                  "index": 4.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281953455_1689190492",
+      "id": "20180823-232425_1081634217",
+      "dateCreated": "2018-10-23 17:05:53.455",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from cct_swr_filtered\norder by datetime",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:53.455",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "editorHide": false,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 777.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "cct": "string",
+                      "datetime": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default",
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "datetime",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "cct",
+                  "index": 0.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "cct_f",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "swr",
+                  "index": 3.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "swr_f",
+                  "index": 4.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281953455_709955681",
+      "id": "20180823-004850_1937300588",
+      "dateCreated": "2018-10-23 17:05:53.455",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "",
+      "user": "jake",
+      "dateUpdated": "2018-10-23 17:05:53.456",
+      "config": {
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/scala",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540281953455_-260019801",
+      "id": "20180822-133528_921731243",
+      "dateCreated": "2018-10-23 17:05:53.456",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "filtering/nl_filter_python_v1.0.0",
+  "id": "2DV7F1UD7",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

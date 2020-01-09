@@ -1,0 +1,44 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-30 18:12:56.221",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1540890770275_-781834071",
+      "id": "20181030-181250_1072529168",
+      "dateCreated": "2018-10-30 18:12:50.275",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/data_formatter/일출일몰 - e",
+  "id": "2DUBWEX5N",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

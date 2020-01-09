@@ -1,0 +1,100 @@
+{
+  "paragraphs": [
+    {
+      "text": "%pyspark\ndef integer_interpolation(dict_spird):\n    new \u003d {}\n    i \u003d 200\n    \n    try:\n        new[\u0027datetime\u0027] \u003d dict_spird[\u0027datetime\u0027]\n        del dict_spird[\u0027datetime\u0027]\n    except KeyError:\n        pass\n    wls \u003d list(dict_spird.keys())\n    irds \u003d list(dict_spird.values())\n\n    for wl_idx in range(len(wls) - 1):\n        # print(\u0027wl_idx\u003d\u0027, wl_idx)\n        \n        if wls[wl_idx] \u003c i \u003c wls[wl_idx+1]:\n            x \u003d i\n            x1 \u003d wls[wl_idx]\n            x2 \u003d wls[wl_idx+1]\n            y1 \u003d irds[wl_idx]\n            y2 \u003d irds[wl_idx+1]\n            y \u003d y1 + (y2 - y1) * (x - x1) / (x2 - x1)\n            # print(\u0027interpolated:\u0027, x, \u0027:\u0027, y)\n            new[x] \u003d y\n            i +\u003d 1\n            \n    return new\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-05 15:22:16.127",
+      "config": {
+        "colWidth": 6.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1567664525140_-962638756",
+      "id": "20190905-152205_718601070",
+      "dateCreated": "2019-09-05 15:22:05.141",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport pymongo\nimport pandas as pd\n\npdf \u003d None\nspird_sample \u003d None\n\ndef mapper(result_obj):\n    import datetime\n    \n    new \u003d {}\n    i \u003d 200\n    obj_dt \u003d result_obj[\u0027datetime\u0027]\n    # obj_dt \u003d result_obj[\u0027datetime\u0027] + datetime.timedelta(hours\u003d9)\n    # spird \u003d dict((float(k.replace(\u0027_\u0027, \u0027.\u0027)), v) for (k, v) in spird_items)\n    \n    wls \u003d list(map(lambda s: float(s.replace(\u0027_\u0027, \u0027.\u0027)), result_obj[\u0027sp_ird\u0027].keys()))\n    irds \u003d list(result_obj[\u0027sp_ird\u0027].values())\n    \n    for wl_idx in range(len(wls) - 1):\n        if i \u003e 800:\n            break\n        \n        if wls[wl_idx] \u003c i \u003c wls[wl_idx+1]:\n            x \u003d i\n            x1 \u003d wls[wl_idx]\n            x2 \u003d wls[wl_idx+1]\n            y1 \u003d irds[wl_idx]\n            y2 \u003d irds[wl_idx+1]\n            y \u003d y1 + (y2 - y1) * (x - x1) / (x2 - x1)\n            new[x] \u003d y\n            i +\u003d 1\n            \n    return {\n        \u0027datetime\u0027: obj_dt.strftime(\u0027%Y-%m-%d %H:%M\u0027),\n        **new\n    }\n\nwith pymongo.MongoClient(\u0027mongodb://witlab_mongo:defacto8*JxTo#@localhost:27017/\u0027) as conn:\n    db \u003d conn.get_database(\u0027nl_witlab\u0027)\n    print(\u0027DB: nl_witlab, Collections:\u0027, db.list_collection_names())\n    \n    collection \u003d db.get_collection(\u0027cas_ird\u0027)\n    result \u003d collection.find()\n    result_list \u003d list(map(mapper, result))\n    pdf \u003d pd.DataFrame(result_list)\n    pdf.to_csv(\u0027/home/witlab/sp_ird.csv\u0027)\n\n",
+      "user": "jake",
+      "dateUpdated": "2019-09-05 15:22:18.695",
+      "config": {
+        "colWidth": 6.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1567664516704_1175221120",
+      "id": "20190905-152156_64416623",
+      "dateCreated": "2019-09-05 15:21:56.704",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nimport pandas as pd\n\npdf \u003d pd.read_csv(\u0027/home/witlab/sp_ird.csv\u0027)\nspdf_spird \u003d spark.createDataFrame(pdf)",
+      "user": "jake",
+      "dateUpdated": "2019-09-05 15:22:14.041",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1567664532182_112745858",
+      "id": "20190905-152212_2115675413",
+      "dateCreated": "2019-09-05 15:22:12.182",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "Master\u0027s Thesis/spectral_irradiance_dataset_01",
+  "id": "2EKUURTXJ",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

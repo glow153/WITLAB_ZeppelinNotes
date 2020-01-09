@@ -1,0 +1,527 @@
+{
+  "paragraphs": [
+    {
+      "text": "show databases;",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:25.634",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "SCHEMA_NAME": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "SCHEMA_NAME\ninformation_schema\nanalysis\nartificiallight\ncas_db\ncas_db_km\nfall_naturallight\nhive\njaztest_ys\nkma_db\nkma_uv_db\nkma_uv_db_km\nkma_weather\nlighting\nmysql\nnaturallight\nnaturallight_temp\nphpmyadmin\nseason\nstepi_naturallight\ntemperature_db\ntest\nweather_db\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666085633_-1715207981",
+      "id": "20180221-065513_1767728284",
+      "dateCreated": "2018-10-16 14:01:25.633",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "use cas_db;\ndesc natural_tracker;",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:25.635",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "COLUMN_NAME": "string",
+                      "COLUMN_TYPE": "string",
+                      "IS_NULLABLE": "string",
+                      "COLUMN_KEY": "string",
+                      "COLUMN_DEFAULT": "string",
+                      "EXTRA": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "COLUMN_NAME\tCOLUMN_TYPE\tIS_NULLABLE\tCOLUMN_KEY\tCOLUMN_DEFAULT\tEXTRA\ndate\tdatetime\tNO\tPRI\t0000-00-00 00:00:00\t\nintegration_time\tint(8)\tYES\t\tnull\t\naverages\tint(8)\tYES\t\tnull\t\nfilter\tchar(10)\tYES\t\tnull\t\nserial_number\tint(12)\tYES\t\tnull\t\nlast_dark_current\tfloat\tYES\t\tnull\t\nsignal_level_counts\tint(8)\tYES\t\tnull\t\nsignal_level_percentage\tint(5)\tYES\t\tnull\t\nspectrometer\tchar(10)\tYES\t\tnull\t\nanalysis_range\tchar(25)\tYES\t\tnull\t\nmeasurement_mode\tchar(25)\tYES\t\tnull\t\nilluminant_reference\tchar(40)\tYES\t\tnull\t\nobserver\tint(3)\tYES\t\tnull\t\ncri_mode\tchar(10)\tYES\t\tnull\t\nphotometric\tfloat\tYES\t\tnull\t\nuva\tfloat\tYES\t\tnull\t\nuvb\tfloat\tYES\t\tnull\t\nuvc\tfloat\tYES\t\tnull\t\nvis\tfloat\tYES\t\tnull\t\ntristimulus_x\tfloat\tYES\t\tnull\t\ntristimulus_y\tfloat\tYES\t\tnull\t\ntristimulus_z\tfloat\tYES\t\tnull\t\nfoot_lambert\tfloat\tYES\t\tnull\t\ncolor_coordinate_x\tfloat\tYES\t\tnull\t\ncolor_coordinate_y\tfloat\tYES\t\tnull\t\ncolor_coordinate_z\tfloat\tYES\t\tnull\t\ncolor_coordinate_u\tfloat\tYES\t\tnull\t\ncolor_coordinate_v_1960\tfloat\tYES\t\tnull\t\ncolor_coordinate_v_1976\tfloat\tYES\t\tnull\t\npeak_wavelength\tfloat\tYES\t\tnull\t\ncentroid_wavelength\tfloat\tYES\t\tnull\t\ndominant_wavelength\tfloat\tYES\t\tnull\t\npurity\tfloat\tYES\t\tnull\t\nwidth_50\tfloat\tYES\t\tnull\t\ncct\tfloat\tYES\t\tnull\t\nplank_distance\tfloat\tYES\t\tnull\t\nred_effect\tfloat\tYES\t\tnull\t\nvis_effect\tfloat\tYES\t\tnull\t\ncri\tfloat\tYES\t\tnull\t\ncri_cri_1\tfloat\tYES\t\tnull\t\ncri_cri_2\tfloat\tYES\t\tnull\t\ncri_cri_3\tfloat\tYES\t\tnull\t\ncri_cri_4\tfloat\tYES\t\tnull\t\ncri_cri_5\tfloat\tYES\t\tnull\t\ncri_cri_6\tfloat\tYES\t\tnull\t\ncri_cri_7\tfloat\tYES\t\tnull\t\ncri_cri_8\tfloat\tYES\t\tnull\t\ncri_cri_9\tfloat\tYES\t\tnull\t\ncri_cri_10\tfloat\tYES\t\tnull\t\ncri_cri_11\tfloat\tYES\t\tnull\t\ncri_cri_12\tfloat\tYES\t\tnull\t\ncri_cri_13\tfloat\tYES\t\tnull\t\ncri_cri_14\tfloat\tYES\t\tnull\t\ncri_cri_15\tfloat\tYES\t\tnull\t\ncri_cri_16\tfloat\tYES\t\tnull\t\ncdi\tfloat\tYES\t\tnull\t\ncri_temp\tchar(10)\tYES\t\tnull\t\nshort_wavelength_ratio\tfloat\tYES\t\tnull\t\nnm_198_62\tfloat\tYES\t\tnull\t\nnm_199_24\tfloat\tYES\t\tnull\t\nnm_199_87\tfloat\tYES\t\tnull\t\nnm_200_49\tfloat\tYES\t\tnull\t\nnm_201_12\tfloat\tYES\t\tnull\t\nnm_201_74\tfloat\tYES\t\tnull\t\nnm_202_36\tfloat\tYES\t\tnull\t\nnm_202_99\tfloat\tYES\t\tnull\t\nnm_203_61\tfloat\tYES\t\tnull\t\nnm_204_24\tfloat\tYES\t\tnull\t\nnm_204_86\tfloat\tYES\t\tnull\t\nnm_205_48\tfloat\tYES\t\tnull\t\nnm_206_11\tfloat\tYES\t\tnull\t\nnm_206_73\tfloat\tYES\t\tnull\t\nnm_207_36\tfloat\tYES\t\tnull\t\nnm_207_98\tfloat\tYES\t\tnull\t\nnm_208_60\tfloat\tYES\t\tnull\t\nnm_209_23\tfloat\tYES\t\tnull\t\nnm_209_85\tfloat\tYES\t\tnull\t\nnm_210_47\tfloat\tYES\t\tnull\t\nnm_211_10\tfloat\tYES\t\tnull\t\nnm_211_72\tfloat\tYES\t\tnull\t\nnm_212_35\tfloat\tYES\t\tnull\t\nnm_212_97\tfloat\tYES\t\tnull\t\nnm_213_59\tfloat\tYES\t\tnull\t\nnm_214_22\tfloat\tYES\t\tnull\t\nnm_214_84\tfloat\tYES\t\tnull\t\nnm_215_47\tfloat\tYES\t\tnull\t\nnm_216_09\tfloat\tYES\t\tnull\t\nnm_216_71\tfloat\tYES\t\tnull\t\nnm_217_34\tfloat\tYES\t\tnull\t\nnm_217_96\tfloat\tYES\t\tnull\t\nnm_218_59\tfloat\tYES\t\tnull\t\nnm_219_21\tfloat\tYES\t\tnull\t\nnm_219_83\tfloat\tYES\t\tnull\t\nnm_220_46\tfloat\tYES\t\tnull\t\nnm_221_08\tfloat\tYES\t\tnull\t\nnm_221_71\tfloat\tYES\t\tnull\t\nnm_222_33\tfloat\tYES\t\tnull\t\nnm_222_95\tfloat\tYES\t\tnull\t\nnm_223_58\tfloat\tYES\t\tnull\t\nnm_224_20\tfloat\tYES\t\tnull\t\nnm_224_83\tfloat\tYES\t\tnull\t\nnm_225_45\tfloat\tYES\t\tnull\t\nnm_226_07\tfloat\tYES\t\tnull\t\nnm_226_70\tfloat\tYES\t\tnull\t\nnm_227_32\tfloat\tYES\t\tnull\t\nnm_227_94\tfloat\tYES\t\tnull\t\nnm_228_57\tfloat\tYES\t\tnull\t\nnm_229_19\tfloat\tYES\t\tnull\t\nnm_229_82\tfloat\tYES\t\tnull\t\nnm_230_44\tfloat\tYES\t\tnull\t\nnm_231_06\tfloat\tYES\t\tnull\t\nnm_231_69\tfloat\tYES\t\tnull\t\nnm_232_31\tfloat\tYES\t\tnull\t\nnm_232_94\tfloat\tYES\t\tnull\t\nnm_233_56\tfloat\tYES\t\tnull\t\nnm_234_18\tfloat\tYES\t\tnull\t\nnm_234_81\tfloat\tYES\t\tnull\t\nnm_235_43\tfloat\tYES\t\tnull\t\nnm_236_06\tfloat\tYES\t\tnull\t\nnm_236_68\tfloat\tYES\t\tnull\t\nnm_237_30\tfloat\tYES\t\tnull\t\nnm_237_93\tfloat\tYES\t\tnull\t\nnm_238_55\tfloat\tYES\t\tnull\t\nnm_239_17\tfloat\tYES\t\tnull\t\nnm_239_80\tfloat\tYES\t\tnull\t\nnm_240_42\tfloat\tYES\t\tnull\t\nnm_241_05\tfloat\tYES\t\tnull\t\nnm_241_67\tfloat\tYES\t\tnull\t\nnm_242_29\tfloat\tYES\t\tnull\t\nnm_242_92\tfloat\tYES\t\tnull\t\nnm_243_54\tfloat\tYES\t\tnull\t\nnm_244_17\tfloat\tYES\t\tnull\t\nnm_244_79\tfloat\tYES\t\tnull\t\nnm_245_41\tfloat\tYES\t\tnull\t\nnm_246_04\tfloat\tYES\t\tnull\t\nnm_246_66\tfloat\tYES\t\tnull\t\nnm_247_29\tfloat\tYES\t\tnull\t\nnm_247_91\tfloat\tYES\t\tnull\t\nnm_248_53\tfloat\tYES\t\tnull\t\nnm_249_16\tfloat\tYES\t\tnull\t\nnm_249_78\tfloat\tYES\t\tnull\t\nnm_250_41\tfloat\tYES\t\tnull\t\nnm_251_03\tfloat\tYES\t\tnull\t\nnm_251_65\tfloat\tYES\t\tnull\t\nnm_252_28\tfloat\tYES\t\tnull\t\nnm_252_90\tfloat\tYES\t\tnull\t\nnm_253_52\tfloat\tYES\t\tnull\t\nnm_254_15\tfloat\tYES\t\tnull\t\nnm_254_77\tfloat\tYES\t\tnull\t\nnm_255_40\tfloat\tYES\t\tnull\t\nnm_256_02\tfloat\tYES\t\tnull\t\nnm_256_64\tfloat\tYES\t\tnull\t\nnm_257_27\tfloat\tYES\t\tnull\t\nnm_257_89\tfloat\tYES\t\tnull\t\nnm_258_52\tfloat\tYES\t\tnull\t\nnm_259_14\tfloat\tYES\t\tnull\t\nnm_259_76\tfloat\tYES\t\tnull\t\nnm_260_39\tfloat\tYES\t\tnull\t\nnm_261_01\tfloat\tYES\t\tnull\t\nnm_261_64\tfloat\tYES\t\tnull\t\nnm_262_26\tfloat\tYES\t\tnull\t\nnm_262_88\tfloat\tYES\t\tnull\t\nnm_263_51\tfloat\tYES\t\tnull\t\nnm_264_13\tfloat\tYES\t\tnull\t\nnm_264_76\tfloat\tYES\t\tnull\t\nnm_265_38\tfloat\tYES\t\tnull\t\nnm_266_00\tfloat\tYES\t\tnull\t\nnm_266_63\tfloat\tYES\t\tnull\t\nnm_267_25\tfloat\tYES\t\tnull\t\nnm_267_88\tfloat\tYES\t\tnull\t\nnm_268_50\tfloat\tYES\t\tnull\t\nnm_269_12\tfloat\tYES\t\tnull\t\nnm_269_75\tfloat\tYES\t\tnull\t\nnm_270_37\tfloat\tYES\t\tnull\t\nnm_270_99\tfloat\tYES\t\tnull\t\nnm_271_62\tfloat\tYES\t\tnull\t\nnm_272_24\tfloat\tYES\t\tnull\t\nnm_272_87\tfloat\tYES\t\tnull\t\nnm_273_49\tfloat\tYES\t\tnull\t\nnm_274_11\tfloat\tYES\t\tnull\t\nnm_274_74\tfloat\tYES\t\tnull\t\nnm_275_36\tfloat\tYES\t\tnull\t\nnm_275_99\tfloat\tYES\t\tnull\t\nnm_276_61\tfloat\tYES\t\tnull\t\nnm_277_23\tfloat\tYES\t\tnull\t\nnm_277_86\tfloat\tYES\t\tnull\t\nnm_278_48\tfloat\tYES\t\tnull\t\nnm_279_11\tfloat\tYES\t\tnull\t\nnm_279_73\tfloat\tYES\t\tnull\t\nnm_280_35\tfloat\tYES\t\tnull\t\nnm_280_98\tfloat\tYES\t\tnull\t\nnm_281_60\tfloat\tYES\t\tnull\t\nnm_282_23\tfloat\tYES\t\tnull\t\nnm_282_85\tfloat\tYES\t\tnull\t\nnm_283_47\tfloat\tYES\t\tnull\t\nnm_284_10\tfloat\tYES\t\tnull\t\nnm_284_72\tfloat\tYES\t\tnull\t\nnm_285_34\tfloat\tYES\t\tnull\t\nnm_285_97\tfloat\tYES\t\tnull\t\nnm_286_59\tfloat\tYES\t\tnull\t\nnm_287_22\tfloat\tYES\t\tnull\t\nnm_287_84\tfloat\tYES\t\tnull\t\nnm_288_46\tfloat\tYES\t\tnull\t\nnm_289_09\tfloat\tYES\t\tnull\t\nnm_289_71\tfloat\tYES\t\tnull\t\nnm_290_34\tfloat\tYES\t\tnull\t\nnm_290_96\tfloat\tYES\t\tnull\t\nnm_291_58\tfloat\tYES\t\tnull\t\nnm_292_21\tfloat\tYES\t\tnull\t\nnm_292_83\tfloat\tYES\t\tnull\t\nnm_293_46\tfloat\tYES\t\tnull\t\nnm_294_08\tfloat\tYES\t\tnull\t\nnm_294_70\tfloat\tYES\t\tnull\t\nnm_295_33\tfloat\tYES\t\tnull\t\nnm_295_95\tfloat\tYES\t\tnull\t\nnm_296_57\tfloat\tYES\t\tnull\t\nnm_297_20\tfloat\tYES\t\tnull\t\nnm_297_82\tfloat\tYES\t\tnull\t\nnm_298_44\tfloat\tYES\t\tnull\t\nnm_299_06\tfloat\tYES\t\tnull\t\nnm_299_68\tfloat\tYES\t\tnull\t\nnm_300_30\tfloat\tYES\t\tnull\t\nnm_300_92\tfloat\tYES\t\tnull\t\nnm_301_54\tfloat\tYES\t\tnull\t\nnm_302_16\tfloat\tYES\t\tnull\t\nnm_302_78\tfloat\tYES\t\tnull\t\nnm_303_40\tfloat\tYES\t\tnull\t\nnm_304_02\tfloat\tYES\t\tnull\t\nnm_304_64\tfloat\tYES\t\tnull\t\nnm_305_26\tfloat\tYES\t\tnull\t\nnm_305_88\tfloat\tYES\t\tnull\t\nnm_306_50\tfloat\tYES\t\tnull\t\nnm_307_12\tfloat\tYES\t\tnull\t\nnm_307_74\tfloat\tYES\t\tnull\t\nnm_308_36\tfloat\tYES\t\tnull\t\nnm_308_98\tfloat\tYES\t\tnull\t\nnm_309_60\tfloat\tYES\t\tnull\t\nnm_310_22\tfloat\tYES\t\tnull\t\nnm_310_84\tfloat\tYES\t\tnull\t\nnm_311_46\tfloat\tYES\t\tnull\t\nnm_312_08\tfloat\tYES\t\tnull\t\nnm_312_70\tfloat\tYES\t\tnull\t\nnm_313_32\tfloat\tYES\t\tnull\t\nnm_313_94\tfloat\tYES\t\tnull\t\nnm_314_56\tfloat\tYES\t\tnull\t\nnm_315_17\tfloat\tYES\t\tnull\t\nnm_315_79\tfloat\tYES\t\tnull\t\nnm_316_41\tfloat\tYES\t\tnull\t\nnm_317_02\tfloat\tYES\t\tnull\t\nnm_317_64\tfloat\tYES\t\tnull\t\nnm_318_26\tfloat\tYES\t\tnull\t\nnm_318_87\tfloat\tYES\t\tnull\t\nnm_319_49\tfloat\tYES\t\tnull\t\nnm_320_11\tfloat\tYES\t\tnull\t\nnm_320_73\tfloat\tYES\t\tnull\t\nnm_321_34\tfloat\tYES\t\tnull\t\nnm_321_96\tfloat\tYES\t\tnull\t\nnm_322_58\tfloat\tYES\t\tnull\t\nnm_323_19\tfloat\tYES\t\tnull\t\nnm_323_81\tfloat\tYES\t\tnull\t\nnm_324_43\tfloat\tYES\t\tnull\t\nnm_325_04\tfloat\tYES\t\tnull\t\nnm_325_66\tfloat\tYES\t\tnull\t\nnm_326_28\tfloat\tYES\t\tnull\t\nnm_326_89\tfloat\tYES\t\tnull\t\nnm_327_51\tfloat\tYES\t\tnull\t\nnm_328_13\tfloat\tYES\t\tnull\t\nnm_328_75\tfloat\tYES\t\tnull\t\nnm_329_36\tfloat\tYES\t\tnull\t\nnm_329_98\tfloat\tYES\t\tnull\t\nnm_330_60\tfloat\tYES\t\tnull\t\nnm_331_21\tfloat\tYES\t\tnull\t\nnm_331_83\tfloat\tYES\t\tnull\t\nnm_332_45\tfloat\tYES\t\tnull\t\nnm_333_06\tfloat\tYES\t\tnull\t\nnm_333_68\tfloat\tYES\t\tnull\t\nnm_334_30\tfloat\tYES\t\tnull\t\nnm_334_91\tfloat\tYES\t\tnull\t\nnm_335_53\tfloat\tYES\t\tnull\t\nnm_336_15\tfloat\tYES\t\tnull\t\nnm_336_77\tfloat\tYES\t\tnull\t\nnm_337_38\tfloat\tYES\t\tnull\t\nnm_338_00\tfloat\tYES\t\tnull\t\nnm_338_62\tfloat\tYES\t\tnull\t\nnm_339_23\tfloat\tYES\t\tnull\t\nnm_339_85\tfloat\tYES\t\tnull\t\nnm_340_47\tfloat\tYES\t\tnull\t\nnm_341_08\tfloat\tYES\t\tnull\t\nnm_341_70\tfloat\tYES\t\tnull\t\nnm_342_32\tfloat\tYES\t\tnull\t\nnm_342_94\tfloat\tYES\t\tnull\t\nnm_343_55\tfloat\tYES\t\tnull\t\nnm_344_17\tfloat\tYES\t\tnull\t\nnm_344_79\tfloat\tYES\t\tnull\t\nnm_345_40\tfloat\tYES\t\tnull\t\nnm_346_02\tfloat\tYES\t\tnull\t\nnm_346_64\tfloat\tYES\t\tnull\t\nnm_347_25\tfloat\tYES\t\tnull\t\nnm_347_87\tfloat\tYES\t\tnull\t\nnm_348_49\tfloat\tYES\t\tnull\t\nnm_349_10\tfloat\tYES\t\tnull\t\nnm_349_72\tfloat\tYES\t\tnull\t\nnm_350_34\tfloat\tYES\t\tnull\t\nnm_350_96\tfloat\tYES\t\tnull\t\nnm_351_57\tfloat\tYES\t\tnull\t\nnm_352_19\tfloat\tYES\t\tnull\t\nnm_352_81\tfloat\tYES\t\tnull\t\nnm_353_42\tfloat\tYES\t\tnull\t\nnm_354_04\tfloat\tYES\t\tnull\t\nnm_354_66\tfloat\tYES\t\tnull\t\nnm_355_27\tfloat\tYES\t\tnull\t\nnm_355_89\tfloat\tYES\t\tnull\t\nnm_356_51\tfloat\tYES\t\tnull\t\nnm_357_12\tfloat\tYES\t\tnull\t\nnm_357_74\tfloat\tYES\t\tnull\t\nnm_358_36\tfloat\tYES\t\tnull\t\nnm_358_98\tfloat\tYES\t\tnull\t\nnm_359_59\tfloat\tYES\t\tnull\t\nnm_360_21\tfloat\tYES\t\tnull\t\nnm_360_83\tfloat\tYES\t\tnull\t\nnm_361_44\tfloat\tYES\t\tnull\t\nnm_362_06\tfloat\tYES\t\tnull\t\nnm_362_68\tfloat\tYES\t\tnull\t\nnm_363_29\tfloat\tYES\t\tnull\t\nnm_363_91\tfloat\tYES\t\tnull\t\nnm_364_53\tfloat\tYES\t\tnull\t\nnm_365_14\tfloat\tYES\t\tnull\t\nnm_365_76\tfloat\tYES\t\tnull\t\nnm_366_37\tfloat\tYES\t\tnull\t\nnm_366_98\tfloat\tYES\t\tnull\t\nnm_367_60\tfloat\tYES\t\tnull\t\nnm_368_21\tfloat\tYES\t\tnull\t\nnm_368_82\tfloat\tYES\t\tnull\t\nnm_369_44\tfloat\tYES\t\tnull\t\nnm_370_05\tfloat\tYES\t\tnull\t\nnm_370_66\tfloat\tYES\t\tnull\t\nnm_371_28\tfloat\tYES\t\tnull\t\nnm_371_89\tfloat\tYES\t\tnull\t\nnm_372_50\tfloat\tYES\t\tnull\t\nnm_373_12\tfloat\tYES\t\tnull\t\nnm_373_73\tfloat\tYES\t\tnull\t\nnm_374_34\tfloat\tYES\t\tnull\t\nnm_374_95\tfloat\tYES\t\tnull\t\nnm_375_57\tfloat\tYES\t\tnull\t\nnm_376_18\tfloat\tYES\t\tnull\t\nnm_376_79\tfloat\tYES\t\tnull\t\nnm_377_41\tfloat\tYES\t\tnull\t\nnm_378_02\tfloat\tYES\t\tnull\t\nnm_378_63\tfloat\tYES\t\tnull\t\nnm_379_25\tfloat\tYES\t\tnull\t\nnm_379_86\tfloat\tYES\t\tnull\t\nnm_380_47\tfloat\tYES\t\tnull\t\nnm_381_09\tfloat\tYES\t\tnull\t\nnm_381_70\tfloat\tYES\t\tnull\t\nnm_382_31\tfloat\tYES\t\tnull\t\nnm_382_93\tfloat\tYES\t\tnull\t\nnm_383_54\tfloat\tYES\t\tnull\t\nnm_384_15\tfloat\tYES\t\tnull\t\nnm_384_76\tfloat\tYES\t\tnull\t\nnm_385_38\tfloat\tYES\t\tnull\t\nnm_385_99\tfloat\tYES\t\tnull\t\nnm_386_60\tfloat\tYES\t\tnull\t\nnm_387_22\tfloat\tYES\t\tnull\t\nnm_387_83\tfloat\tYES\t\tnull\t\nnm_388_44\tfloat\tYES\t\tnull\t\nnm_389_06\tfloat\tYES\t\tnull\t\nnm_389_67\tfloat\tYES\t\tnull\t\nnm_390_28\tfloat\tYES\t\tnull\t\nnm_390_90\tfloat\tYES\t\tnull\t\nnm_391_51\tfloat\tYES\t\tnull\t\nnm_392_12\tfloat\tYES\t\tnull\t\nnm_392_74\tfloat\tYES\t\tnull\t\nnm_393_35\tfloat\tYES\t\tnull\t\nnm_393_96\tfloat\tYES\t\tnull\t\nnm_394_57\tfloat\tYES\t\tnull\t\nnm_395_19\tfloat\tYES\t\tnull\t\nnm_395_80\tfloat\tYES\t\tnull\t\nnm_396_41\tfloat\tYES\t\tnull\t\nnm_397_03\tfloat\tYES\t\tnull\t\nnm_397_64\tfloat\tYES\t\tnull\t\nnm_398_25\tfloat\tYES\t\tnull\t\nnm_398_87\tfloat\tYES\t\tnull\t\nnm_399_48\tfloat\tYES\t\tnull\t\nnm_400_09\tfloat\tYES\t\tnull\t\nnm_400_71\tfloat\tYES\t\tnull\t\nnm_401_32\tfloat\tYES\t\tnull\t\nnm_401_93\tfloat\tYES\t\tnull\t\nnm_402_55\tfloat\tYES\t\tnull\t\nnm_403_16\tfloat\tYES\t\tnull\t\nnm_403_77\tfloat\tYES\t\tnull\t\nnm_404_39\tfloat\tYES\t\tnull\t\nnm_405_00\tfloat\tYES\t\tnull\t\nnm_405_61\tfloat\tYES\t\tnull\t\nnm_406_22\tfloat\tYES\t\tnull\t\nnm_406_83\tfloat\tYES\t\tnull\t\nnm_407_44\tfloat\tYES\t\tnull\t\nnm_408_05\tfloat\tYES\t\tnull\t\nnm_408_66\tfloat\tYES\t\tnull\t\nnm_409_27\tfloat\tYES\t\tnull\t\nnm_409_88\tfloat\tYES\t\tnull\t\nnm_410_49\tfloat\tYES\t\tnull\t\nnm_411_10\tfloat\tYES\t\tnull\t\nnm_411_71\tfloat\tYES\t\tnull\t\nnm_412_33\tfloat\tYES\t\tnull\t\nnm_412_94\tfloat\tYES\t\tnull\t\nnm_413_55\tfloat\tYES\t\tnull\t\nnm_414_16\tfloat\tYES\t\tnull\t\nnm_414_77\tfloat\tYES\t\tnull\t\nnm_415_38\tfloat\tYES\t\tnull\t\nnm_415_99\tfloat\tYES\t\tnull\t\nnm_416_60\tfloat\tYES\t\tnull\t\nnm_417_21\tfloat\tYES\t\tnull\t\nnm_417_82\tfloat\tYES\t\tnull\t\nnm_418_43\tfloat\tYES\t\tnull\t\nnm_419_04\tfloat\tYES\t\tnull\t\nnm_419_65\tfloat\tYES\t\tnull\t\nnm_420_27\tfloat\tYES\t\tnull\t\nnm_420_88\tfloat\tYES\t\tnull\t\nnm_421_49\tfloat\tYES\t\tnull\t\nnm_422_10\tfloat\tYES\t\tnull\t\nnm_422_71\tfloat\tYES\t\tnull\t\nnm_423_32\tfloat\tYES\t\tnull\t\nnm_423_93\tfloat\tYES\t\tnull\t\nnm_424_54\tfloat\tYES\t\tnull\t\nnm_425_15\tfloat\tYES\t\tnull\t\nnm_425_76\tfloat\tYES\t\tnull\t\nnm_426_37\tfloat\tYES\t\tnull\t\nnm_426_98\tfloat\tYES\t\tnull\t\nnm_427_59\tfloat\tYES\t\tnull\t\nnm_428_21\tfloat\tYES\t\tnull\t\nnm_428_82\tfloat\tYES\t\tnull\t\nnm_429_43\tfloat\tYES\t\tnull\t\nnm_430_04\tfloat\tYES\t\tnull\t\nnm_430_65\tfloat\tYES\t\tnull\t\nnm_431_26\tfloat\tYES\t\tnull\t\nnm_431_87\tfloat\tYES\t\tnull\t\nnm_432_48\tfloat\tYES\t\tnull\t\nnm_433_09\tfloat\tYES\t\tnull\t\nnm_433_70\tfloat\tYES\t\tnull\t\nnm_434_31\tfloat\tYES\t\tnull\t\nnm_434_92\tfloat\tYES\t\tnull\t\nnm_435_54\tfloat\tYES\t\tnull\t\nnm_436_14\tfloat\tYES\t\tnull\t\nnm_436_74\tfloat\tYES\t\tnull\t\nnm_437_35\tfloat\tYES\t\tnull\t\nnm_437_95\tfloat\tYES\t\tnull\t\nnm_438_56\tfloat\tYES\t\tnull\t\nnm_439_16\tfloat\tYES\t\tnull\t\nnm_439_76\tfloat\tYES\t\tnull\t\nnm_440_37\tfloat\tYES\t\tnull\t\nnm_440_97\tfloat\tYES\t\tnull\t\nnm_441_58\tfloat\tYES\t\tnull\t\nnm_442_18\tfloat\tYES\t\tnull\t\nnm_442_79\tfloat\tYES\t\tnull\t\nnm_443_39\tfloat\tYES\t\tnull\t\nnm_443_99\tfloat\tYES\t\tnull\t\nnm_444_60\tfloat\tYES\t\tnull\t\nnm_445_20\tfloat\tYES\t\tnull\t\nnm_445_81\tfloat\tYES\t\tnull\t\nnm_446_41\tfloat\tYES\t\tnull\t\nnm_447_01\tfloat\tYES\t\tnull\t\nnm_447_62\tfloat\tYES\t\tnull\t\nnm_448_22\tfloat\tYES\t\tnull\t\nnm_448_83\tfloat\tYES\t\tnull\t\nnm_449_43\tfloat\tYES\t\tnull\t\nnm_450_04\tfloat\tYES\t\tnull\t\nnm_450_64\tfloat\tYES\t\tnull\t\nnm_451_24\tfloat\tYES\t\tnull\t\nnm_451_85\tfloat\tYES\t\tnull\t\nnm_452_45\tfloat\tYES\t\tnull\t\nnm_453_06\tfloat\tYES\t\tnull\t\nnm_453_66\tfloat\tYES\t\tnull\t\nnm_454_26\tfloat\tYES\t\tnull\t\nnm_454_87\tfloat\tYES\t\tnull\t\nnm_455_47\tfloat\tYES\t\tnull\t\nnm_456_08\tfloat\tYES\t\tnull\t\nnm_456_68\tfloat\tYES\t\tnull\t\nnm_457_29\tfloat\tYES\t\tnull\t\nnm_457_89\tfloat\tYES\t\tnull\t\nnm_458_49\tfloat\tYES\t\tnull\t\nnm_459_10\tfloat\tYES\t\tnull\t\nnm_459_70\tfloat\tYES\t\tnull\t\nnm_460_31\tfloat\tYES\t\tnull\t\nnm_460_91\tfloat\tYES\t\tnull\t\nnm_461_51\tfloat\tYES\t\tnull\t\nnm_462_12\tfloat\tYES\t\tnull\t\nnm_462_72\tfloat\tYES\t\tnull\t\nnm_463_33\tfloat\tYES\t\tnull\t\nnm_463_93\tfloat\tYES\t\tnull\t\nnm_464_54\tfloat\tYES\t\tnull\t\nnm_465_14\tfloat\tYES\t\tnull\t\nnm_465_74\tfloat\tYES\t\tnull\t\nnm_466_35\tfloat\tYES\t\tnull\t\nnm_466_95\tfloat\tYES\t\tnull\t\nnm_467_56\tfloat\tYES\t\tnull\t\nnm_468_16\tfloat\tYES\t\tnull\t\nnm_468_76\tfloat\tYES\t\tnull\t\nnm_469_37\tfloat\tYES\t\tnull\t\nnm_469_97\tfloat\tYES\t\tnull\t\nnm_470_58\tfloat\tYES\t\tnull\t\nnm_471_18\tfloat\tYES\t\tnull\t\nnm_471_79\tfloat\tYES\t\tnull\t\nnm_472_39\tfloat\tYES\t\tnull\t\nnm_472_99\tfloat\tYES\t\tnull\t\nnm_473_60\tfloat\tYES\t\tnull\t\nnm_474_20\tfloat\tYES\t\tnull\t\nnm_474_81\tfloat\tYES\t\tnull\t\nnm_475_41\tfloat\tYES\t\tnull\t\nnm_476_01\tfloat\tYES\t\tnull\t\nnm_476_62\tfloat\tYES\t\tnull\t\nnm_477_22\tfloat\tYES\t\tnull\t\nnm_477_83\tfloat\tYES\t\tnull\t\nnm_478_43\tfloat\tYES\t\tnull\t\nnm_479_04\tfloat\tYES\t\tnull\t\nnm_479_64\tfloat\tYES\t\tnull\t\nnm_480_24\tfloat\tYES\t\tnull\t\nnm_480_85\tfloat\tYES\t\tnull\t\nnm_481_45\tfloat\tYES\t\tnull\t\nnm_482_06\tfloat\tYES\t\tnull\t\nnm_482_66\tfloat\tYES\t\tnull\t\nnm_483_26\tfloat\tYES\t\tnull\t\nnm_483_87\tfloat\tYES\t\tnull\t\nnm_484_47\tfloat\tYES\t\tnull\t\nnm_485_08\tfloat\tYES\t\tnull\t\nnm_485_68\tfloat\tYES\t\tnull\t\nnm_486_29\tfloat\tYES\t\tnull\t\nnm_486_89\tfloat\tYES\t\tnull\t\nnm_487_49\tfloat\tYES\t\tnull\t\nnm_488_10\tfloat\tYES\t\tnull\t\nnm_488_70\tfloat\tYES\t\tnull\t\nnm_489_31\tfloat\tYES\t\tnull\t\nnm_489_91\tfloat\tYES\t\tnull\t\nnm_490_51\tfloat\tYES\t\tnull\t\nnm_491_12\tfloat\tYES\t\tnull\t\nnm_491_72\tfloat\tYES\t\tnull\t\nnm_492_33\tfloat\tYES\t\tnull\t\nnm_492_93\tfloat\tYES\t\tnull\t\nnm_493_54\tfloat\tYES\t\tnull\t\nnm_494_14\tfloat\tYES\t\tnull\t\nnm_494_74\tfloat\tYES\t\tnull\t\nnm_495_35\tfloat\tYES\t\tnull\t\nnm_495_95\tfloat\tYES\t\tnull\t\nnm_496_56\tfloat\tYES\t\tnull\t\nnm_497_16\tfloat\tYES\t\tnull\t\nnm_497_77\tfloat\tYES\t\tnull\t\nnm_498_37\tfloat\tYES\t\tnull\t\nnm_498_97\tfloat\tYES\t\tnull\t\nnm_499_58\tfloat\tYES\t\tnull\t\nnm_500_18\tfloat\tYES\t\tnull\t\nnm_500_79\tfloat\tYES\t\tnull\t\nnm_501_39\tfloat\tYES\t\tnull\t\nnm_501_99\tfloat\tYES\t\tnull\t\nnm_502_60\tfloat\tYES\t\tnull\t\nnm_503_20\tfloat\tYES\t\tnull\t\nnm_503_81\tfloat\tYES\t\tnull\t\nnm_504_41\tfloat\tYES\t\tnull\t\nnm_505_02\tfloat\tYES\t\tnull\t\nnm_505_62\tfloat\tYES\t\tnull\t\nnm_506_22\tfloat\tYES\t\tnull\t\nnm_506_83\tfloat\tYES\t\tnull\t\nnm_507_43\tfloat\tYES\t\tnull\t\nnm_508_04\tfloat\tYES\t\tnull\t\nnm_508_64\tfloat\tYES\t\tnull\t\nnm_509_24\tfloat\tYES\t\tnull\t\nnm_509_85\tfloat\tYES\t\tnull\t\nnm_510_45\tfloat\tYES\t\tnull\t\nnm_511_06\tfloat\tYES\t\tnull\t\nnm_511_66\tfloat\tYES\t\tnull\t\nnm_512_27\tfloat\tYES\t\tnull\t\nnm_512_87\tfloat\tYES\t\tnull\t\nnm_513_47\tfloat\tYES\t\tnull\t\nnm_514_08\tfloat\tYES\t\tnull\t\nnm_514_68\tfloat\tYES\t\tnull\t\nnm_515_29\tfloat\tYES\t\tnull\t\nnm_515_89\tfloat\tYES\t\tnull\t\nnm_516_49\tfloat\tYES\t\tnull\t\nnm_517_10\tfloat\tYES\t\tnull\t\nnm_517_70\tfloat\tYES\t\tnull\t\nnm_518_31\tfloat\tYES\t\tnull\t\nnm_518_91\tfloat\tYES\t\tnull\t\nnm_519_52\tfloat\tYES\t\tnull\t\nnm_520_12\tfloat\tYES\t\tnull\t\nnm_520_72\tfloat\tYES\t\tnull\t\nnm_521_33\tfloat\tYES\t\tnull\t\nnm_521_93\tfloat\tYES\t\tnull\t\nnm_522_54\tfloat\tYES\t\tnull\t\nnm_523_14\tfloat\tYES\t\tnull\t\nnm_523_74\tfloat\tYES\t\tnull\t\nnm_524_35\tfloat\tYES\t\tnull\t\nnm_524_95\tfloat\tYES\t\tnull\t\nnm_525_56\tfloat\tYES\t\tnull\t\nnm_526_16\tfloat\tYES\t\tnull\t\nnm_526_77\tfloat\tYES\t\tnull\t\nnm_527_37\tfloat\tYES\t\tnull\t\nnm_527_97\tfloat\tYES\t\tnull\t\nnm_528_58\tfloat\tYES\t\tnull\t\nnm_529_18\tfloat\tYES\t\tnull\t\nnm_529_79\tfloat\tYES\t\tnull\t\nnm_530_39\tfloat\tYES\t\tnull\t\nnm_530_99\tfloat\tYES\t\tnull\t\nnm_531_60\tfloat\tYES\t\tnull\t\nnm_532_20\tfloat\tYES\t\tnull\t\nnm_532_81\tfloat\tYES\t\tnull\t\nnm_533_41\tfloat\tYES\t\tnull\t\nnm_534_02\tfloat\tYES\t\tnull\t\nnm_534_62\tfloat\tYES\t\tnull\t\nnm_535_22\tfloat\tYES\t\tnull\t\nnm_535_83\tfloat\tYES\t\tnull\t\nnm_536_43\tfloat\tYES\t\tnull\t\nnm_537_04\tfloat\tYES\t\tnull\t\nnm_537_64\tfloat\tYES\t\tnull\t\nnm_538_24\tfloat\tYES\t\tnull\t\nnm_538_85\tfloat\tYES\t\tnull\t\nnm_539_45\tfloat\tYES\t\tnull\t\nnm_540_06\tfloat\tYES\t\tnull\t\nnm_540_66\tfloat\tYES\t\tnull\t\nnm_541_27\tfloat\tYES\t\tnull\t\nnm_541_87\tfloat\tYES\t\tnull\t\nnm_542_47\tfloat\tYES\t\tnull\t\nnm_543_08\tfloat\tYES\t\tnull\t\nnm_543_68\tfloat\tYES\t\tnull\t\nnm_544_29\tfloat\tYES\t\tnull\t\nnm_544_89\tfloat\tYES\t\tnull\t\nnm_545_5\tfloat\tYES\t\tnull\t\nnm_546_09\tfloat\tYES\t\tnull\t\nnm_546_68\tfloat\tYES\t\tnull\t\nnm_547_28\tfloat\tYES\t\tnull\t\nnm_547_87\tfloat\tYES\t\tnull\t\nnm_548_47\tfloat\tYES\t\tnull\t\nnm_549_06\tfloat\tYES\t\tnull\t\nnm_549_66\tfloat\tYES\t\tnull\t\nnm_550_25\tfloat\tYES\t\tnull\t\nnm_550_85\tfloat\tYES\t\tnull\t\nnm_551_44\tfloat\tYES\t\tnull\t\nnm_552_04\tfloat\tYES\t\tnull\t\nnm_552_63\tfloat\tYES\t\tnull\t\nnm_553_22\tfloat\tYES\t\tnull\t\nnm_553_82\tfloat\tYES\t\tnull\t\nnm_554_41\tfloat\tYES\t\tnull\t\nnm_555_01\tfloat\tYES\t\tnull\t\nnm_555_60\tfloat\tYES\t\tnull\t\nnm_556_20\tfloat\tYES\t\tnull\t\nnm_556_79\tfloat\tYES\t\tnull\t\nnm_557_39\tfloat\tYES\t\tnull\t\nnm_557_98\tfloat\tYES\t\tnull\t\nnm_558_58\tfloat\tYES\t\tnull\t\nnm_559_17\tfloat\tYES\t\tnull\t\nnm_559_77\tfloat\tYES\t\tnull\t\nnm_560_36\tfloat\tYES\t\tnull\t\nnm_560_95\tfloat\tYES\t\tnull\t\nnm_561_55\tfloat\tYES\t\tnull\t\nnm_562_14\tfloat\tYES\t\tnull\t\nnm_562_74\tfloat\tYES\t\tnull\t\nnm_563_33\tfloat\tYES\t\tnull\t\nnm_563_93\tfloat\tYES\t\tnull\t\nnm_564_52\tfloat\tYES\t\tnull\t\nnm_565_12\tfloat\tYES\t\tnull\t\nnm_565_71\tfloat\tYES\t\tnull\t\nnm_566_31\tfloat\tYES\t\tnull\t\nnm_566_90\tfloat\tYES\t\tnull\t\nnm_567_49\tfloat\tYES\t\tnull\t\nnm_568_09\tfloat\tYES\t\tnull\t\nnm_568_68\tfloat\tYES\t\tnull\t\nnm_569_28\tfloat\tYES\t\tnull\t\nnm_569_87\tfloat\tYES\t\tnull\t\nnm_570_47\tfloat\tYES\t\tnull\t\nnm_571_06\tfloat\tYES\t\tnull\t\nnm_571_66\tfloat\tYES\t\tnull\t\nnm_572_25\tfloat\tYES\t\tnull\t\nnm_572_85\tfloat\tYES\t\tnull\t\nnm_573_44\tfloat\tYES\t\tnull\t\nnm_574_04\tfloat\tYES\t\tnull\t\nnm_574_63\tfloat\tYES\t\tnull\t\nnm_575_22\tfloat\tYES\t\tnull\t\nnm_575_82\tfloat\tYES\t\tnull\t\nnm_576_41\tfloat\tYES\t\tnull\t\nnm_577_01\tfloat\tYES\t\tnull\t\nnm_577_60\tfloat\tYES\t\tnull\t\nnm_578_20\tfloat\tYES\t\tnull\t\nnm_578_79\tfloat\tYES\t\tnull\t\nnm_579_39\tfloat\tYES\t\tnull\t\nnm_579_98\tfloat\tYES\t\tnull\t\nnm_580_58\tfloat\tYES\t\tnull\t\nnm_581_17\tfloat\tYES\t\tnull\t\nnm_581_76\tfloat\tYES\t\tnull\t\nnm_582_36\tfloat\tYES\t\tnull\t\nnm_582_95\tfloat\tYES\t\tnull\t\nnm_583_55\tfloat\tYES\t\tnull\t\nnm_584_14\tfloat\tYES\t\tnull\t\nnm_584_74\tfloat\tYES\t\tnull\t\nnm_585_33\tfloat\tYES\t\tnull\t\nnm_585_93\tfloat\tYES\t\tnull\t\nnm_586_52\tfloat\tYES\t\tnull\t\nnm_587_12\tfloat\tYES\t\tnull\t\nnm_587_71\tfloat\tYES\t\tnull\t\nnm_588_31\tfloat\tYES\t\tnull\t\nnm_588_90\tfloat\tYES\t\tnull\t\nnm_589_49\tfloat\tYES\t\tnull\t\nnm_590_09\tfloat\tYES\t\tnull\t\nnm_590_68\tfloat\tYES\t\tnull\t\nnm_591_28\tfloat\tYES\t\tnull\t\nnm_591_87\tfloat\tYES\t\tnull\t\nnm_592_47\tfloat\tYES\t\tnull\t\nnm_593_06\tfloat\tYES\t\tnull\t\nnm_593_66\tfloat\tYES\t\tnull\t\nnm_594_25\tfloat\tYES\t\tnull\t\nnm_594_85\tfloat\tYES\t\tnull\t\nnm_595_44\tfloat\tYES\t\tnull\t\nnm_596_04\tfloat\tYES\t\tnull\t\nnm_596_63\tfloat\tYES\t\tnull\t\nnm_597_22\tfloat\tYES\t\tnull\t\nnm_597_82\tfloat\tYES\t\tnull\t\nnm_598_41\tfloat\tYES\t\tnull\t\nnm_599_01\tfloat\tYES\t\tnull\t\nnm_599_60\tfloat\tYES\t\tnull\t\nnm_600_20\tfloat\tYES\t\tnull\t\nnm_600_79\tfloat\tYES\t\tnull\t\nnm_601_39\tfloat\tYES\t\tnull\t\nnm_601_98\tfloat\tYES\t\tnull\t\nnm_602_58\tfloat\tYES\t\tnull\t\nnm_603_17\tfloat\tYES\t\tnull\t\nnm_603_76\tfloat\tYES\t\tnull\t\nnm_604_36\tfloat\tYES\t\tnull\t\nnm_604_95\tfloat\tYES\t\tnull\t\nnm_605_55\tfloat\tYES\t\tnull\t\nnm_606_14\tfloat\tYES\t\tnull\t\nnm_606_74\tfloat\tYES\t\tnull\t\nnm_607_33\tfloat\tYES\t\tnull\t\nnm_607_93\tfloat\tYES\t\tnull\t\nnm_608_52\tfloat\tYES\t\tnull\t\nnm_609_12\tfloat\tYES\t\tnull\t\nnm_609_71\tfloat\tYES\t\tnull\t\nnm_610_31\tfloat\tYES\t\tnull\t\nnm_610_90\tfloat\tYES\t\tnull\t\nnm_611_49\tfloat\tYES\t\tnull\t\nnm_612_09\tfloat\tYES\t\tnull\t\nnm_612_68\tfloat\tYES\t\tnull\t\nnm_613_28\tfloat\tYES\t\tnull\t\nnm_613_87\tfloat\tYES\t\tnull\t\nnm_614_47\tfloat\tYES\t\tnull\t\nnm_615_06\tfloat\tYES\t\tnull\t\nnm_615_66\tfloat\tYES\t\tnull\t\nnm_616_25\tfloat\tYES\t\tnull\t\nnm_616_85\tfloat\tYES\t\tnull\t\nnm_617_44\tfloat\tYES\t\tnull\t\nnm_618_03\tfloat\tYES\t\tnull\t\nnm_618_63\tfloat\tYES\t\tnull\t\nnm_619_22\tfloat\tYES\t\tnull\t\nnm_619_82\tfloat\tYES\t\tnull\t\nnm_620_41\tfloat\tYES\t\tnull\t\nnm_621_01\tfloat\tYES\t\tnull\t\nnm_621_60\tfloat\tYES\t\tnull\t\nnm_622_20\tfloat\tYES\t\tnull\t\nnm_622_79\tfloat\tYES\t\tnull\t\nnm_623_39\tfloat\tYES\t\tnull\t\nnm_623_98\tfloat\tYES\t\tnull\t\nnm_624_58\tfloat\tYES\t\tnull\t\nnm_625_17\tfloat\tYES\t\tnull\t\nnm_625_76\tfloat\tYES\t\tnull\t\nnm_626_36\tfloat\tYES\t\tnull\t\nnm_626_95\tfloat\tYES\t\tnull\t\nnm_627_55\tfloat\tYES\t\tnull\t\nnm_628_14\tfloat\tYES\t\tnull\t\nnm_628_74\tfloat\tYES\t\tnull\t\nnm_629_33\tfloat\tYES\t\tnull\t\nnm_629_93\tfloat\tYES\t\tnull\t\nnm_630_52\tfloat\tYES\t\tnull\t\nnm_631_12\tfloat\tYES\t\tnull\t\nnm_631_71\tfloat\tYES\t\tnull\t\nnm_632_30\tfloat\tYES\t\tnull\t\nnm_632_89\tfloat\tYES\t\tnull\t\nnm_633_48\tfloat\tYES\t\tnull\t\nnm_634_06\tfloat\tYES\t\tnull\t\nnm_634_65\tfloat\tYES\t\tnull\t\nnm_635_23\tfloat\tYES\t\tnull\t\nnm_635_82\tfloat\tYES\t\tnull\t\nnm_636_40\tfloat\tYES\t\tnull\t\nnm_636_99\tfloat\tYES\t\tnull\t\nnm_637_58\tfloat\tYES\t\tnull\t\nnm_638_16\tfloat\tYES\t\tnull\t\nnm_638_75\tfloat\tYES\t\tnull\t\nnm_639_33\tfloat\tYES\t\tnull\t\nnm_639_92\tfloat\tYES\t\tnull\t\nnm_640_50\tfloat\tYES\t\tnull\t\nnm_641_09\tfloat\tYES\t\tnull\t\nnm_641_68\tfloat\tYES\t\tnull\t\nnm_642_26\tfloat\tYES\t\tnull\t\nnm_642_85\tfloat\tYES\t\tnull\t\nnm_643_43\tfloat\tYES\t\tnull\t\nnm_644_02\tfloat\tYES\t\tnull\t\nnm_644_60\tfloat\tYES\t\tnull\t\nnm_645_19\tfloat\tYES\t\tnull\t\nnm_645_78\tfloat\tYES\t\tnull\t\nnm_646_36\tfloat\tYES\t\tnull\t\nnm_646_95\tfloat\tYES\t\tnull\t\nnm_647_53\tfloat\tYES\t\tnull\t\nnm_648_12\tfloat\tYES\t\tnull\t\nnm_648_70\tfloat\tYES\t\tnull\t\nnm_649_29\tfloat\tYES\t\tnull\t\nnm_649_88\tfloat\tYES\t\tnull\t\nnm_650_46\tfloat\tYES\t\tnull\t\nnm_651_05\tfloat\tYES\t\tnull\t\nnm_651_63\tfloat\tYES\t\tnull\t\nnm_652_22\tfloat\tYES\t\tnull\t\nnm_652_80\tfloat\tYES\t\tnull\t\nnm_653_39\tfloat\tYES\t\tnull\t\nnm_653_98\tfloat\tYES\t\tnull\t\nnm_654_56\tfloat\tYES\t\tnull\t\nnm_655_15\tfloat\tYES\t\tnull\t\nnm_655_73\tfloat\tYES\t\tnull\t\nnm_656_32\tfloat\tYES\t\tnull\t\nnm_656_90\tfloat\tYES\t\tnull\t\nnm_657_49\tfloat\tYES\t\tnull\t\nnm_658_08\tfloat\tYES\t\tnull\t\nnm_658_66\tfloat\tYES\t\tnull\t\nnm_659_25\tfloat\tYES\t\tnull\t\nnm_659_83\tfloat\tYES\t\tnull\t\nnm_660_42\tfloat\tYES\t\tnull\t\nnm_661_00\tfloat\tYES\t\tnull\t\nnm_661_59\tfloat\tYES\t\tnull\t\nnm_662_18\tfloat\tYES\t\tnull\t\nnm_662_76\tfloat\tYES\t\tnull\t\nnm_663_35\tfloat\tYES\t\tnull\t\nnm_663_93\tfloat\tYES\t\tnull\t\nnm_664_52\tfloat\tYES\t\tnull\t\nnm_665_10\tfloat\tYES\t\tnull\t\nnm_665_69\tfloat\tYES\t\tnull\t\nnm_666_27\tfloat\tYES\t\tnull\t\nnm_666_86\tfloat\tYES\t\tnull\t\nnm_667_45\tfloat\tYES\t\tnull\t\nnm_668_03\tfloat\tYES\t\tnull\t\nnm_668_62\tfloat\tYES\t\tnull\t\nnm_669_20\tfloat\tYES\t\tnull\t\nnm_669_79\tfloat\tYES\t\tnull\t\nnm_670_37\tfloat\tYES\t\tnull\t\nnm_670_96\tfloat\tYES\t\tnull\t\nnm_671_55\tfloat\tYES\t\tnull\t\nnm_672_13\tfloat\tYES\t\tnull\t\nnm_672_72\tfloat\tYES\t\tnull\t\nnm_673_30\tfloat\tYES\t\tnull\t\nnm_673_89\tfloat\tYES\t\tnull\t\nnm_674_47\tfloat\tYES\t\tnull\t\nnm_675_06\tfloat\tYES\t\tnull\t\nnm_675_65\tfloat\tYES\t\tnull\t\nnm_676_23\tfloat\tYES\t\tnull\t\nnm_676_82\tfloat\tYES\t\tnull\t\nnm_677_40\tfloat\tYES\t\tnull\t\nnm_677_99\tfloat\tYES\t\tnull\t\nnm_678_57\tfloat\tYES\t\tnull\t\nnm_679_16\tfloat\tYES\t\tnull\t\nnm_679_75\tfloat\tYES\t\tnull\t\nnm_680_33\tfloat\tYES\t\tnull\t\nnm_680_92\tfloat\tYES\t\tnull\t\nnm_681_50\tfloat\tYES\t\tnull\t\nnm_682_09\tfloat\tYES\t\tnull\t\nnm_682_67\tfloat\tYES\t\tnull\t\nnm_683_26\tfloat\tYES\t\tnull\t\nnm_683_85\tfloat\tYES\t\tnull\t\nnm_684_43\tfloat\tYES\t\tnull\t\nnm_685_02\tfloat\tYES\t\tnull\t\nnm_685_60\tfloat\tYES\t\tnull\t\nnm_686_19\tfloat\tYES\t\tnull\t\nnm_686_77\tfloat\tYES\t\tnull\t\nnm_687_36\tfloat\tYES\t\tnull\t\nnm_687_95\tfloat\tYES\t\tnull\t\nnm_688_53\tfloat\tYES\t\tnull\t\nnm_689_12\tfloat\tYES\t\tnull\t\nnm_689_70\tfloat\tYES\t\tnull\t\nnm_690_29\tfloat\tYES\t\tnull\t\nnm_690_87\tfloat\tYES\t\tnull\t\nnm_691_46\tfloat\tYES\t\tnull\t\nnm_692_05\tfloat\tYES\t\tnull\t\nnm_692_63\tfloat\tYES\t\tnull\t\nnm_693_22\tfloat\tYES\t\tnull\t\nnm_693_80\tfloat\tYES\t\tnull\t\nnm_694_39\tfloat\tYES\t\tnull\t\nnm_694_97\tfloat\tYES\t\tnull\t\nnm_695_56\tfloat\tYES\t\tnull\t\nnm_696_15\tfloat\tYES\t\tnull\t\nnm_696_73\tfloat\tYES\t\tnull\t\nnm_697_31\tfloat\tYES\t\tnull\t\nnm_697_89\tfloat\tYES\t\tnull\t\nnm_698_47\tfloat\tYES\t\tnull\t\nnm_699_05\tfloat\tYES\t\tnull\t\nnm_699_63\tfloat\tYES\t\tnull\t\nnm_700_22\tfloat\tYES\t\tnull\t\nnm_700_80\tfloat\tYES\t\tnull\t\nnm_701_38\tfloat\tYES\t\tnull\t\nnm_701_96\tfloat\tYES\t\tnull\t\nnm_702_54\tfloat\tYES\t\tnull\t\nnm_703_12\tfloat\tYES\t\tnull\t\nnm_703_70\tfloat\tYES\t\tnull\t\nnm_704_29\tfloat\tYES\t\tnull\t\nnm_704_87\tfloat\tYES\t\tnull\t\nnm_705_45\tfloat\tYES\t\tnull\t\nnm_706_03\tfloat\tYES\t\tnull\t\nnm_706_61\tfloat\tYES\t\tnull\t\nnm_707_19\tfloat\tYES\t\tnull\t\nnm_707_78\tfloat\tYES\t\tnull\t\nnm_708_36\tfloat\tYES\t\tnull\t\nnm_708_94\tfloat\tYES\t\tnull\t\nnm_709_52\tfloat\tYES\t\tnull\t\nnm_710_10\tfloat\tYES\t\tnull\t\nnm_710_68\tfloat\tYES\t\tnull\t\nnm_711_26\tfloat\tYES\t\tnull\t\nnm_711_85\tfloat\tYES\t\tnull\t\nnm_712_43\tfloat\tYES\t\tnull\t\nnm_713_01\tfloat\tYES\t\tnull\t\nnm_713_59\tfloat\tYES\t\tnull\t\nnm_714_17\tfloat\tYES\t\tnull\t\nnm_714_75\tfloat\tYES\t\tnull\t\nnm_715_34\tfloat\tYES\t\tnull\t\nnm_715_92\tfloat\tYES\t\tnull\t\nnm_716_50\tfloat\tYES\t\tnull\t\nnm_717_08\tfloat\tYES\t\tnull\t\nnm_717_66\tfloat\tYES\t\tnull\t\nnm_718_24\tfloat\tYES\t\tnull\t\nnm_718_82\tfloat\tYES\t\tnull\t\nnm_719_41\tfloat\tYES\t\tnull\t\nnm_719_99\tfloat\tYES\t\tnull\t\nnm_720_57\tfloat\tYES\t\tnull\t\nnm_721_15\tfloat\tYES\t\tnull\t\nnm_721_73\tfloat\tYES\t\tnull\t\nnm_722_31\tfloat\tYES\t\tnull\t\nnm_722_90\tfloat\tYES\t\tnull\t\nnm_723_48\tfloat\tYES\t\tnull\t\nnm_724_06\tfloat\tYES\t\tnull\t\nnm_724_64\tfloat\tYES\t\tnull\t\nnm_725_22\tfloat\tYES\t\tnull\t\nnm_725_80\tfloat\tYES\t\tnull\t\nnm_726_38\tfloat\tYES\t\tnull\t\nnm_726_97\tfloat\tYES\t\tnull\t\nnm_727_55\tfloat\tYES\t\tnull\t\nnm_728_13\tfloat\tYES\t\tnull\t\nnm_728_71\tfloat\tYES\t\tnull\t\nnm_729_29\tfloat\tYES\t\tnull\t\nnm_729_87\tfloat\tYES\t\tnull\t\nnm_730_46\tfloat\tYES\t\tnull\t\nnm_731_04\tfloat\tYES\t\tnull\t\nnm_731_62\tfloat\tYES\t\tnull\t\nnm_732_20\tfloat\tYES\t\tnull\t\nnm_732_78\tfloat\tYES\t\tnull\t\nnm_733_36\tfloat\tYES\t\tnull\t\nnm_733_94\tfloat\tYES\t\tnull\t\nnm_734_53\tfloat\tYES\t\tnull\t\nnm_735_11\tfloat\tYES\t\tnull\t\nnm_735_69\tfloat\tYES\t\tnull\t\nnm_736_27\tfloat\tYES\t\tnull\t\nnm_736_85\tfloat\tYES\t\tnull\t\nnm_737_43\tfloat\tYES\t\tnull\t\nnm_738_02\tfloat\tYES\t\tnull\t\nnm_738_59\tfloat\tYES\t\tnull\t\nnm_739_17\tfloat\tYES\t\tnull\t\nnm_739_75\tfloat\tYES\t\tnull\t\nnm_740_32\tfloat\tYES\t\tnull\t\nnm_740_90\tfloat\tYES\t\tnull\t\nnm_741_48\tfloat\tYES\t\tnull\t\nnm_742_05\tfloat\tYES\t\tnull\t\nnm_742_63\tfloat\tYES\t\tnull\t\nnm_743_21\tfloat\tYES\t\tnull\t\nnm_743_78\tfloat\tYES\t\tnull\t\nnm_744_36\tfloat\tYES\t\tnull\t\nnm_744_94\tfloat\tYES\t\tnull\t\nnm_745_51\tfloat\tYES\t\tnull\t\nnm_746_09\tfloat\tYES\t\tnull\t\nnm_746_67\tfloat\tYES\t\tnull\t\nnm_747_24\tfloat\tYES\t\tnull\t\nnm_747_82\tfloat\tYES\t\tnull\t\nnm_748_40\tfloat\tYES\t\tnull\t\nnm_748_97\tfloat\tYES\t\tnull\t\nnm_749_55\tfloat\tYES\t\tnull\t\nnm_750_13\tfloat\tYES\t\tnull\t\nnm_750_71\tfloat\tYES\t\tnull\t\nnm_751_28\tfloat\tYES\t\tnull\t\nnm_751_86\tfloat\tYES\t\tnull\t\nnm_752_44\tfloat\tYES\t\tnull\t\nnm_753_01\tfloat\tYES\t\tnull\t\nnm_753_59\tfloat\tYES\t\tnull\t\nnm_754_17\tfloat\tYES\t\tnull\t\nnm_754_74\tfloat\tYES\t\tnull\t\nnm_755_32\tfloat\tYES\t\tnull\t\nnm_755_90\tfloat\tYES\t\tnull\t\nnm_756_47\tfloat\tYES\t\tnull\t\nnm_757_05\tfloat\tYES\t\tnull\t\nnm_757_63\tfloat\tYES\t\tnull\t\nnm_758_20\tfloat\tYES\t\tnull\t\nnm_758_78\tfloat\tYES\t\tnull\t\nnm_759_36\tfloat\tYES\t\tnull\t\nnm_759_93\tfloat\tYES\t\tnull\t\nnm_760_51\tfloat\tYES\t\tnull\t\nnm_761_09\tfloat\tYES\t\tnull\t\nnm_761_66\tfloat\tYES\t\tnull\t\nnm_762_24\tfloat\tYES\t\tnull\t\nnm_762_82\tfloat\tYES\t\tnull\t\nnm_763_40\tfloat\tYES\t\tnull\t\nnm_763_97\tfloat\tYES\t\tnull\t\nnm_764_55\tfloat\tYES\t\tnull\t\nnm_765_13\tfloat\tYES\t\tnull\t\nnm_765_70\tfloat\tYES\t\tnull\t\nnm_766_28\tfloat\tYES\t\tnull\t\n"
+          },
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"result-alert alert-warning\" role\u003d\"alert\"\u003e\u003cbutton type\u003d\"button\" class\u003d\"close\" data-dismiss\u003d\"alert\" aria-label\u003d\"Close\"\u003e\u003cspan aria-hidden\u003d\"true\"\u003e\u0026times;\u003c/span\u003e\u003c/button\u003e\u003cstrong\u003eOutput is truncated\u003c/strong\u003e to 1000 rows. Learn more about \u003cstrong\u003ecommon.max_count\u003c/strong\u003e\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666085634_642926478",
+      "id": "20180220-090403_2120951265",
+      "dateCreated": "2018-10-16 14:01:25.634",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "use cas_db;\nselect Date, CAS_EryUVB_RATIO\nfrom cas_uv_ratio\nwhere Date between \u00272018-03-22 06:32:00.0\u0027 and \u00272018-03-22 18:44:59.0\u0027\nand CAS_EryUVB_RATIO between 0 and 100;",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:25.635",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": true,
+              "setting": {
+                "lineChart": {
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "Date",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "CAS_EryUVB_RATIO",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          },
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": true,
+              "setting": {
+                "lineChart": {
+                  "forceY": true
+                },
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "Date": "string",
+                      "CAS_EryUVB_RATIO": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "Date",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "CAS_EryUVB_RATIO",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "Query executed successfully. Affected rows : 0"
+          },
+          {
+            "type": "TABLE",
+            "data": "Date\tCAS_EryUVB_RATIO\n2018-03-22 16:47:47.0\t93.8821\n2018-03-22 16:49:39.0\t99.5406\n2018-03-22 16:50:38.0\t99.5973\n2018-03-22 16:50:55.0\t99.9606\n2018-03-22 16:51:22.0\t99.7144\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666085635_455236301",
+      "id": "20180220-091500_736958264",
+      "dateCreated": "2018-10-16 14:01:25.635",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "use cas_db;\nselect Date, CAS_EryUVB, CAS_EryUVA\nfrom cas_uv_ratio\nwhere Date between \u00272018-03-22 06:32:00.0\u0027 and \u00272018-03-22 18:44:59.0\u0027\n-- and CAS_EryUVB_RATIO between 0 and 100",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:25.636",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/sql",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "lineChart": {
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "Date",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "CAS_EryUVB_RATIO",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          },
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": true,
+              "setting": {
+                "lineChart": {
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "Date",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "CAS_EryUVB",
+                  "index": 1.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "CAS_EryUVA",
+                  "index": 2.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666085635_1409605499",
+      "id": "20180426-140635_1919186184",
+      "dateCreated": "2018-10-16 14:01:25.635",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "use cas_db;\nselect Date, photometric\nfrom natural_tracker\nwhere Date between \u00272018-03-22 06:32:00.0\u0027 and \u00272018-03-22 18:44:59.0\u0027;\n",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:25.636",
+      "config": {
+        "lineNumbers": true,
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "lineChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "lineChart": {
+                  "forceY": true
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "date",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "photometric",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          },
+          "1": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false
+            },
+            "helium": {}
+          }
+        },
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666085636_1019063332",
+      "id": "20180221-011930_1592907551",
+      "dateCreated": "2018-10-16 14:01:25.636",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "show databases;",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:25.636",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/sql",
+        "editorHide": false,
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666085636_1235893397",
+      "id": "20180426-142811_1388789735",
+      "dateCreated": "2018-10-16 14:01:25.636",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "use naturallight_temp;\nshow tables;",
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:25.636",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "colWidth": 6.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666085636_-34068965",
+      "id": "20180426-140330_1454754716",
+      "dateCreated": "2018-10-16 14:01:25.636",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "user": "jake",
+      "dateUpdated": "2018-10-16 14:01:25.636",
+      "config": {
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionSupport": true
+        },
+        "colWidth": 12.0,
+        "editorMode": "ace/mode/sql",
+        "fontSize": 9.0,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1539666085636_-524308893",
+      "id": "20180426-135751_668379350",
+      "dateCreated": "2018-10-16 14:01:25.636",
+      "status": "READY",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "_basic/natural light DB 직접접근",
+  "id": "2DTJP49VD",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

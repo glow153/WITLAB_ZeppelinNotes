@@ -1,0 +1,31 @@
+{
+  "paragraphs": [
+    {
+      "user": "jake",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1544667983808_-1367254877",
+      "id": "20181213-112623_567043581",
+      "dateCreated": "2018-12-13 11:26:23.808",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "~Trash/crawler/OpenAPI_KMA-weather",
+  "id": "2DYX3TGGD",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "sh:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}
